@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 
 import { login } from "../../services/authentication";
 
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
+
 export function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -29,7 +32,8 @@ export function LoginPage() {
   }
 
   return (
-    <>
+    <div>
+      <Header showNav={true}/>
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <label htmlFor="email">Email:</label>
@@ -48,6 +52,7 @@ export function LoginPage() {
         />
         <input role="submit-button" id="submit" type="submit" value="Submit" />
       </form>
-    </>
+    <Footer/>
+    </div>
   );
 }
