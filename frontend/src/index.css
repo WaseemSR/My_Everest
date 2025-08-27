@@ -15,8 +15,11 @@ a:hover {
 body {
   margin: 0;
   display: flex;
+  justify-content: center;   /* center left/right */
+  align-items: center;       /* center top/bottom */
   min-width: 320px;
   min-height: 100vh;
+  background-color: gray; 
 }
 
 h1 {
