@@ -4,6 +4,7 @@ const cors = require("cors");
 
 const usersRouter = require("./routes/users");
 const postsRouter = require("./routes/posts");
+const everestsRouter = require("./routes/everests");
 const authenticationRouter = require("./routes/authentication");
 const tokenChecker = require("./middleware/tokenChecker");
 
@@ -20,6 +21,7 @@ app.use(bodyParser.json());
 // API Routes
 app.use("/users", usersRouter);
 app.use("/posts", tokenChecker, postsRouter);
+app.use("/everests", tokenChecker, everestsRouter) //added for Create everest
 app.use("/tokens", authenticationRouter);
 
 // 404 Handler

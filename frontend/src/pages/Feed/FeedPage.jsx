@@ -1,21 +1,28 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
-import { getPosts } from "../../services/posts";
-import Post from "../../components/Post";
+import { getEverests } from "../../services/everests"
+import Everest from "../../components/Everest"
+// import { getPosts } from "../../services/posts";
+// import Post from "../../components/Post";
 import LogoutButton from "../../components/LogoutButton";
 
 export function FeedPage() {
-  const [posts, setPosts] = useState([]);
+  // const [posts, setPosts] = useState([]);
+  const [everests, setEverests] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     const loggedIn = token !== null;
     if (loggedIn) {
-      getPosts(token)
+      // getPosts(token)
+      //   .then((data) => {
+      //     setPosts(data.posts);
+      //     localStorage.setItem("token", data.token);
+      //   })
+      getEverests(token)
         .then((data) => {
-          setPosts(data.posts);
+          setEverests(data.everests);
           localStorage.setItem("token", data.token);
         })
         .catch((err) => {
@@ -33,10 +40,16 @@ export function FeedPage() {
 
   return (
     <>
-      <h2>Posts</h2>
+      {/* <h2>Posts</h2>
       <div className="feed" role="feed">
         {posts.map((post) => (
           <Post post={post} key={post._id} />
+        ))}
+      </div> */}
+       <h1>Everests</h1>     {/*  This is the small bit added for the everests to be seen on feedpage */}
+      <div className="feed" role="feed">
+        {everests.map((everest) => (
+          <Everest everest={everest} key={everest._id} />
         ))}
       </div>
       <LogoutButton />
