@@ -1,9 +1,15 @@
 import { Link } from "react-router-dom";
 import "./HomePage.css";
 
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
+
 export function HomePage() {
   return (
-    <div className="home">
+    
+   <div>
+   <Header showNav={false}/>
+    <main className="home">
       <div className="home-content">
         <h1 className="home-title">Welcome to MyEverest!</h1>
         <div className="home-buttons">
@@ -14,8 +20,9 @@ export function HomePage() {
             Log In
           </Link>
         </div>
-      </div>
+      </main>
     </div>
+   </div>
   );
 }
 

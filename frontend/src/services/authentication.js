@@ -28,10 +28,12 @@ export async function login(email, password) {
   }
 }
 
-export async function signup(email, password) {
+export async function signup(email, password, fullName, bio) {
   const payload = {
     email: email,
     password: password,
+    fullName: fullName,
+    bio: bio
   };
 
   const requestOptions = {
@@ -53,3 +55,38 @@ export async function signup(email, password) {
     );
   }
 }
+
+export async function createeverest(name, details, startDate, endDate, milestone,) {
+
+  const token = localStorage.getItem("token"); 
+  
+  const payload = {
+    name: name,
+    details: details,
+    startDate: startDate,
+    endDate: endDate,
+    milestone: milestone,
+  };
+
+  const requestOptions = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`,
+    },
+    body: JSON.stringify(payload),
+  };
+
+  let response = await fetch(`${BACKEND_URL}/everests`, requestOptions);
+
+  // docs: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/201
+  if (response.status === 201) {
+    return await response.json();
+
+  } else {
+    throw new Error(
+      `Received status ${response.status} when creating an everest. Expected 201`
+    );
+  }
+}
+

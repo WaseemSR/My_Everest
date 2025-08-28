@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { login } from "../../services/authentication";
 import { getUserById } from "../../services/users";
 
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
+
 export function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -48,6 +51,8 @@ export function LoginPage() {
   }
 
   return (
+   <div>
+    <Header showNav={true}/>
     <div className="min-h-screen bg-black text-white flex items-center justify-center px-4">
       <div className="w-full max-w-md p-8 bg-zinc-900 rounded-lg shadow-xl border border-zinc-700">
         <header className="mb-6 text-center">
@@ -94,6 +99,8 @@ export function LoginPage() {
             Login
           </button>
         </form>
+        <Footer/>
+      </div>
       </div>
     </div>
   );
