@@ -25,8 +25,23 @@ async function create(req, res) {
     });
 }
 
+  async function getProfile(req, res) {
+    try {
+      console.log("req.user_id from token: ", req.user_id)
+      const user = await User.findById(req.user_id).select("-password");
+      if (!user) {
+        return res.status(404).json({ message: "User not found"});
+      }
+      res.json({ user });
+      } catch (err) {
+        console.error("getProfile eroor:", err);
+        res.status(500).json({ message: "Failed to fetch profile" });
+    }
+  }
+
 const UsersController = {
   create: create,
+  getProfile: getProfile
 };
 
 module.exports = UsersController;

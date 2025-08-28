@@ -5,7 +5,7 @@ const EverestSchema = new mongoose.Schema({
     details: String,
     startDate: Date,
     endDate: Date,
-    milestone: String,
+    milestone: [String],
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }, // link to creator
 }, { timestamps: true });
 
