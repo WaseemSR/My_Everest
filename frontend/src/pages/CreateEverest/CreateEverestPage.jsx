@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createeverest } from "../../services/authentication";
+import { createeverest } from "../../services/everests";
 import "bulma/css/bulma.min.css";
 
 export function CreateEverestPage() {
