@@ -16,7 +16,9 @@ async function createEverest(req, res) {
         milestone: req.body.milestone,
         user: req.user_id, // tie Everest to the logged-in user
     });
-    await everest.save();
+    const saved = await everest.save();
+    console.log("Saved Everest:", saved);
+    console.log("req.user_id:", req.user_id);
 
     const newToken = generateToken(req.user_id);
     res.status(201).json({ message: "Everest created", token: newToken });

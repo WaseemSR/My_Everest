@@ -22,6 +22,25 @@ describe("User model", () => {
     expect(user.password).toEqual("password");
   });
 
+    it("has a fullname", () => {
+    const user = new User({
+      email: "someone@example.com",
+      password: "password",
+      fullName: "John Smith"
+    });
+    expect(user.fullName).toEqual("John Smith");
+  });
+
+      it("has a fullname", () => {
+    const user = new User({
+      email: "someone@example.com",
+      password: "password",
+      fullName: "John Smith",
+      bio: "A crazy person"
+    });
+    expect(user.bio).toEqual("A crazy person");
+  });
+
   it("can list all users", async () => {
     const users = await User.find();
     expect(users).toEqual([]);
@@ -31,6 +50,8 @@ describe("User model", () => {
     const user = new User({
       email: "someone@example.com",
       password: "password",
+      fullName: "John Smith",
+      bio: "A crazy person"
     });
 
     await user.save();
@@ -38,5 +59,7 @@ describe("User model", () => {
 
     expect(users[0].email).toEqual("someone@example.com");
     expect(users[0].password).toEqual("password");
+    expect(users[0].fullName).toEqual("John Smith");
+    expect(users[0].bio).toEqual("A crazy person");
   });
 });
