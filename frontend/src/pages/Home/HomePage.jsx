@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import "./HomePage.css";
 
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
@@ -7,11 +6,16 @@ import Footer from "../../components/Footer";
 export function HomePage() {
   return (
     
-  <div>
-    <Header showNav={false}/>
-      <main className="home">
-        <div className="home-content">
-          <h1 className="home-title">Welcome to MyEverest!</h1>
+  <div className="is-flex is-flex-direction-column" style={{ minHeight: "100vh" }}>
+      {/* Header pinned to the top */}
+      <Header showNav={false} />
+
+      {/* Main content grows in the middle */}
+      <main className="home is-flex-grow-1 is-flex is-justify-content-center is-align-items-center"
+      style={{ backgroundColor: "#1b262c" }}
+      >
+        <div className="home-content has-text-centered">
+          <h1 className="home-title">Welcome to My Everest</h1>
           <div className="home-buttons">
             <Link to="/signup" className="home-button">
               Sign Up
@@ -22,8 +26,10 @@ export function HomePage() {
           </div>
         </div>
       </main>
-      <Footer/>
-  </div>
+
+      {/* Footer pinned to the bottom */}
+      <Footer />
+    </div>
   );
 }
 

@@ -12,15 +12,15 @@ a:hover {
   color: #535bf2;
 }
 
-body {
+/* body {
   margin: 0;
   display: flex;
-  justify-content: center;   /* center left/right */
-  align-items: center;       /* center top/bottom */
-  min-width: 320px;
+  justify-content: center;   center left/right
+  align-items: center;       center top/bottom */
+  /* min-width: 320px;
   min-height: 100vh;
   background-color: gray; 
-}
+} */
 
 h1 {
   font-size: 3.2em;
