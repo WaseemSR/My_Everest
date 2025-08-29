@@ -10,27 +10,20 @@ async function getAllEverests(req, res) {
 
 async function createEverest(req, res) {
     try {
-        // Attach the creator from the token! (required by your schema)
         const doc = new Everest({
-        name: req.body.name,
-        details: req.body.details,
-        startDate: req.body.startDate,
-        endDate: req.body.endDate,
-        milestone: req.body.milestone,
-        user: req.user_id, // tie Everest to the logged-in user
-    });
-    const saved = await everest.save();
-    console.log("Saved Everest:", saved);
-    console.log("req.user_id:", req.user_id);
+            name: req.body.name,
+            details: req.body.details,
+            startDate: req.body.startDate,
+            endDate: req.body.endDate,
+            milestone: req.body.milestone,
+            user: req.user_id, // tie Everest to the logged-in user
+        });
 
-
-        await doc.save();
-        return res.status(201).json({ message: "Everest created", everest: doc });
+        const saved = await doc.save();
+        return res.status(201).json({ message: "Everest created", everest: saved });
     } catch (err) {
         console.error("createEverest error:", err);
-        return res
-        .status(400)
-        .json({ message: err.message || "Failed to create Everest" });
+        return res.status(400).json({ message: err.message || "Failed to create Everest" });
     }
 }
 

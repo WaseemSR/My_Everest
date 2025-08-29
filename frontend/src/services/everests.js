@@ -30,11 +30,11 @@ export async function getUserEverests(userId, token) {
     if (!res.ok) {
         throw new Error(`Failed to fetch user everests (status ${res.status})`);
     }
-  return res.json();
+    return res.json();
 }
 
 
-export async function createeverest(name, details, startDate, endDate, milestone,) {
+export async function createEverest(name, details, startDate, endDate, milestone,) {
 
     const token = localStorage.getItem("token"); 
     
