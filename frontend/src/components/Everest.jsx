@@ -1,16 +1,16 @@
-import "bulma/css/bulma.min.css";
+function Everest({ everest }) {
+    if (!everest) {
+        return <div>No data</div>; // or just null
+    }
 
-function Everest(props) {
     return (
-        <section className="">
-        <article key={props.everest._id}>
-            <h3>{props.everest.name}</h3>
-            <p>{props.everest.details}</p>
-            <p>{props.everest.startDate}</p>
-            <p>{props.everest.endDate}</p>
-            <p>{props.everest.milestone}</p>
+        <article key={everest._id}>
+        <h2 className="title is-4">{everest.name}</h2>
+        <p>{everest.details}</p>
+        <p>{everest.startDate}</p>
+        <p>{everest.endDate}</p>
+        <p>{everest.milestone}</p>
         </article>
-        </section>
     );
 }
 
