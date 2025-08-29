@@ -20,6 +20,10 @@ a:hover {
   background-color: #ff865b;
   border-color: #ff865b;
   color: white;
+  height: 3.5rem;          /* desired button height */
+  padding-left: 1.5rem;    /* keep horizontal spacing */
+  padding-right: 1.5rem;
+  
   transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
