@@ -9,18 +9,8 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-
     services:
-      mongo:
-        image: mongo:5.0
-        ports:
-          - 27017:27017
-        options: >-
-          --health-cmd "mongosh --eval 'db.adminCommand(\"ping\")'"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-
+      mongo: ...
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -30,11 +20,23 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install dependencies
+      # --- Backend ---
+      - name: Install backend dependencies
+        working-directory: ./api
         run: npm ci
 
-      - name: Run tests
+      - name: Run backend tests
+        working-directory: ./api
         env:
           MONGO_URL: mongodb://localhost:27017/myeverest_test
           JWT_SECRET: test_secret
+        run: npm test -- --coverage
+
+      # --- Frontend ---
+      - name: Install frontend dependencies
+        working-directory: ./frontend
+        run: npm ci
+
+      - name: Run frontend tests
+        working-directory: ./frontend
         run: npm test -- --coverage
