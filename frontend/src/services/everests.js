@@ -20,16 +20,17 @@ export async function getEverests(token) {
 
 // get users everests for their profile page
 export async function getUserEverests(userId, token) {
-
-    const opts = { method: "GET", headers: { Authorization: `Bearer ${token}` } };
-    const res = await fetch(`${BACKEND_URL}/users/${userId}/everests`, opts);
-
+    const res = await fetch(`${BACKEND_URL}/users/${userId}/everests`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+    });
     if (!res.ok) {
-        const err = new Error("Failed to fetch user everests");
-        err.status = res.status;
-        throw err;
+        throw new Error(`Failed to fetch user everests (status ${res.status})`);
     }
-    return res.json();
+  return res.json();
 }
 
 

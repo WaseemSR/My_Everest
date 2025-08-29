@@ -29,11 +29,12 @@ export function ProfilePage() {
         const user = data.user ?? data;
         setUser(user);
 
-        if (user?._id) {
-          const everestsData = await getUserEverests(user._id, token);
-          // Allow either { everests: [...] } or direct array
-          setEverests(everestsData);
-        }
+      if (user?._id) {
+        const out = await getUserEverests(user._id, token);
+        // backend returns { everests: [...] }
+        setEverests(out.everests ?? out);
+      }
+      
       } catch (err) {
         console.error(err);
         setError(err.message || "Something went wrong with getting user everests");
@@ -57,9 +58,11 @@ export function ProfilePage() {
       {everests.length === 0 ? (
         <p>No Everests yet</p>
       ) : (
-        <ul>
-          <Everest />
-        </ul>
+        <div>
+          {everests.map((e) => (
+            <Everest key={e._id} everest={e} />
+          ))}
+        </div>
       )}
     </div>
   )
