@@ -32,20 +32,21 @@ async function createEverest(req, res) {
 
 async function getUserEverests(req, res) {
     try {
-        const { id } = req.params;
+        const userId = req.params.userId || req.params.id;
 
-        // Guard: valid ObjectId?
-        if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(400).json({ message: "Invalid user id" });
+        if (!mongoose.Types.ObjectId.isValid(userId)) {
+            return res.status(400).json({ message: "Invalid user id" });
         }
 
-        const everests = await Everest.find({ user: id }).sort({ createdAt: -1 });
+        const everests = await Everest
+            .find({ user: userId })
+            .sort({ createdAt: -1 })
+            .populate("user", "fullName");
+
         return res.status(200).json({ everests });
     } catch (err) {
         console.error("getUserEverests error:", err);
-        return res
-        .status(500)
-        .json({ message: err.message || "Failed to fetch user's Everests" });
+        return res.status(500).json({ message: err.message || "Failed to fetch user's Everests" });
     }
 }
 
