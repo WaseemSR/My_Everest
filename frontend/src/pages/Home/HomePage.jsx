@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 
+import Logo from "/MyEverestLogo.png";
+
 export function HomePage() {
   return (
     
@@ -15,12 +17,13 @@ export function HomePage() {
       style={{ backgroundColor: "#1b262c" }}
       >
         <div className="home-content has-text-centered">
-          <h1 className="home-title">Welcome to My Everest</h1>
-          <div className="home-buttons">
-            <Link to="/signup" className="home-button">
+          <img src={Logo} alt="Logo" style={{ maxHeight: "13rem", width: "auto" }}/>
+          <h1 className="home-title is-size-1 has-text-weight-light mt-6 mb-6">Welcome to My Everest</h1>
+          <div className="buttons is-justify-content-center">
+            <Link to="/signup" className="button is-my-orange mr-5">
               Sign Up
             </Link>
-            <Link to="/login" className="home-button">
+            <Link to="/login" className="button is-my-orange">
               Log In
             </Link>
           </div>
