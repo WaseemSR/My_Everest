@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { getUserEverests } from "../../services/everests";
-import Everest from "../../components/Everest"
+import EverestCard from "../../components/EverestCard"
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -51,18 +51,18 @@ export function ProfilePage() {
 
   return (
     <div>
-      <h1>{user.fullName}</h1>
+      <h1 className="title is-1">{user.fullName}'s Bucketlist</h1>
       {user.bio && <p>{user.bio}</p>}
-
-      <h2>Everests</h2>
+      <br /><br /><br />
+      <h2 className="title is-1">Everests</h2>
       {everests.length === 0 ? (
         <p>No Everests yet</p>
       ) : (
-        <div>
-          {everests.map((e) => (
-            <Everest key={e._id} everest={e} />
-          ))}
-        </div>
+      <div className="columns is-multiline equal-columns">
+        {everests.map((ev) => (
+          <EverestCard key={ev._id} everest={ev} />
+        ))}
+      </div>
       )}
     </div>
   )
