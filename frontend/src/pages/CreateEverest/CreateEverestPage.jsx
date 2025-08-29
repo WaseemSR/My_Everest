@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createeverest } from "../../services/everests";
+import { createEverest } from "../../services/everests";
 import "bulma/css/bulma.min.css";
 
 export function CreateEverestPage() {
@@ -14,8 +14,7 @@ export function CreateEverestPage() {
   async function handleSubmit(event) {
     event.preventDefault();
     try {
-      const token = localStorage.getItem("token");
-      await createeverest(name, details, startDate, endDate, milestone, token);
+      await createEverest(name, details, startDate, endDate, milestone);
       navigate("/posts");
     } catch (err) {
       console.error(err);
@@ -46,7 +45,6 @@ export function CreateEverestPage() {
 
   return (
     <>
-
       <div className="box has-background-primary" >
       <form onSubmit={handleSubmit}>
         <h1 className="title is-1" >Create Your Own Everest</h1>
