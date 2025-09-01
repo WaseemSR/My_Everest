@@ -37,7 +37,7 @@ export function HomePage() {
       >
         <div className="home-content has-text-centered">
           <img src={Logo} alt="Logo" style={{ maxHeight: "13rem", width: "auto" }}/>
-          <h1 className="home-title is-size-1 has-text-weight-light mt-6 mb-6">Welcome to My Everest</h1>
+          <h1 className="home-title is-size-1 has-text-weight-light mt-6 mb-6 has-text-white">Welcome to My Everest</h1>
           <div className="buttons is-justify-content-center">
             <Link to="/signup" className="button is-my-orange mr-5">
               Sign Up
