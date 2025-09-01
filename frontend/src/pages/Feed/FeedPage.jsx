@@ -4,6 +4,10 @@ import { getEverests } from "../../services/everests"
 import EverestCard from "../../components/EverestCard"
 // import { getPosts } from "../../services/posts";
 // import Post from "../../components/Post";
+
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
+
 import LogoutButton from "../../components/LogoutButton";
 
 export function FeedPage() {
@@ -39,20 +43,27 @@ export function FeedPage() {
   }
 
   return (
-    <>
-      {/* <h2>Posts</h2>
+    <div className="is-flex is-flex-direction-column" style={{ minHeight: "100vh" }}>
+
+      <Header showNav={true} />
+
+      
+        <main className="is-flex-grow-1 p-5" style={{ backgroundColor: "#1b262c" }}>
+          <h1 className="title is-1">Everests</h1>     {/*  This is the small bit added for the everests to be seen on feedpage */}
+          <div className="columns is-multiline equal-columns">
+            {everests.map((ev) => (
+              <EverestCard key={ev._id} everest={ev} />
+            ))}
+          </div>
+        </main>
+
+      <Footer />
+    </div>
+  );
+}
+{/* <h2>Posts</h2>
       <div className="feed" role="feed">
         {posts.map((post) => (
           <Post post={post} key={post._id} />
         ))}
       </div> */}
-       <h1 className="title is-1">Everests</h1>     {/*  This is the small bit added for the everests to be seen on feedpage */}
-      <div className="columns is-multiline equal-columns">
-        {everests.map((ev) => (
-          <EverestCard key={ev._id} everest={ev} />
-        ))}
-      </div>
-      <LogoutButton />
-    </>
-  );
-}
