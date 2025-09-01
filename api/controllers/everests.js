@@ -15,11 +15,12 @@ async function createEverest(req, res) {
             details: req.body.details,
             startDate: req.body.startDate,
             endDate: req.body.endDate,
-            milestone: req.body.milestone,
+            milestones: req.body.milestones,
             user: req.user_id, // tie Everest to the logged-in user
         });
 
         const saved = await doc.save();
+        const token = generateToken(req.user_id);
         return res.status(201).json({ message: "Everest created", everest: saved });
     } catch (err) {
         console.error("createEverest error:", err);
