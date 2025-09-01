@@ -51,59 +51,59 @@ export function SignupPage() {
       <div className="has-text-centered">
       <h2 className="is-size-2 has-text-weight-light mt-5 mb-5">Create Your Account</h2>
       <div className="container" style={{ maxWidth: "400px" }}>
-      <form onSubmit={handleSubmit} className="is-flex is-flex-direction-column">
-        <label className="form-label" htmlFor="name">Full Name:</label>
-        <input
-          className="input-underline mb-5"
-          placeholder="Full Name"
-          id="name"
-          type="text"
-          value={fullName}
-          onChange={handleFullNameChange}
-        />
+        <form onSubmit={handleSubmit} className="is-flex is-flex-direction-column">
+          <label className="form-label" htmlFor="name">Full Name:</label>
+          <input
+            className="input-underline mb-5"
+            placeholder="Full Name"
+            id="name"
+            type="text"
+            value={fullName}
+            onChange={handleFullNameChange}
+          />
 
-        <label className="form-label" htmlFor="email">Email:</label>
-        <input
-          className="input-underline mb-5"
-          placeholder="email"
-          id="email"
-          type="text"
-          value={email}
-          onChange={handleEmailChange}
-        />
+          <label className="form-label" htmlFor="email">Email:</label>
+          <input
+            className="input-underline mb-5"
+            placeholder="email"
+            id="email"
+            type="text"
+            value={email}
+            onChange={handleEmailChange}
+          />
 
-        <label className="form-label" htmlFor="password">Password:</label>
-        <input
-          className="input-underline mb-5"
-          placeholder="Password"
-          id="password"
-          type="password"
-          value={password}
-          onChange={handlePasswordChange}
-        />
+          <label className="form-label" htmlFor="password">Password:</label>
+          <input
+            className="input-underline mb-5"
+            placeholder="Password"
+            id="password"
+            type="password"
+            value={password}
+            onChange={handlePasswordChange}
+          />
 
-        <label className="form-label" htmlFor="bio">Bio:</label>
-        <input
-          className="input-underline mb-5"
-          placeholder="Tell us about yourself..."
-          id="bio"
-          type="text"
-          value={bio}
-          onChange={handleBioChange}
-        />
+          <label className="form-label" htmlFor="bio">Bio:</label>
+          <input
+            className="input-underline mb-5"
+            placeholder="Tell us about yourself..."
+            id="bio"
+            type="text"
+            value={bio}
+            onChange={handleBioChange}
+          />
 
-        <div className="field mt-5">
-          <div className="control buttons is-justify-content-center">
-            <input
-              role="submit-button"
-              id="submit"
-              type="submit"
-              value="Sign Up"
-              className="button is-my-orange"
-            />
+          <div className="field mt-5">
+            <div className="control buttons is-justify-content-center">
+              <input
+                role="submit-button"
+                id="submit"
+                type="submit"
+                value="Sign Up"
+                className="button is-my-orange"
+              />
+            </div>
           </div>
-        </div>
-      </form>
+        </form>
       </div>
     </div>
     </main>
