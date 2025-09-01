@@ -40,42 +40,69 @@ describe("/everests", () => {
         await Everest.deleteMany({});
 });
 
-    // describe("POST, when a valid token is present", () => {
-    //     test("responds with a 201", async () => {
-    //     const response = await request(app)
-    //         .post("/everests")
-    //         .set("Authorization", `Bearer ${token}`)
-    //         .send({ name: "Everest" });
-    //     expect(response.status).toBe(201);
-    //     });
+    describe("POST, when a valid token is present", () => {
+        test("responds with a 201", async () => {
+        const response = await request(app)
+            .post("/everests")
+            .set("Authorization", `Bearer ${token}`)
+            .send({ name: "Everest" });
+        expect(response.status).toBe(201);
+        });
 
-    //     test("creates a new everest", async () => {
-    //     await request(app)
-    //         .post("/everests")
-    //         .set("Authorization", `Bearer ${token}`)
-    //         .send({ name: "Everest" });
+        test("creates a new everest", async () => {
+        await request(app)
+            .post("/everests")
+            .set("Authorization", `Bearer ${token}`)
+            .send({ name: "Everest" });
 
-    //     const everests = await Everest.find();
-    //     expect(everests.length).toEqual(1);
-    //     expect(everests[0].name).toEqual("Everest");
-    //     });
+        const everests = await Everest.find();
+        expect(everests.length).toEqual(1);
+        expect(everests[0].name).toEqual("Everest");
+        });
 
-    //     test("returns a new token", async () => {
-    //     const testApp = request(app);
-    //     const response = await testApp
-    //         .post("/everests")
-    //         .set("Authorization", `Bearer ${token}`)
-    //         .send({ name: "Everest" });
+        test("returns a new token", async () => {
+        const testApp = request(app);
+        const response = await testApp
+            .post("/everests")
+            .set("Authorization", `Bearer ${token}`)
+            .send({ name: "Everest" });
 
-    //     const newToken = response.body.token;
-    //     const newTokenDecoded = JWT.decode(newToken, process.env.JWT_SECRET);
-    //     const oldTokenDecoded = JWT.decode(token, process.env.JWT_SECRET);
+        const newToken = response.body.token;
+        const newTokenDecoded = JWT.decode(newToken, process.env.JWT_SECRET);
+        const oldTokenDecoded = JWT.decode(token, process.env.JWT_SECRET);
 
-    //     // iat stands for issued at
-    //     expect(newTokenDecoded.iat > oldTokenDecoded.iat).toEqual(true);
-    //     });
-    // });
+        // iat stands for issued at
+        expect(newTokenDecoded.iat > oldTokenDecoded.iat).toEqual(true);
+        });
 
+        test("creates an everest with multiple milestones; missing 'completed' defaults to false", async () => {
+            const payload = {
+                name: "Climb a big hill",
+                details: "I'm going to climb a massive hill",
+                startDate: "2025-01-01",
+                endDate: "2025-12-31",
+                milestones: [
+                { description: "buy boots" },                   // default false
+                { description: "book guide", completed: true }, // explicit true
+                ],
+            };
+
+            const response = await request(app)
+                .post("/everests")
+                .set("Authorization", `Bearer ${token}`)
+                .send(payload);
+
+            expect(response.status).toBe(201);
+
+            const saved = await Everest.findOne({ user: user.id, name: "Climb a big hill" });
+            expect(saved).toBeTruthy();
+            expect(saved.milestones).toHaveLength(2);
+            expect(saved.milestones[0].description).toEqual("buy boots");
+            expect(saved.milestones[0].completed).toEqual(false);
+            expect(saved.milestones[1].description).toEqual("book guide");
+            expect(saved.milestones[1].completed).toEqual(true);
+        });
+    });
 
     describe("POST, when token is missing", () => {
         test("responds with a 401", async () => {
@@ -189,6 +216,4 @@ describe("/everests", () => {
         expect(response.body.token).toEqual(undefined);
         });
     });
-
-
 });
