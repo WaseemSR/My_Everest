@@ -5,6 +5,7 @@ const EverestsController = require("../controllers/everest");
 
 router.get("/", EverestsController.getAllEverests);
 router.post("/", EverestsController.createEverest);
+router.get("/:id", EverestsController.getEverestById);
 
 
 module.exports = router;

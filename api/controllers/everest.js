@@ -47,10 +47,32 @@ async function getUserEverests(req, res) {
     }
 }
 
+async function getEverestById(req, res) {
+  try {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid Everest ID" });
+    }
+
+    const everest = await Everest.findById(id);
+    if (!everest) {
+      return res.status(404).json({ message: "Everest not found" });
+    }
+
+    const token = generateToken(req.user_id);
+    res.status(200).json({ everest, token });
+  } catch (err) {
+    console.error("getEverestById error:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+}
+
 const EverestsController = {
     getAllEverests: getAllEverests,
     createEverest: createEverest,
-    getUserEverests: getUserEverests
+    getUserEverests: getUserEverests,
+    getEverestById: getEverestById,
 };
 
 module.exports = EverestsController;

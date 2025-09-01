@@ -7,6 +7,7 @@ import { SignupPage } from "./pages/Signup/SignupPage";
 import { FeedPage } from "./pages/Feed/FeedPage";
 import { CreateEverestPage } from "./pages/CreateEverest/CreateEverestPage";
 import { ProfilePage } from "./pages/Profile/ProfilePage";
+import { EverestPage } from "./pages/Everest/EverestPage";
 
 // docs: https://reactrouter.com/en/main/start/overview
 const router = createBrowserRouter([
@@ -33,7 +34,11 @@ const router = createBrowserRouter([
   {
     path: "/profile",
     element: <ProfilePage/>,
-  }
+  },
+  {
+    path: "/everests/:id",
+    element: <EverestPage/>
+  },
 ]);
 
 function App() {
