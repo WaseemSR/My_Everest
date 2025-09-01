@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 
-import Logo from "/MyEverestLogo.png";
+import Logo from "/Just_logo_transparent.png";
 
 export function HomePage() {
   return (
@@ -34,13 +34,6 @@ export function HomePage() {
 
       {/* Main content grows in the middle */}
       <main className="home is-flex-grow-1 is-flex is-justify-content-center is-align-items-center"
-      style={{ position: "absolute",
-      top: 0,
-      left: 0,
-      width: "100%",
-      height: "100%",
-      backgroundColor: "rgba(27,38,44,0.5)", // dark overlay
-      zIndex: -1, }}
       >
         <div className="home-content has-text-centered">
           <img src={Logo} alt="Logo" style={{ maxHeight: "13rem", width: "auto" }}/>
