@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getEverests } from "../../services/everests"
-import Everest from "../../components/Everest"
+import EverestCard from "../../components/EverestCard"
 // import { getPosts } from "../../services/posts";
 // import Post from "../../components/Post";
 import LogoutButton from "../../components/LogoutButton";
@@ -46,10 +46,10 @@ export function FeedPage() {
           <Post post={post} key={post._id} />
         ))}
       </div> */}
-       <h1>Everests</h1>     {/*  This is the small bit added for the everests to be seen on feedpage */}
-      <div className="feed" role="feed">
-        {everests.map((everest) => (
-          <Everest everest={everest} key={everest._id} />
+       <h1 className="title is-1">Everests</h1>     {/*  This is the small bit added for the everests to be seen on feedpage */}
+      <div className="columns is-multiline equal-columns">
+        {everests.map((ev) => (
+          <EverestCard key={ev._id} everest={ev} />
         ))}
       </div>
       <LogoutButton />
