@@ -4,7 +4,7 @@ const Everest = require("../../models/everest");
 describe("Everest model milestones", () => {
   test("defaults to an empty milestones array", () => {
     const everest = new Everest({ name: "Test", user: new mongoose.Types.ObjectId() });
-    expect(Array.isArray(e.milestones)).toBe(true);
+    expect(Array.isArray(everest.milestones)).toBe(true);
     expect(everest.milestones.length).toBe(0);
   });
 

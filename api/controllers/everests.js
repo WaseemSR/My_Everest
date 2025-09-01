@@ -21,7 +21,7 @@ async function createEverest(req, res) {
 
         const saved = await doc.save();
         const token = generateToken(req.user_id);
-        return res.status(201).json({ message: "Everest created", everest: saved });
+        return res.status(201).json({ message: "Everest created", token: token, everest: saved });
     } catch (err) {
         console.error("createEverest error:", err);
         return res.status(400).json({ message: err.message || "Failed to create Everest" });
