@@ -60,9 +60,11 @@ export function LoginPage() {
       <main className="home is-flex-grow-1 is-flex is-justify-content-center is-align-items-center"
       
       >
-        <div className="home-content has-text-centered">
+        <div className="has-text-centered">
           <img src={Logo} alt="Logo" style={{ maxHeight: "13rem", width: "auto" }}/> 
+
         <h1 className="home-title is-size-2 has-text-weight-light mt-5 mb-5 has-text-white">Login</h1>
+
           <div className="container" style={{ maxWidth: "400px" }}>
             <form onSubmit={handleSubmit}>
               <div className="field">

@@ -52,3 +52,28 @@ h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
+
+.input-underline {
+  background-color: transparent; /* remove the box */
+  border: none;                  /* remove borders */
+  border-bottom: 2px solid #ccc; /* add underline */
+  border-radius: 0;              /* remove rounded corners */
+  padding-left: 0;
+  padding-right: 0;
+  width: 100%;
+  color: white; 
+  font-size: 1.2rem;  
+  transition: border-color 0.2s;
+}
+
+.input-underline:focus {
+  outline: none;
+  border-bottom-color: #ff865b; /* change underline color on focus */
+}
+
+.form-label {
+  display: block;
+  text-align: left;
+  margin-bottom: 0.25rem;
+  font-weight: 500;
+}
