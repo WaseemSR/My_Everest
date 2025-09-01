@@ -16,6 +16,10 @@ a:hover {
   max-height: none !important; /* remove Bulma's limit */
 }
 
+.navbar {
+  background-color: #091319 !important;
+}
+
 .button.is-my-orange {
   background-color: #ff865b;
   border-color: #ff865b;

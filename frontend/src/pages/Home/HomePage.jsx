@@ -9,12 +9,38 @@ export function HomePage() {
   return (
     
   <div className="is-flex is-flex-direction-column" style={{ minHeight: "100vh" }}>
+      
+      <video
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          zIndex: -1, // sit behind all content
+        }}
+        autoPlay
+        loop
+        muted
+        playsInline
+      >
+        <source src="/Mountain_Range.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      
       {/* Header pinned to the top */}
       <Header showNav={false} />
 
       {/* Main content grows in the middle */}
       <main className="home is-flex-grow-1 is-flex is-justify-content-center is-align-items-center"
-      style={{ backgroundColor: "#1b262c" }}
+      style={{ position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      backgroundColor: "rgba(27,38,44,0.5)", // dark overlay
+      zIndex: -1, }}
       >
         <div className="home-content has-text-centered">
           <img src={Logo} alt="Logo" style={{ maxHeight: "13rem", width: "auto" }}/>
