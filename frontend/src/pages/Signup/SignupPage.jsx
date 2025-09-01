@@ -42,27 +42,49 @@ export function SignupPage() {
 
   return (
      <div className="is-flex is-flex-direction-column" style={{ minHeight: "100vh" }}>
+
+      <video
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          zIndex: -1, // sit behind all content
+        }}
+        autoPlay
+        loop
+        muted
+        playsInline
+      >
+        <source src="/Mountain_Range.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+
       {/* Header pinned to the top */}
       <Header showNav={true} />
 
       <main className="home is-flex-grow-1 is-flex is-justify-content-center is-align-items-center"
-      style={{ backgroundColor: "#1b262c" }}
+      
       >
       <div className="has-text-centered">
-      <h2 className="is-size-2 has-text-weight-light mt-5 mb-5">Create Your Account</h2>
+      <h2 className="is-size-2 has-text-weight-light mt-5 mb-5 has-text-white">Create Your Account</h2>
       <div className="container" style={{ maxWidth: "400px" }}>
         <form onSubmit={handleSubmit} className="is-flex is-flex-direction-column">
-          <label className="form-label" htmlFor="name">Full Name:</label>
+          <label className="form-label has-text-white" htmlFor="name">Full Name:</label>
           <input
             className="input-underline mb-5"
             placeholder="Full Name"
+            style={{ color: "white" }}
             id="name"
             type="text"
             value={fullName}
+            
             onChange={handleFullNameChange}
           />
 
-          <label className="form-label" htmlFor="email">Email:</label>
+          <label className="form-label has-text-white" htmlFor="email">Email:</label>
           <input
             className="input-underline mb-5"
             placeholder="email"
@@ -72,7 +94,7 @@ export function SignupPage() {
             onChange={handleEmailChange}
           />
 
-          <label className="form-label" htmlFor="password">Password:</label>
+          <label className="form-label has-text-white" htmlFor="password">Password:</label>
           <input
             className="input-underline mb-5"
             placeholder="Password"
@@ -82,7 +104,7 @@ export function SignupPage() {
             onChange={handlePasswordChange}
           />
 
-          <label className="form-label" htmlFor="bio">Bio:</label>
+          <label className="form-label has-text-white" htmlFor="bio">Bio:</label>
           <input
             className="input-underline mb-5"
             placeholder="Tell us about yourself..."
