@@ -50,8 +50,7 @@ export async function getUserEverests(userId, token) {
     return res.json();
 }
 
-
-export async function createEverest(name, details, startDate, endDate, milestone,) {
+export async function createEverest(name, details, startDate, endDate, milestones,) {
 
     const token = localStorage.getItem("token"); 
     
@@ -60,7 +59,7 @@ export async function createEverest(name, details, startDate, endDate, milestone
         details: details,
         startDate: startDate,
         endDate: endDate,
-        milestone: milestone,
+        milestones: milestones,
     };
 
     const requestOptions = {

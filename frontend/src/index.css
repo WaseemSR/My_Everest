@@ -71,6 +71,11 @@ h1 {
   border-bottom-color: #ff865b; /* change underline color on focus */
 }
 
+.input-underline::placeholder {
+  color: white;
+  opacity: 1;
+}
+
 .form-label {
   display: block;
   text-align: left;
