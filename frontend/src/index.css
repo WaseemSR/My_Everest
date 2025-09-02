@@ -25,30 +25,36 @@ a:hover {
 .button.is-my-purple:hover {
   background-color: #a374e0; /* slightly darker for hover effect */
   border-color: #a374e0;
+}
 
+.is-my-purple {
+  color: #744fc0;
+}
+.is-my-purple:hover {
+  color: #5a38a0;
 }
 
 .button.is-my-green {
-  background-color: #addfad;   /* base color */
-  border-color: #addfad;
+  background-color: #73b783;   /* base color */
+  border-color: #73b783;
   color: white;              /* dark text for contrast */
 }
 
 .button.is-my-green:hover {
-  background-color: #95d8a6;   /* slightly darker shade */
-  border-color: #95d8a6;
+  background-color: #539764;   /* slightly darker shade */
+  border-color: #539764;
   color: white;
 }
 
 .button.is-my-yellow {
-  background-color: #f1c892;   /* base yellow */
-  border-color: #f1c892;
+  background-color: #caa865;   /* base yellow */
+  border-color: #caa865;
   color: white;              /* dark text for contrast */
 }
 
 .button.is-my-yellow:hover {
-  background-color: #e0b87f;   /* slightly darker shade */
-  border-color: #e0b87f;
+  background-color: #a9854a;   /* slightly darker shade */
+  border-color: #a9854a;
   color: white;
 }
 
