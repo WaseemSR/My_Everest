@@ -87,7 +87,7 @@ export function EverestPage() {
     
     <main className="is-flex-grow-1 p-5" style={{ backgroundColor: "#1b262c" }}>
 
-    <div className="everest-container">
+    <div className="everest-container" style={{ maxWidth: "28rem", margin: "2.5rem auto" }}>
        <Everest everest={everest} onToggleMilestone={toggleMilestone} />
     </div>
 
