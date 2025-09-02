@@ -18,6 +18,23 @@ export async function getEverests(token) {
     return data;
 }
 
+export async function getOneEverest(id, token) {
+    const requestOptions = {
+        method: "GET",
+        headers: {
+        Authorization: `Bearer ${token}`,
+        },
+    };
+
+    const response = await fetch(`${BACKEND_URL}/everests/${id}`, requestOptions);
+
+    if (response.status !== 200) {
+        throw new Error("Unable to fetch everest");
+    }
+    const data = await response.json();
+    return data;
+}
+
 // get users everests for their profile page
 export async function getUserEverests(userId, token) {
     const res = await fetch(`${BACKEND_URL}/users/${userId}/everests`, {
