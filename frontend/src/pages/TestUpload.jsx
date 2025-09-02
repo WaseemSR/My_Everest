@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 const TestUpload = () => {
-  const [message, setMessage] = useState('');
+  const [name, setName] = useState('');
+  const [details, setDetails] = useState('');
   const [photo, setPhoto] = useState(null);
   const [response, setResponse] = useState('');
   const [preview, setPreview] = useState('');
@@ -9,23 +10,25 @@ const TestUpload = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!message.trim() && !photo) {
-      setResponse('❌ Message or photo required.');
+    if (!name.trim() && !photo) {
+      setResponse('Name or photo required.');
       return;
     }
 
-    const token = localStorage.getItem("token"); // Get token from storage
-    if (!token) {
-      setResponse("❌ No token found. Please login first.");
+    const token = localStorage.getItem("token");
+    console.log(">>>>>>>>>>", token)
+    if (!token) {  // TODO: check for undefined
+      setResponse(" No token found. Please login first.");
       return;
     }
 
     const formData = new FormData();
-    formData.append('message', message);
+    formData.append('name', name);
+    formData.append('details', details);
     if (photo) formData.append('photo', photo);
 
     try {
-      const res = await fetch('http://localhost:3000/posts', {
+      const res = await fetch('http://localhost:3000/everests', {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -36,29 +39,39 @@ const TestUpload = () => {
       const data = await res.json();
 
       if (res.ok) {
-        setResponse('✅ Post created successfully.');
-        if (data.post.photoUrl) {
-          setPreview(`http://localhost:3000${data.post.photoUrl}`);
+        setResponse('✅ Everest created successfully.');
+        if (data.everest.photo) {
+          setPreview(`http://localhost:3000${data.everest.photo}`);
         }
       } else {
-        setResponse(`❌ ${data.message}`);
+        setResponse(` ${data.message}`);
       }
     } catch (err) {
       console.error(err);
-      setResponse('❌ Upload failed.');
+      setResponse(' Upload failed.');
     }
   };
 
   return (
     <div style={{ padding: '2rem' }}>
-      <h2>Test Photo Upload</h2>
+      <h2>Test Everest Upload</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Message:</label><br />
+          <label>Name:</label><br />
           <input
             type="text"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            style={{ width: '300px' }}
+          />
+        </div>
+        <br />
+        <div>
+          <label>Details:</label><br />
+          <input
+            type="text"
+            value={details}
+            onChange={(e) => setDetails(e.target.value)}
             style={{ width: '300px' }}
           />
         </div>
@@ -89,3 +102,4 @@ const TestUpload = () => {
 };
 
 export default TestUpload;
+

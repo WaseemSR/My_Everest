@@ -1,36 +1,47 @@
-const Everest = require("../models/everest");
-const { generateToken } = require("../lib/token");
 const mongoose = require("mongoose");
+const Everest = require("../models/Everest"); // Make sure this path is correct
+const { generateToken } = require("../lib/token");
 
 async function getAllEverests(req, res) {
-    const everests = await Everest.find();
-    const token = generateToken(req.user_id);
-    res.status(200).json({ everests: everests, token: token });
+    try {
+        const everests = await Everest.find().populate("user", "fullName").sort({ createdAt: -1 });
+        const token = generateToken(req.user_id);
+        return res.status(200).json({ everests: everests, token: token });
+    } catch (error) {
+        console.error("Failed to get everests:", error);
+        res.status(500).json({ message: "Failed to get everests" });
+    }
 }
 
 async function createEverest(req, res) {
     try {
-        // Attach the creator from the token! (required by your schema)
+        // Handle uploaded file
+        let photoUrl = null;
+        if (req.file) {
+            photoUrl = `/uploads/${req.file.filename}`; 
+
+        // Create new Everest document
         const doc = new Everest({
-        name: req.body.name,
-        details: req.body.details,
-        startDate: req.body.startDate,
-        endDate: req.body.endDate,
-        milestone: req.body.milestone,
-        user: req.user_id, // tie Everest to the logged-in user
-    });
-    const saved = await everest.save();
-    console.log("Saved Everest:", saved);
-    console.log("req.user_id:", req.user_id);
+            name: req.body.name,
+            details: req.body.details,
+            startDate: req.body.startDate,
+            endDate: req.body.endDate,
+            milestone: req.body.milestone,
+            user: req.user_id, // From auth middleware
+            photo: photoUrl // Make sure your schema supports this field
+        });
 
+        const saved = await doc.save();
 
-        await doc.save();
-        return res.status(201).json({ message: "Everest created", everest: doc });
+        console.log("Saved Everest:", saved);
+        console.log("req.user_id:", req.user_id);
+
+        return res.status(201).json({ message: "Everest created", everest: saved });
     } catch (err) {
         console.error("createEverest error:", err);
         return res
-        .status(400)
-        .json({ message: err.message || "Failed to create Everest" });
+            .status(400)
+            .json({ message: err.message || "Failed to create Everest" });
     }
 }
 
@@ -55,9 +66,9 @@ async function getUserEverests(req, res) {
 }
 
 const EverestsController = {
-    getAllEverests: getAllEverests,
-    createEverest: createEverest,
-    getUserEverests: getUserEverests
+    getAllEverests,
+    createEverest,
+    getUserEverests
 };
 
 module.exports = EverestsController;

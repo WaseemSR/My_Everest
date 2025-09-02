@@ -23,6 +23,7 @@ export function FeedPage() {
       getEverests(token)
         .then((data) => {
           setEverests(data.everests);
+          console.log("FeedPage", data.token)
           localStorage.setItem("token", data.token);
         })
         .catch((err) => {
