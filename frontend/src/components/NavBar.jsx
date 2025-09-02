@@ -8,23 +8,47 @@ function NavBar() {
   return (
     <div className="navbar-menu">
       <div className="navbar-end">
-        {/* Show LogoutButton only on /posts */}
-        {path === "/posts" && (
-          <div className="navbar-item">
-            <LogoutButton />
-          </div>
+
+        {/* Show Home button only on Profile, Create Everest, and Everest pages */}
+        {(path === "/profile" || path === "/createeverest" || path === "/everest") && (
+          <Link to="/posts" className="navbar-item button is-my-orange mr-5">
+            Home
+          </Link>
         )}
 
-        {/* Show Sign Up / Log In only on specific pages */}
-        {path !== "/signup" && path !== "/posts" && (
-          <Link to="/signup" className="navbar-item button is-my-orange mr-5" >
+        {/* Show My Profile Button only on home/feedpage/posts, Everest and Create Everest */}
+        {(path === "/posts" || path === "/createeverest" || path === "/everest") && (
+          <Link to="/profile" className="navbar-item button is-my-orange mr-5">
+            My Profile
+          </Link>
+        )}
+
+        {/* Show Create Everest button only on the Profile page */}
+        {path === "/profile" && (
+          <Link to="/createeverest" className="navbar-item button is-my-orange mr-5">
+            Add Everest
+          </Link>
+        )}
+
+        {/* Show Log In button only on the Sign Up page */}
+        {path === "/signup" && (
+          <Link to="/login" className="navbar-item button is-my-orange mr-5">
+            Log In
+          </Link>
+        )}
+
+        {/* Show Sign Up button only on the Log In page */}
+        {path === "/login" && (
+          <Link to="/signup" className="navbar-item button is-my-orange mr-5">
             Sign Up
           </Link>
         )}
-        {path !== "/login" && path !== "/posts" && (
-          <Link to="/login" className="navbar-item button is-my-orange mr-5" >
-            Log In
-          </Link>
+
+        {/* Show Log Out Button only on home/feedpage/posts, Everest, Create Everest and My Profile pages  */}
+        {(path === "/posts" || path === "/profile" || path === "/createeverest" || path === "/everest") && (
+          <div className="navbar-item button is-my-orange mr-5">
+            <LogoutButton />
+          </div>
         )}
       </div>
     </div>

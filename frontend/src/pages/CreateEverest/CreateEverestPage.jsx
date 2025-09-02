@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { createEverest } from "../../services/everests";
 import "bulma/css/bulma.min.css";
 
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
+
 export function CreateEverestPage() {
   const navigate = useNavigate();
   const [name, setName] = useState("");
@@ -68,15 +71,19 @@ export function CreateEverestPage() {
   };
 
   return (
+    <div className="is-flex is-flex-direction-column" style={{ minHeight: "100vh" }}>
+      <Header showNav={true} />
+
+    <main className="is-flex-grow-1 p-5" style={{ backgroundColor: "#1b262c" }}>
     <section className="section">
       <div className="container">
-        <h1 className="title">Create an Everest</h1>
+        <h1 className="title is-size-1 has-text-weight-light has-text-white">Create an Everest</h1>
 
         {error && <div className="notification is-danger">{error}</div>}
 
         <form onSubmit={handleSubmit}>
           <div className="field">
-            <label className="label">
+            <label className="label has-text-white">
               Title
             </label>
             <div className="control">
@@ -92,7 +99,7 @@ export function CreateEverestPage() {
           </div>
 
           <div className="field">
-            <label className="label">Details</label>
+            <label className="label has-text-white">Details</label>
             <div className="control">
               <textarea
                 className="textarea"
@@ -106,7 +113,7 @@ export function CreateEverestPage() {
           <div className="columns">
             <div className="column">
               <div className="field">
-                <label className="label">Start date</label>
+                <label className="label has-text-white">Start date</label>
                 <div className="control">
                   <input
                     className="input"
@@ -119,7 +126,7 @@ export function CreateEverestPage() {
             </div>
             <div className="column">
               <div className="field">
-                <label className="label">End date</label>
+                <label className="label has-text-white">End date</label>
                 <div className="control">
                   <input
                     className="input"
@@ -133,7 +140,7 @@ export function CreateEverestPage() {
           </div>
 
           <div className="field">
-            <label className="label">Milestones</label>
+            <label className="label has-text-white">Milestones</label>
 
             <div className="field has-addons">
               <div className="control is-expanded">
@@ -178,7 +185,7 @@ export function CreateEverestPage() {
                           <div className="level-right">
                             <button
                               type="button"
-                              className="button is-small is-light is-danger"
+                              className="button is-my-purple is-small is-light is-danger"
                               onClick={() => removeMilestone(i)}
                               aria-label={`Remove milestone ${i + 1}: ${milestone.description}`}
                             >
@@ -192,18 +199,18 @@ export function CreateEverestPage() {
                 </div>
               </div>
             ) : (
-              <p className="has-text-grey">No milestones added yet.</p>
+              <p className="has-text-white">No milestones added yet</p>
             )}
           </div>
 
           <div className="field is-grouped">
             <div className="control">
-              <button className="button" type="submit">
+              <button className="button is-my-green" type="submit">
                 Create
               </button>
             </div>
             <div className="control">
-              <button className="button" type="button" onClick={() => navigate(-1)}>
+              <button className="button is-my-yellow" type="button" onClick={() => navigate(-1)}>
                 Cancel
               </button>
             </div>
@@ -211,5 +218,10 @@ export function CreateEverestPage() {
         </form>
       </div>
     </section>
+    
+    </main>
+
+    <Footer />
+    </div>
   );
 }
