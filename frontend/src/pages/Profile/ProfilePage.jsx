@@ -1,6 +1,11 @@
 import { useEffect, useState } from 'react'
 import { getUserEverests } from "../../services/everests";
-import Everest from "../../components/Everest"
+import EverestCard from "../../components/EverestCard";
+
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
+
+import "../../components/EverestCard.css";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -51,19 +56,36 @@ export function ProfilePage() {
 
   return (
     <div>
-      <h1>{user.fullName}</h1>
-      {user.bio && <p>{user.bio}</p>}
+    <Header showNav={true} />
+    <main className="" style={{ backgroundColor: "#1b262c" }}>
 
-      <h2>Everests</h2>
-      {everests.length === 0 ? (
-        <p>No Everests yet</p>
-      ) : (
-        <div>
-          {everests.map((e) => (
-            <Everest key={e._id} everest={e} />
-          ))}
+      <h1 className="title is-1 has-text-white">{user.fullName}'s Page of Everests</h1>
+      <div className="is-flex is-justify-content-center">
+        <div className="box is-hoverable is-size-4" style={{ maxWidth: "700px", height: "250px", overflowY: "auto", backgroundColor: "#f1c892" }}>
+          <p className="title is-3" >The story of {user.fullName}</p>
+          {user.bio && <p>{user.bio}</p>}
         </div>
+      </div>
+
+      <br /><br /><br />
+
+      <h2 className="title is-1 has-text-white">Everests</h2>
+
+      <button className="button is-my-orange">Create New Everest</button>
+      
+      <br /><br />
+
+      {everests.length === 0 ? (
+        <p className="is-size-2 has-text-white">No Everests yet</p>
+      ) : (
+      <div className="columns is-multiline equal-columns">
+        {everests.map((ev) => (
+          <EverestCard key={ev._id} everest={ev} />
+        ))}
+      </div>
       )}
+    </main>
+    <Footer />
     </div>
   )
 }

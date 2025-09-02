@@ -74,8 +74,35 @@ describe("/everests", () => {
         // iat stands for issued at
         expect(newTokenDecoded.iat > oldTokenDecoded.iat).toEqual(true);
         });
-    });
 
+        test("creates an everest with multiple milestones; missing 'completed' defaults to false", async () => {
+            const payload = {
+                name: "Climb a big hill",
+                details: "I'm going to climb a massive hill",
+                startDate: "2025-01-01",
+                endDate: "2025-12-31",
+                milestones: [
+                { description: "buy boots" },                   // default false
+                { description: "book guide", completed: true }, // explicit true
+                ],
+            };
+
+            const response = await request(app)
+                .post("/everests")
+                .set("Authorization", `Bearer ${token}`)
+                .send(payload);
+
+            expect(response.status).toBe(201);
+
+            const saved = await Everest.findOne({ user: user.id, name: "Climb a big hill" });
+            expect(saved).toBeTruthy();
+            expect(saved.milestones).toHaveLength(2);
+            expect(saved.milestones[0].description).toEqual("buy boots");
+            expect(saved.milestones[0].completed).toEqual(false);
+            expect(saved.milestones[1].description).toEqual("book guide");
+            expect(saved.milestones[1].completed).toEqual(true);
+        });
+    });
 
     describe("POST, when token is missing", () => {
         test("responds with a 401", async () => {
@@ -189,6 +216,4 @@ describe("/everests", () => {
         expect(response.body.token).toEqual(undefined);
         });
     });
-
-
 });

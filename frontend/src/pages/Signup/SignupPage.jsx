@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
+
 import { signup } from "../../services/authentication";
 
 export function SignupPage() {
@@ -38,43 +41,96 @@ export function SignupPage() {
   }
 
   return (
-    <>
-      <h2>Signup</h2>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="email">Email:</label>
-        <input
-          placeholder="email"
-          id="email"
-          type="text"
-          value={email}
-          onChange={handleEmailChange}
-        />
-        <label htmlFor="password">Password:</label>
-        <input
-          placeholder="Password"
-          id="password"
-          type="password"
-          value={password}
-          onChange={handlePasswordChange}
-        />
-        <label htmlFor="full name">Full Name:</label>
-        <input
-          placeholder="Full Name"
-          id="name"
-          type="name"
-          value={fullName}
-          onChange={handleFullNameChange}
-        />
-        <label htmlFor="bio">Bio:</label>
-        <input
-          placeholder="Tell us about yourself..."
-          id="bio"
-          type="text"
-          value={bio}
-          onChange={handleBioChange}
-        />
-        <input role="submit-button" id="submit" type="submit" value="Submit" />
-      </form>
-    </>
+     <div className="is-flex is-flex-direction-column" style={{ minHeight: "100vh" }}>
+
+      <video
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          zIndex: -1, // sit behind all content
+        }}
+        autoPlay
+        loop
+        muted
+        playsInline
+      >
+        <source src="/Mountain_Range.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+
+      {/* Header pinned to the top */}
+      <Header showNav={true} />
+
+      <main className="home is-flex-grow-1 is-flex is-justify-content-center is-align-items-center"
+      
+      >
+      <div className="has-text-centered">
+      <h2 className="is-size-2 has-text-weight-light mt-5 mb-5 has-text-white">Create Your Account</h2>
+      <div className="container" style={{ maxWidth: "400px" }}>
+        <form onSubmit={handleSubmit} className="is-flex is-flex-direction-column">
+          <label className="form-label has-text-white" htmlFor="name">Full Name:</label>
+          <input
+            className="input-underline mb-5"
+            placeholder="Full Name"
+            style={{ color: "white" }}
+            id="name"
+            type="text"
+            value={fullName}
+            
+            onChange={handleFullNameChange}
+          />
+
+          <label className="form-label has-text-white" htmlFor="email">Email:</label>
+          <input
+            className="input-underline mb-5"
+            placeholder="email"
+            id="email"
+            type="text"
+            value={email}
+            onChange={handleEmailChange}
+          />
+
+          <label className="form-label has-text-white" htmlFor="password">Password:</label>
+          <input
+            className="input-underline mb-5"
+            placeholder="Password"
+            id="password"
+            type="password"
+            value={password}
+            onChange={handlePasswordChange}
+          />
+
+          <label className="form-label has-text-white" htmlFor="bio">Bio:</label>
+          <input
+            className="input-underline mb-5"
+            placeholder="Tell us about yourself..."
+            id="bio"
+            type="text"
+            value={bio}
+            onChange={handleBioChange}
+          />
+
+          <div className="field mt-5">
+            <div className="control buttons is-justify-content-center">
+              <input
+                role="submit-button"
+                id="submit"
+                type="submit"
+                value="Sign Up"
+                className="button is-my-orange"
+              />
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    </main>
+
+    <Footer />
+    </div>
   );
 }

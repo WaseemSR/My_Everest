@@ -17,12 +17,12 @@ function NavBar() {
 
         {/* Show Sign Up / Log In only on specific pages */}
         {path !== "/signup" && path !== "/posts" && (
-          <Link className="navbar-item" to="/signup">
+          <Link to="/signup" className="navbar-item button is-my-orange mr-5" >
             Sign Up
           </Link>
         )}
         {path !== "/login" && path !== "/posts" && (
-          <Link className="navbar-item" to="/login">
+          <Link to="/login" className="navbar-item button is-my-orange mr-5" >
             Log In
           </Link>
         )}
