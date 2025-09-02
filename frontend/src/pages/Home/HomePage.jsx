@@ -15,7 +15,7 @@ export function HomePage() {
       style={{ backgroundColor: "#1b262c" }}
       >
         <div className="home-content has-text-centered">
-          <h1 className="home-title">Welcome to My Everest</h1>
+          <h1 className="home-title">Welcome to MyEverest!</h1>
           <div className="home-buttons">
             <Link to="/signup" className="home-button">
               Sign Up

@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const path = require("path");
 
 const usersRouter = require("./routes/users");
 const postsRouter = require("./routes/posts");
@@ -11,17 +12,18 @@ const tokenChecker = require("./middleware/tokenChecker");
 const app = express();
 
 // Allow requests from any client
-// docs: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
-// docs: https://expressjs.com/en/resources/middleware/cors.html
 app.use(cors());
 
-// Parse JSON request bodies, made available on `req.body`
+// Parse JSON request bodies
 app.use(bodyParser.json());
+
+// Serve static files in /uploads
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // API Routes
 app.use("/users", usersRouter);
 app.use("/posts", tokenChecker, postsRouter);
-app.use("/everests", tokenChecker, everestsRouter) //added for Create everest
+app.use("/everests", tokenChecker, everestsRouter);
 app.use("/tokens", authenticationRouter);
 
 // 404 Handler
@@ -40,3 +42,4 @@ app.use((err, _req, res, _next) => {
 });
 
 module.exports = app;
+
