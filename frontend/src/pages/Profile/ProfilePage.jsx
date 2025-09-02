@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { getUserEverests } from "../../services/everests";
 import EverestCard from "../../components/EverestCard";
-
+import { Link } from "react-router-dom";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 
@@ -9,12 +9,37 @@ import "../../components/EverestCard.css";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
-export function ProfilePage() {
+export function ProfilePage({onDelete}) {
 
   const [user, setUser] = useState({ _id: "", fullName: "", bio: "" });
   const [everests, setEverests] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const handleDelete = async (id) => {
+    try {
+      const token = localStorage.getItem("token");
+
+      const res = await fetch(`${BACKEND_URL}/everests/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (res.ok) {
+        setEverests((prev) => prev.filter((ev) => ev._id !== id)); // 🔥 removes immediately
+      } else {
+        const data = await res.json().catch(() => ({}));
+        console.error("Delete failed:", data.message || res.statusText);
+      }
+
+    // Update UI
+    setEverests((prev) => prev.filter((ev) => ev._id !== id));
+  } catch (err) {
+    console.error("Delete request error:", err);
+  }
+};
 
     useEffect(() => {
     const load = async () => {
@@ -71,7 +96,7 @@ export function ProfilePage() {
 
       <h2 className="title is-1 has-text-white">Everests</h2>
 
-      <button className="button is-my-orange">Create New Everest</button>
+      <button className="button is-my-orange"><Link to="/createeverest" className="button is-my-orange">Create New Everest</Link></button>
       
       <br /><br />
 
@@ -80,7 +105,12 @@ export function ProfilePage() {
       ) : (
       <div className="columns is-multiline equal-columns">
         {everests.map((ev) => (
-          <EverestCard key={ev._id} everest={ev} />
+          <EverestCard
+            key={ev._id}
+            everest={ev}
+            onDelete={handleDelete}
+            showDelete
+          />
         ))}
       </div>
       )}
