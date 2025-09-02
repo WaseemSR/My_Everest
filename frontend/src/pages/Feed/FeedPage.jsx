@@ -49,7 +49,7 @@ export function FeedPage() {
 
       
         <main className="is-flex-grow-1 p-5" style={{ backgroundColor: "#1b262c" }}>
-          <h1 className="title is-1">Everests</h1>     {/*  This is the small bit added for the everests to be seen on feedpage */}
+          <h1 className="is-size-1 has-text-weight-light mt-6 mb-6 has-text-white">Explore Everests</h1>     {/*  This is the small bit added for the everests to be seen on feedpage */}
           <div className="columns is-multiline equal-columns">
             {everests.map((ev) => (
               <EverestCard key={ev._id} everest={ev} />

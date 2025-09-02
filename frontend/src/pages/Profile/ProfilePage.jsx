@@ -82,9 +82,9 @@ export function ProfilePage({onDelete}) {
   return (
     <div>
     <Header showNav={true} />
-    <main className="" style={{ backgroundColor: "#1b262c" }}>
+    <main className="p-6" style={{ backgroundColor: "#1b262c" }}>
 
-      <h1 className="title is-1 has-text-white">{user.fullName}'s Page of Everests</h1>
+      <h1 className="title has-text-white is-size-1 has-text-weight-light">{user.fullName}'s Page of Everests</h1>
       <div className="is-flex is-justify-content-center">
         <div className="box is-hoverable is-size-4" style={{ maxWidth: "700px", height: "250px", overflowY: "auto", backgroundColor: "#f1c892" }}>
           <p className="title is-3" >The story of {user.fullName}</p>
@@ -94,9 +94,9 @@ export function ProfilePage({onDelete}) {
 
       <br /><br /><br />
 
-      <h2 className="title is-1 has-text-white">Everests</h2>
+      <h2 className="title has-text-white is-size-1 has-text-weight-light">Everests</h2>
 
-      <button className="button is-my-orange"><Link to="/createeverest" className="button is-my-orange">Create New Everest</Link></button>
+      <button className="button is-my-green"><Link to="/createeverest" className="button is-my-green">Create New Everest</Link></button>
       
       <br /><br />
 

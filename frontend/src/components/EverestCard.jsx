@@ -42,14 +42,15 @@ return (
         <h2 className="title is-3">{everest.name}</h2>
         
         <hr style={{ border: "none", borderTop: "3px solid #1b262c" }} />
-        <p className="is-size-5">{everest.details}<Link className="is-size-5" to={`/everests/${everest._id}`}> Click Here for more information</Link></p> <br /><br />
+        <p className="is-size-5">{everest.details}</p><br></br>
+        <Link className="is-size-5 is-my-purple" to={`/everests/${everest._id}`}> Click Here for more information</Link> <br></br>
         
         {showDelete && (
-        <span className="is-flex is-justify-content-flex-end is-size-4 is-clickable " 
+        <button className=" button is-my-orange has-text-white mt-5 " 
         style={{ color: "#1b262c" }}
         onClick={handleDelete}>
             Delete Everest
-        </span>
+        </button>
         )}
         </article>
     </div>
