@@ -51,10 +51,8 @@ const getCommentsByEverest = async (req, res) => {
   try {
     const { everestId } = req.params;
 
-    if (!everestId.match(/^[0-9a-fA-F]{24}$/)) {
-      return res.status(400).json({
-        message: "Invalid everest ID",
-      });
+    if (!ObjectId.isValid(everestId)) {
+      return res.status(400).json({ message: "Invalid everest ID" });
     }
 
     const comments = await Comment.find({ everest: everestId })
@@ -104,7 +102,7 @@ const deleteComment = async (req, res) => {
   try {
     const { id } = req.params;
 
-    if (!id.match(/^[0-9a-fA-F]{24}$/)) {
+    if (!ObjectId.isValid(id)) {
       return res.status(400).json({ message: "Invalid comment ID" });
     }
 
