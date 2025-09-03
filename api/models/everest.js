@@ -17,6 +17,7 @@ const EverestSchema = new mongoose.Schema({
 
     milestones: { type: [MilestoneSchema], default: [] },
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }, // link to creator
+    comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
 }, { timestamps: true });
 
 

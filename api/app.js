@@ -7,6 +7,7 @@ const usersRouter = require("./routes/users");
 const postsRouter = require("./routes/posts");
 const everestsRouter = require("./routes/everests");
 const authenticationRouter = require("./routes/authentication");
+const commentsRouter = require("./routes/comments");
 const tokenChecker = require("./middleware/tokenChecker");
 
 const app = express();
@@ -33,8 +34,11 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // API Routes
 app.use("/users", usersRouter);
 app.use("/posts", tokenChecker, postsRouter);
+
 app.use("/everests", tokenChecker, everestsRouter);
+
 app.use("/tokens", authenticationRouter);
+app.use("/comments", tokenChecker, commentsRouter);
 
 // 404 Handler
 app.use((_req, res) => {

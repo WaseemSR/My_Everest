@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getOneEverest } from "../../services/everests";
 import Everest from "../../components/Everest";
+import CommentsSection from "../../components/CommentsSection";
 
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
@@ -89,6 +90,7 @@ export function EverestPage() {
   
   return (
 
+
     <div className="is-flex is-flex-direction-column" style={{ minHeight: "100vh" }}>
     <Header showNav={true} />
     
@@ -96,10 +98,12 @@ export function EverestPage() {
 
     <div className="everest-container" style={{ maxWidth: "28rem", margin: "2.5rem auto" }}>
        <Everest everest={everest} onToggleMilestone={toggleMilestone} onMilestoneAdded={onMilestoneAdded}/>
+         <CommentsSection everestId={everest._id} />
     </div>
 
     </main>
     <Footer />
+
     </div>
   );
 }
