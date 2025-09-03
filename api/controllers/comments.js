@@ -73,7 +73,63 @@ const getCommentsByEverest = async (req, res) => {
   }
 };
 
+// PUT /comments/:id
+const updateComment = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { content } = req.body;
+
+    const comment = await Comment.findById(id);
+
+    if (!comment) {
+      return res.status(404).json({ message: "Comment not found" });
+    }
+
+    if (comment.author.toString() !== req.user_id) {
+      return res.status(403).json({ message: "You can only edit your own comments" });
+    }
+
+    comment.content = content;
+    await comment.save();
+
+    const newToken = generateToken(req.user_id);
+    res.status(200).json({ comment, token: newToken });
+  } catch (error) {
+    res.status(500).json({ message: "Error updating comment" });
+  }
+};
+
+// DELETE /comments/:id
+const deleteComment = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!id.match(/^[0-9a-fA-F]{24}$/)) {
+      return res.status(400).json({ message: "Invalid comment ID" });
+    }
+
+    const comment = await Comment.findById(id);
+
+    if (!comment) {
+      return res.status(404).json({ message: "Comment not found" });
+    }
+
+    if (comment.author.toString() !== req.user_id) {
+      return res.status(403).json({ message: "You can only delete your own comments" });
+    }
+
+    await Comment.findByIdAndDelete(id);
+
+    const newToken = generateToken(req.user_id);
+    res.status(200).json({ message: "Comment deleted successfully.", token: newToken });
+  } catch (error) {
+    res.status(500).json({ message: "Error deleting comment" });
+  }
+};
+
 module.exports = {
   createComment,
   getCommentsByEverest,
+  updateComment,
+  deleteComment,
 };

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getOneEverest } from "../../services/everests";
 import Everest from "../../components/Everest";
+import CommentsSection from "../../components/CommentsSection";
 
 export function EverestPage() {
   const { id } = useParams(); // 👈 grab /everests/:id from the URL
@@ -34,6 +35,7 @@ export function EverestPage() {
   return (
     <div className="everest-container">
       <Everest everest={everest} />
+      <CommentsSection everestId={everest._id} />
     </div>
   );
 }
