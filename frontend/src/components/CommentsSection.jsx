@@ -62,10 +62,10 @@ export default function CommentsSection({ everestId }) {
   }
 
   return (
-    <section className="section">
-      <div className="container">
-        <div className="box">
-          <p className="title is-5">Comments</p>
+    
+      <div className="container" >
+        <div className="box" style={{ backgroundColor: "rgba(0, 0, 0, 0.6)", maxWidth: "70rem", margin: "2.5rem auto" }}>
+          <p className="title is-5 has-text-white has-text-weight-normal">Comments</p>
 
           {error && <div className="notification is-danger">{error}</div>}
 
@@ -78,7 +78,7 @@ export default function CommentsSection({ everestId }) {
                 style={{ maxHeight: "320px", overflowY: "auto" }}
               >
                 {comments.length === 0 ? (
-                  <p className="has-text-grey">No comments yet.</p>
+                  <p className="has-text-white has-text-weight-normal">No comments yet</p>
                 ) : (
                   comments.map((comment) => (
                     <article className="media" key={comment._id}>
@@ -87,7 +87,7 @@ export default function CommentsSection({ everestId }) {
                           <p>
                             <strong>{comment.author.fullName ||comment.author.email}</strong>
                             {comment.createdAt && (
-                              <small className="has-text-grey">
+                              <small className="has-text-white has-text-weight-normal">
                                 · {formatTimeAgo(comment.createdAt)}
                               </small>
                             )}
@@ -103,7 +103,7 @@ export default function CommentsSection({ everestId }) {
 
               <form onSubmit={handleSubmit}>
                 <div className="field">
-                  <label className="label">Add a comment</label>
+                  <label className="label has-text-white has-text-weight-normal">Add a comment</label>
                   <div className="control">
                     <textarea
                       className="textarea"
@@ -133,6 +133,6 @@ export default function CommentsSection({ everestId }) {
           )}
         </div>
       </div>
-    </section>
+    
   );
 }
