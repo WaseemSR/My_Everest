@@ -8,12 +8,13 @@ function Everest({ everest, onToggleMilestone}) {
     return (
         <article>
         <h2 className="is-size-1 has-text-weight-light has-text-white mt-6 mb-6">{everest.name}</h2>
-        <p>{everest.details}</p>
-        <p>Start Date: {new Date(everest.startDate).toLocaleDateString("en-GB")}</p>
-        <p>End Date: {new Date(everest.endDate).toLocaleDateString("en-GB")}</p>
-        <h3 className="title is-5 mt-4">Milestones</h3>
+        <p className="is-size-5 has-text-weight-light has-text-white mb-5">{everest.details}</p>
+
+        <p className="has-text-white">Start Date: {new Date(everest.startDate).toLocaleDateString("en-GB")}</p>
+        <p className="has-text-white">End Date: {new Date(everest.endDate).toLocaleDateString("en-GB")}</p>
+        <h3 className="title has-text-white is-5 mt-4">Milestones</h3>
         {everest.milestones?.length ? (
-            <ul className="content">
+            <ul className="content has-text-white">
             {everest.milestones.map((m) => (
                 <li key={m._id}>
                 <label className="checkbox">
@@ -30,7 +31,7 @@ function Everest({ everest, onToggleMilestone}) {
             ))}
             </ul>
         ) : (
-            <p>No milestones yet</p>
+            <p className="has-text-white">No milestones yet</p>
         )}
         </article>
     );
