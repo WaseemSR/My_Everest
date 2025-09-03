@@ -89,6 +89,49 @@ async function deleteEverest(req, res) {
     }
 }
 
+async function checkbox(req, res) {
+    try {
+        const { everestId, milestoneId } = req.params;
+
+        if (
+        !mongoose.Types.ObjectId.isValid(everestId) ||
+        !mongoose.Types.ObjectId.isValid(milestoneId)
+        ) {
+        return res.status(400).json({ message: "Invalid Everest or Milestone ID" });
+        }
+
+        // 2) Load Everest doc
+        const everest = await Everest.findById(everestId);
+        if (!everest) {
+        return res.status(404).json({ message: "Everest not found" });
+        }
+
+
+        // 4) Find the milestone
+        const milestone = everest.milestones.id(milestoneId);
+        if (!milestone) {
+        return res.status(404).json({ message: "Milestone not found" });
+        }
+
+        // 5) Toggle + save
+        milestone.completed = !milestone.completed;
+        await everest.save();
+
+
+        return res.status(200).json({
+        milestone: {
+            _id: milestone._id,
+            description: milestone.description,
+            completed: milestone.completed,
+        },
+        everestId: everest._id,
+        });
+    } catch (err) {
+        console.error("toggle milestone error:", err);
+        return res.status(500).json({ message: "Server error" });
+    }
+}
+
 
 const EverestsController = {
     getAllEverests: getAllEverests,
@@ -96,6 +139,7 @@ const EverestsController = {
     getUserEverests: getUserEverests,
     getEverestById: getEverestById,
     deleteEverest: deleteEverest,
+    checkbox: checkbox
 };
 
 module.exports = EverestsController;
