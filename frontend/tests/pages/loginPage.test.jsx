@@ -7,20 +7,20 @@ import { login } from "../../src/services/authentication";
 
 import { LoginPage } from "../../src/pages/Login/LoginPage";
 
-// Mocking React Router's useNavigate function
+// Mock React Router's useNavigate
 vi.mock("react-router-dom", () => {
   const navigateMock = vi.fn();
-  const useNavigateMock = () => navigateMock; // Create a mock function for useNavigate
+  const useNavigateMock = () => navigateMock;
   return { useNavigate: useNavigateMock };
 });
 
-// Mocking the login service
+// Mock login service
 vi.mock("../../src/services/authentication", () => {
   const loginMock = vi.fn();
   return { login: loginMock };
 });
 
-// Reusable function for filling out login form
+// Helper to fill and submit the form
 async function completeLoginForm() {
   const user = userEvent.setup();
 
@@ -38,17 +38,28 @@ describe("Login Page", () => {
     vi.resetAllMocks();
   });
 
+  test("renders email and password input fields and heading", () => {
+    render(<LoginPage />);
+    expect(screen.getByRole("heading", { name: /login/i })).toBeTruthy();
+    expect(screen.getByLabelText("Email:")).toBeTruthy();
+    expect(screen.getByLabelText("Password:")).toBeTruthy();
+    expect(screen.getByRole("submit-button")).toBeTruthy();
+  });
+
+  test("password input has type 'password'", () => {
+    render(<LoginPage />);
+    const passwordInput = screen.getByLabelText("Password:");
+    expect(passwordInput.getAttribute("type")).toBe("password");
+  });
+
   test("allows a user to login", async () => {
     render(<LoginPage />);
-
     await completeLoginForm();
-
     expect(login).toHaveBeenCalledWith("test@email.com", "1234");
   });
 
   test("navigates to /posts on successful login", async () => {
     render(<LoginPage />);
-
     login.mockResolvedValue("secrettoken123");
     const navigateMock = useNavigate();
 
@@ -59,12 +70,21 @@ describe("Login Page", () => {
 
   test("navigates to /login on unsuccessful login", async () => {
     render(<LoginPage />);
-
     login.mockRejectedValue(new Error("Error logging in"));
     const navigateMock = useNavigate();
 
     await completeLoginForm();
 
     expect(navigateMock).toHaveBeenCalledWith("/login");
+  });
+
+  test("submitting empty form calls login with empty strings", async () => {
+    render(<LoginPage />);
+    const submitButton = screen.getByRole("submit-button");
+    const user = userEvent.setup();
+
+    await user.click(submitButton);
+
+    expect(login).toHaveBeenCalledWith("", "");
   });
 });

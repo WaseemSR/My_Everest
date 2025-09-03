@@ -14,12 +14,20 @@ export function LoginPage() {
 
   async function handleSubmit(event) {
     event.preventDefault();
+
     try {
       const token = await login(email, password);
+      console.log("LoginPage", token)
+
+      //if (!token || token === "undefined") {
+        //throw new Error("No valid token received from server");
+      //}
+
       localStorage.setItem("token", token);
       navigate("/posts");
     } catch (err) {
-      console.error(err);
+      console.error("Login failed:", err.message);
+      localStorage.removeItem("token"); // clean up in case of bad login
       navigate("/login");
     }
   }
@@ -116,3 +124,4 @@ export function LoginPage() {
     </div>
   );
 }
+
