@@ -34,6 +34,7 @@ router.post("/", EverestsController.createEverest);
 router.get("/:id", EverestsController.getEverestById);
 router.delete("/:id", EverestsController.deleteEverest)
 router.patch("/:everestId/milestones/:milestoneId", EverestsController.checkbox);
+router.post("/:everestId/milestones", EverestsController.addMilestone)
 
 // POST create Everest with auth + file upload
 router.post(

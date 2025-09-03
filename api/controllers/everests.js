@@ -132,6 +132,34 @@ async function checkbox(req, res) {
     }
 }
 
+async function addMilestone(req, res) {
+    try {
+        const { everestId } = req.params;
+        const { description } = req.body;
+
+        // Validate inputs
+        if (!mongoose.Types.ObjectId.isValid(everestId) || !description || description.trim() === "") {
+        return res.status(400).json({ message: "Invalid Everest ID or description" });
+        }
+
+        // Load parent Everest
+        const everest = await Everest.findById(everestId);
+        if (!everest) {
+        return res.status(404).json({ message: "Everest not found" });
+        }
+
+        // Create + save new milestone
+        everest.milestones.push({ description: description.trim(), completed: false });
+        await everest.save();
+
+        // Return just the new milestone (nicer for the client)
+        const newMilestone = everest.milestones[everest.milestones.length - 1];
+        return res.status(201).json({ milestone: newMilestone, everestId: everest._id });
+    } catch (err) {
+        console.error("addMilestone error:", err);
+        return res.status(500).json({ message: "Server error" });
+    }
+}
 
 const EverestsController = {
     getAllEverests: getAllEverests,
@@ -139,7 +167,8 @@ const EverestsController = {
     getUserEverests: getUserEverests,
     getEverestById: getEverestById,
     deleteEverest: deleteEverest,
-    checkbox: checkbox
+    checkbox: checkbox,
+    addMilestone: addMilestone
 };
 
 module.exports = EverestsController;

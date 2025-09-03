@@ -75,6 +75,13 @@ export function EverestPage() {
     }
   };
 
+  function onMilestoneAdded(everestId, milestone) {
+  // everestId is the same as `id` on this page, but we keep the signature consistent
+  setEverest(prev =>
+    !prev ? prev : { ...prev, milestones: [...(prev.milestones || []), milestone] }
+  );
+}
+
   if (loading) return <div>Loading…</div>;
   if (error) return <div>{error}</div>;
   if (!everest) return <div>No Everest found</div>;
@@ -88,7 +95,7 @@ export function EverestPage() {
     <main className="is-flex-grow-1 p-5" style={{ backgroundColor: "#1b262c" }}>
 
     <div className="everest-container" style={{ maxWidth: "28rem", margin: "2.5rem auto" }}>
-       <Everest everest={everest} onToggleMilestone={toggleMilestone} />
+       <Everest everest={everest} onToggleMilestone={toggleMilestone} onMilestoneAdded={onMilestoneAdded}/>
     </div>
 
     </main>
