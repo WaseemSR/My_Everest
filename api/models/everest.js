@@ -1,23 +1,24 @@
 const mongoose = require("mongoose");
 
-const EverestSchema = new mongoose.Schema(
-  {
+const MilestoneSchema = new mongoose.Schema({
+        description: { type: String, required: true },
+        completed: { type: Boolean, default: false }
+}, { _id: true });
+
+const EverestSchema = new mongoose.Schema({
+
     name: { type: String, required: true },
     details: String,
     startDate: Date,
     endDate: Date,
-    milestone: String,
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: true, // link to creator
-    },
     photo: {
       type: String, // Path or URL to uploaded photo
     },
-  },
-  { timestamps: true }
-);
+
+    milestones: { type: [MilestoneSchema], default: [] },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }, // link to creator
+}, { timestamps: true });
+
 
 const Everest = mongoose.model("Everest", EverestSchema);
 

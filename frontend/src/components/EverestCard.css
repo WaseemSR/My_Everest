@@ -1,0 +1,19 @@
+
+
+.box.is-hoverable {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.box.is-hoverable:hover {
+    transform: scale(1.15);
+    box-shadow: 0 0 20px #ff865b; /* or use Bulma's default rgba for subtle */
+}
+
+.title.is-hoverable {
+    transition: transform 0.2s ease, title-shadow 0.2s ease;
+}
+.title.is-hoverable:hover {
+    transform: scale(1.15);
+
+}
+
+

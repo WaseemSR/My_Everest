@@ -12,6 +12,78 @@ a:hover {
   color: #535bf2;
 }
 
+.has-background-my-grey {
+  background-color: #1b262c !important;
+}
+
+.button.is-my-purple {
+  background-color: #b387fa;
+  border-color: #b387fa;
+  color: #fff;
+}
+
+.button.is-my-purple:hover {
+  background-color: #a374e0; /* slightly darker for hover effect */
+  border-color: #a374e0;
+}
+
+.is-my-purple {
+  color: #744fc0;
+}
+.is-my-purple:hover {
+  color: #5a38a0;
+}
+
+.button.is-my-green {
+  background-color: #73b783;   /* base color */
+  border-color: #73b783;
+  color: white;              /* dark text for contrast */
+}
+
+.button.is-my-green:hover {
+  background-color: #539764;   /* slightly darker shade */
+  border-color: #539764;
+  color: white;
+}
+
+.button.is-my-yellow {
+  background-color: #caa865;   /* base yellow */
+  border-color: #caa865;
+  color: white;              /* dark text for contrast */
+}
+
+.button.is-my-yellow:hover {
+  background-color: #a9854a;   /* slightly darker shade */
+  border-color: #a9854a;
+  color: white;
+}
+
+.navbar-item img {
+  max-height: none !important; /* remove Bulma's limit */
+}
+
+.navbar {
+  background-color: #091319 !important;
+}
+
+.button.is-my-orange {
+  background-color: #ff865b;
+  border-color: #ff865b;
+  color: white;
+  height: 3.5rem;          /* desired button height */
+  padding-left: 1.5rem;    /* keep horizontal spacing */
+  padding-right: 1.5rem;
+  
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.button.is-my-orange:hover {
+  background-color: #e6764e; /* slightly darker on hover */
+  border-color: #e6764e;
+  color: white;
+}
+
+
 /* body {
   margin: 0;
   display: flex;
@@ -25,4 +97,34 @@ a:hover {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+}
+
+.input-underline {
+  background-color: transparent; /* remove the box */
+  border: none;                  /* remove borders */
+  border-bottom: 2px solid #ccc; /* add underline */
+  border-radius: 0;              /* remove rounded corners */
+  padding-left: 0;
+  padding-right: 0;
+  width: 100%;
+  color: white; 
+  font-size: 1.2rem;  
+  transition: border-color 0.2s;
+}
+
+.input-underline:focus {
+  outline: none;
+  border-bottom-color: #ff865b; /* change underline color on focus */
+}
+
+.input-underline::placeholder {
+  color: white;
+  opacity: 1;
+}
+
+.form-label {
+  display: block;
+  text-align: left;
+  margin-bottom: 0.25rem;
+  font-weight: 500;
 }

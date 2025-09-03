@@ -1,6 +1,6 @@
 const express = require("express");
 const UsersController = require("../controllers/users");
-const EverestsController = require("../controllers/everest");
+const EverestsController = require("../controllers/everests");
 const router = express.Router();
 const tokenChecker = require("../middleware/tokenChecker");
 

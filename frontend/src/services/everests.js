@@ -18,6 +18,23 @@ export async function getEverests(token) {
     return data;
 }
 
+export async function getOneEverest(id, token) {
+    const requestOptions = {
+        method: "GET",
+        headers: {
+        Authorization: `Bearer ${token}`,
+        },
+    };
+
+    const response = await fetch(`${BACKEND_URL}/everests/${id}`, requestOptions);
+
+    if (response.status !== 200) {
+        throw new Error("Unable to fetch everest");
+    }
+    const data = await response.json();
+    return data;
+}
+
 // get users everests for their profile page
 export async function getUserEverests(userId, token) {
     const res = await fetch(`${BACKEND_URL}/users/${userId}/everests`, {
@@ -30,11 +47,10 @@ export async function getUserEverests(userId, token) {
     if (!res.ok) {
         throw new Error(`Failed to fetch user everests (status ${res.status})`);
     }
-  return res.json();
+    return res.json();
 }
 
-
-export async function createeverest(name, details, startDate, endDate, milestone,) {
+export async function createEverest(name, details, startDate, endDate, milestones,) {
 
     const token = localStorage.getItem("token"); 
     
@@ -43,7 +59,7 @@ export async function createeverest(name, details, startDate, endDate, milestone
         details: details,
         startDate: startDate,
         endDate: endDate,
-        milestone: milestone,
+        milestones: milestones,
     };
 
     const requestOptions = {

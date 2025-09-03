@@ -1,99 +1,227 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createeverest } from "../../services/everests";
+import { createEverest } from "../../services/everests";
 import "bulma/css/bulma.min.css";
 
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
+
 export function CreateEverestPage() {
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [details, setDetails] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [milestone, setMilestone] = useState("");
-  const navigate = useNavigate();
+  const [milestones, setMilestones] = useState([]);
+  const [newMilestoneDesc, setNewMilestoneDesc] = useState("");
 
-  async function handleSubmit(event) {
+  const [error, setError] = useState("");
+
+  const addMilestone = () => {
+    const desc = newMilestoneDesc.trim();
+    if (!desc) {
+      setError("Description cannot be empty");
+      return;
+    }
+    setError("");
+    setMilestones((prev) => [...prev, { description: desc, completed: false }]);
+    setNewMilestoneDesc("");
+  };
+
+  const removeMilestone = (index) => {
+    setMilestones((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const onMilestoneKeyDown = (event) => { // So you can create a milestone by hitting enter
+    if (event.key === "Enter") {
+      event.preventDefault();
+      addMilestone();
+    }
+  };
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    setError("");
+
+    if (!name.trim()) {
+      setError("Name is required.");
+      return;
+    }
+
+    const cleanedMilestones = milestones
+      .filter((m) => m?.description?.trim())
+      .map((m) => ({ description: m.description.trim(), completed: false }));
+
     try {
-      const token = localStorage.getItem("token");
-      await createeverest(name, details, startDate, endDate, milestone, token);
+      const res = await createEverest(
+        name.trim(),
+        details,
+        startDate || undefined,
+        endDate || undefined,
+        cleanedMilestones
+      );
+
+      if (res?.token) localStorage.setItem("token", res.token);
+
       navigate("/posts");
     } catch (err) {
-      console.error(err);
-      navigate("/createeverest");
+      console.error("Create everest failed:", err);
+      setError("Could not create Everest. Please try again.");
     }
-  }
-
-  function handleNameChange(event) {
-    setName(event.target.value);
-  }
-
-  function handleDetailsChange(event) {
-    setDetails(event.target.value);
-  }
-
-  function handleStartDateChange(event) {
-    setStartDate(event.target.value);
-  }
-
-  function handleEndDateChange(event) {
-    setEndDate(event.target.value);
-  }
-
-  function handleMilestoneChange(event) {
-    setMilestone(event.target.value);
-  }
-
+  };
 
   return (
-    <>
+    <div className="is-flex is-flex-direction-column" style={{ minHeight: "100vh" }}>
+      <Header showNav={true} />
 
-      <div className="box has-background-primary" >
-      <form onSubmit={handleSubmit}>
-        <h1 className="title is-1" >Create Your Own Everest</h1>
-        <label className="label is-medium" htmlFor="name">Name:</label>
-        <input className="control"
-          id="name"
-          type="text"
-          value={name}
-          onChange={handleNameChange}
-        /> 
-        <label className="label is-medium" htmlFor="details">Details:</label>
-        <div className="control">
-          <textarea
-            className="textarea is-medium"
-            placeholder="Please insert details here"
-            id="details"
-            value={details}
-            onChange={handleDetailsChange}
-          ></textarea>
-        </div> 
-        <label className="label is-medium" htmlFor="startDate">Start Date:</label>
-        <input className="control"
-          id="startDate"
-          type="date"
-          value={startDate}
-          onChange={handleStartDateChange}
-        />
-        <label className="label is-medium" htmlFor="endDate">End Date:</label>
-        <input className="control"
-          id="endDate"
-          type="date"
-          value={endDate}
-          onChange={handleEndDateChange}
-        /> 
-        <label className="label is-medium" htmlFor="milestone">Milestone:</label>
-        <input className="control"
-          id="milestone"
-          type="text"
-          value={milestone}
-          onChange={handleMilestoneChange}
-        /> <br /><br />
-        <div>
-        <input className="control" role="submit-button" id="submit" type="submit" value="Submit" />
-        </div>
-      </form>
+    <main className="is-flex-grow-1 p-5" style={{ backgroundColor: "#1b262c" }}>
+    <section className="section">
+      <div className="container">
+        <h1 className="title is-size-1 has-text-weight-light has-text-white">Create an Everest</h1>
+
+        {error && <div className="notification is-danger">{error}</div>}
+
+        <form onSubmit={handleSubmit}>
+          <div className="field">
+            <label className="label has-text-white">
+              Title
+            </label>
+            <div className="control">
+              <input
+                className="input"
+                type="text"
+                placeholder="What's the goal?"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+            </div>
+          </div>
+
+          <div className="field">
+            <label className="label has-text-white">Details</label>
+            <div className="control">
+              <textarea
+                className="textarea"
+                placeholder="What’s the plan?"
+                value={details}
+                onChange={(e) => setDetails(e.target.value)}
+              />
+            </div>
+          </div>
+
+          <div className="columns">
+            <div className="column">
+              <div className="field">
+                <label className="label has-text-white">Start date</label>
+                <div className="control">
+                  <input
+                    className="input"
+                    type="date"
+                    value={startDate}
+                    onChange={(e) => setStartDate(e.target.value)}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="column">
+              <div className="field">
+                <label className="label has-text-white">End date</label>
+                <div className="control">
+                  <input
+                    className="input"
+                    type="date"
+                    value={endDate}
+                    onChange={(e) => setEndDate(e.target.value)}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="field">
+            <label className="label has-text-white">Milestones</label>
+
+            <div className="field has-addons">
+              <div className="control is-expanded">
+                <input
+                  className="input"
+                  type="text"
+                  placeholder="Add a milestone..."
+                  value={newMilestoneDesc}
+                  onChange={(e) => setNewMilestoneDesc(e.target.value)}
+                  onKeyDown={onMilestoneKeyDown}
+                  aria-label="Milestone description"
+                />
+              </div>
+              <div className="control">
+                <button
+                  type="button"
+                  className="button is-link"
+                  onClick={addMilestone}
+                  disabled={!newMilestoneDesc.trim()}
+                >
+                  Add
+                </button>
+              </div>
+            </div>
+
+            {milestones.length > 0 ? (
+              <div className="box">
+                <div className="content">
+                  <ol>
+                    {milestones.map((milestone, i) => (
+                      <li
+                        key={`${milestone.description}-${i}`}
+                        style={{
+                          borderBottom: i < milestones.length - 1 ? "1px solid #f0f0f0" : "none",
+                          padding: "0.5rem"
+                        }}
+                      >
+                        <div className="level is-mobile">
+                          <div className="level-left">
+                            <span>{milestone.description}</span>
+                          </div>
+                          <div className="level-right">
+                            <button
+                              type="button"
+                              className="button is-my-purple is-small is-light is-danger"
+                              onClick={() => removeMilestone(i)}
+                              aria-label={`Remove milestone ${i + 1}: ${milestone.description}`}
+                            >
+                              Remove
+                            </button>
+                          </div>
+                        </div>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              </div>
+            ) : (
+              <p className="has-text-white">No milestones added yet</p>
+            )}
+          </div>
+
+          <div className="field is-grouped">
+            <div className="control">
+              <button className="button is-my-green" type="submit">
+                Create
+              </button>
+            </div>
+            <div className="control">
+              <button className="button is-my-yellow" type="button" onClick={() => navigate(-1)}>
+                Cancel
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
+    </section>
+    
+    </main>
 
-    </>
+    <Footer />
+    </div>
   );
 }

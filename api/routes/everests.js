@@ -1,12 +1,13 @@
 const express = require("express");
 const router = express.Router();
 
-const EverestsController = require("../controllers/everest");
+const EverestsController = require("../controllers/everests");
 const tokenChecker = require("../middleware/tokenChecker");
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 const uploadPath = path.join(__dirname, "..", "uploads");
+
 
 //  Ensure the uploads directory exists
 if (!fs.existsSync(uploadPath)) {
@@ -29,6 +30,10 @@ const upload = multer({ storage });
 
 //  GET all Everests
 router.get("/", EverestsController.getAllEverests);
+router.post("/", EverestsController.createEverest);
+router.get("/:id", EverestsController.getEverestById);
+router.delete("/:id", EverestsController.deleteEverest)
+
 
 // POST create Everest with auth + file upload
 router.post(

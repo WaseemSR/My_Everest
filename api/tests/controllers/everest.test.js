@@ -38,7 +38,7 @@ describe("/everests", () => {
     afterEach(async () => {
         await User.deleteMany({});
         await Everest.deleteMany({});
-});
+    });
 
     describe("POST, when a valid token is present", () => {
         test("responds with a 201", async () => {
@@ -71,11 +71,40 @@ describe("/everests", () => {
         const newTokenDecoded = JWT.decode(newToken, process.env.JWT_SECRET);
         const oldTokenDecoded = JWT.decode(token, process.env.JWT_SECRET);
 
-        // iat stands for issued at
         expect(newTokenDecoded.iat > oldTokenDecoded.iat).toEqual(true);
         });
-    });
 
+        test("creates an everest with multiple milestones; missing 'completed' defaults to false", async () => {
+        const payload = {
+            name: "Climb a big hill",
+            details: "I'm going to climb a massive hill",
+            startDate: "2025-01-01",
+            endDate: "2025-12-31",
+            milestones: [
+            { description: "buy boots" },
+            { description: "book guide", completed: true },
+            ],
+        };
+
+        const response = await request(app)
+            .post("/everests")
+            .set("Authorization", `Bearer ${token}`)
+            .send(payload);
+
+        expect(response.status).toBe(201);
+
+        const saved = await Everest.findOne({
+            user: user.id,
+            name: "Climb a big hill",
+        });
+        expect(saved).toBeTruthy();
+        expect(saved.milestones).toHaveLength(2);
+        expect(saved.milestones[0].description).toEqual("buy boots");
+        expect(saved.milestones[0].completed).toEqual(false);
+        expect(saved.milestones[1].description).toEqual("book guide");
+        expect(saved.milestones[1].completed).toEqual(true);
+        });
+    });
 
     describe("POST, when token is missing", () => {
         test("responds with a 401", async () => {
@@ -87,9 +116,7 @@ describe("/everests", () => {
         });
 
         test("an everest is not created", async () => {
-        const response = await request(app)
-            .post("/everests")
-            .send({ name: "Guitar" });
+        await request(app).post("/everests").send({ name: "Guitar" });
 
         const everests = await Everest.find();
         expect(everests.length).toEqual(0);
@@ -137,7 +164,7 @@ describe("/everests", () => {
         });
 
         test("returns a new token", async () => {
-        const everest1 = new Everest({ name: "Japan", user: user.id});
+        const everest1 = new Everest({ name: "Japan", user: user.id });
         const everest2 = new Everest({ name: "Karate", user: user.id });
         await everest1.save();
         await everest2.save();
@@ -150,7 +177,6 @@ describe("/everests", () => {
         const newTokenDecoded = JWT.decode(newToken, process.env.JWT_SECRET);
         const oldTokenDecoded = JWT.decode(token, process.env.JWT_SECRET);
 
-        // iat stands for issued at
         expect(newTokenDecoded.iat > oldTokenDecoded.iat).toEqual(true);
         });
     });
@@ -158,7 +184,7 @@ describe("/everests", () => {
     describe("GET, when token is missing", () => {
         test("the response code is 401", async () => {
         const everest1 = new Everest({ name: "Guitar", user: user.id });
-        const everest2 = new Everest({ name: "Everest", user: user.id});
+        const everest2 = new Everest({ name: "Everest", user: user.id });
         await everest1.save();
         await everest2.save();
 
@@ -168,7 +194,7 @@ describe("/everests", () => {
         });
 
         test("returns no everests", async () => {
-        const everest1 = new Everest({ name: "Guitar", user: user.id});
+        const everest1 = new Everest({ name: "Guitar", user: user.id });
         const everest2 = new Everest({ name: "Everest", user: user.id });
         await everest1.save();
         await everest2.save();
@@ -190,5 +216,106 @@ describe("/everests", () => {
         });
     });
 
+  // --- DELETE /everests/:id ---
+    describe("DELETE, when token is present", () => {
+        test("responds with a 200 and deletes the everest", async () => {
+        const ev = await Everest.create({ name: "To delete", user: user.id });
+
+        const response = await request(app)
+            .delete(`/everests/${ev._id}`)
+            .set("Authorization", `Bearer ${token}`);
+
+            expect(response.status).toBe(200);
+            expect(response.body).toEqual({ message: "Everest deleted" });
+
+            const remaining = await Everest.findById(ev._id);
+            expect(remaining).toBeNull();
+        });
+
+        test("responds with 400 for invalid id", async () => {
+            const response = await request(app)
+                .delete(`/everests/123`)
+                .set("Authorization", `Bearer ${token}`);
+
+            expect(response.status).toBe(400);
+            expect(response.body).toEqual({ message: "Invalid Everest ID!" });
+        });
+
+        test("responds with 404 when the everest does not exist", async () => {
+            const missingId = new Everest()._id.toString();
+            const response = await request(app)
+                .delete(`/everests/${missingId}`)
+                .set("Authorization", `Bearer ${token}`);
+
+            expect(response.status).toBe(404);
+            expect(response.body).toEqual({ message: "Everest not found!" });
+        });
+    });
+    // --- GET /everests/:id ---
+    describe("GET by id, when token is present", () => {
+    test("200: returns the specific everest and a new token", async () => {
+        // Arrange: create one to fetch
+        const ev = await Everest.create({
+        name: "Find me",
+        details: "Peekaboo",
+        user: user.id,
+        });
+
+        // Act
+        const response = await request(app)
+        .get(`/everests/${ev._id}`)
+        .set("Authorization", `Bearer ${token}`);
+
+        // Assert
+        expect(response.status).toBe(200);
+        expect(response.body.everest).toBeDefined();
+        expect(response.body.everest._id).toEqual(String(ev._id));
+        expect(response.body.everest.name).toEqual("Find me");
+
+        // token refresh check (same style as your other tests)
+        const newToken = response.body.token;
+        const newDecoded = JWT.decode(newToken, process.env.JWT_SECRET);
+        const oldDecoded = JWT.decode(token, process.env.JWT_SECRET);
+        expect(newDecoded.iat > oldDecoded.iat).toBe(true);
+    });
+
+    test("400: invalid ObjectId returns error", async () => {
+        const response = await request(app)
+        .get("/everests/not-a-valid-id")
+        .set("Authorization", `Bearer ${token}`);
+
+        expect(response.status).toBe(400);
+        expect(response.body).toEqual({ message: "Invalid Everest ID" });
+    });
+
+    test("404: valid ObjectId but not found", async () => {
+        const missingId = new Everest()._id.toString(); // valid, not saved
+        const response = await request(app)
+        .get(`/everests/${missingId}`)
+        .set("Authorization", `Bearer ${token}`);
+
+        expect(response.status).toBe(404);
+        expect(response.body).toEqual({ message: "Everest not found" });
+    });
+    });
+
+    describe("GET by id, when token is missing", () => {
+    test("401: unauthorized", async () => {
+        const ev = await Everest.create({ name: "Auth needed", user: user.id });
+
+        const response = await request(app).get(`/everests/${ev._id}`);
+
+        expect(response.status).toBe(401);
+    });
+
+    test("does not return a token or everest", async () => {
+        const ev = await Everest.create({ name: "Still private", user: user.id });
+
+        const response = await request(app).get(`/everests/${ev._id}`);
+
+        expect(response.body.token).toBeUndefined();
+        expect(response.body.everest).toBeUndefined();
+    });
+    });
 
 });
