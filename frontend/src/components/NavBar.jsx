@@ -10,14 +10,16 @@ function NavBar() {
       <div className="navbar-end">
 
         {/* Show Home button only on Profile, Create Everest, and Everest pages */}
-        {(path === "/profile" || path === "/createeverest" || path === "/everest") && (
+        {(path === "/profile" || path === "/createeverest" || path.startsWith("/everests")) && (
           <Link to="/posts" className="navbar-item button is-my-orange mr-5">
             Home
           </Link>
         )}
 
+
+
         {/* Show My Profile Button only on home/feedpage/posts, Everest and Create Everest */}
-        {(path === "/posts" || path === "/createeverest" || path === "/everest") && (
+        {(path === "/posts" || path === "/createeverest" || path.startsWith("/everests")) && (
           <Link to="/profile" className="navbar-item button is-my-orange mr-5">
             My Profile
           </Link>
@@ -45,7 +47,7 @@ function NavBar() {
         )}
 
         {/* Show Log Out Button only on home/feedpage/posts, Everest, Create Everest and My Profile pages  */}
-        {(path === "/posts" || path === "/profile" || path === "/createeverest" || path === "/everest") && (
+        {(path === "/posts" || path === "/profile" || path === "/createeverest" || path.startsWith("/everests")) && (
           <div className="navbar-item button is-my-orange mr-5">
             <LogoutButton />
           </div>

@@ -38,3 +38,25 @@ describe("Home Page", () => {
     expect(loginLink.getAttribute("href")).toEqual("/login");
   });
 });
+
+test("renders the Header component", () => {
+  render(
+    <BrowserRouter>
+      <HomePage />
+    </BrowserRouter>
+  );
+
+  const header = screen.getByRole("banner");
+  expect(header).not.toBeNull();
+});
+
+test("renders the Footer component", () => {
+  render(
+    <BrowserRouter>
+      <HomePage />
+    </BrowserRouter>
+  );
+
+  const footer = screen.getByRole("contentinfo");
+  expect(footer).not.toBeNull();
+});

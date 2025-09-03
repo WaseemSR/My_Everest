@@ -157,7 +157,7 @@ export function CreateEverestPage() {
               <div className="control">
                 <button
                   type="button"
-                  className="button is-link"
+                  className="button is-link" style={{ backgroundColor: "#addfad", color: "#1b262c", border: "none"}}
                   onClick={addMilestone}
                   disabled={!newMilestoneDesc.trim()}
                 >

@@ -27,6 +27,7 @@ export function FeedPage() {
       getEverests(token)
         .then((data) => {
           setEverests(data.everests);
+          console.log("FeedPage", data.token)
           localStorage.setItem("token", data.token);
         })
         .catch((err) => {
@@ -48,7 +49,7 @@ export function FeedPage() {
       <Header showNav={true} />
 
       
-        <main className="is-flex-grow-1 p-5" style={{ backgroundColor: "#1b262c" }}>
+        <main className="is-flex-grow-1" style={{ backgroundColor: "#1b262c" }}>
           <h1 className="is-size-1 has-text-weight-light mt-6 mb-6 has-text-white">Explore Everests</h1>     {/*  This is the small bit added for the everests to be seen on feedpage */}
           <div className="columns is-multiline equal-columns">
             {everests.map((ev) => (

@@ -4,6 +4,11 @@ import { getOneEverest } from "../../services/everests";
 import Everest from "../../components/Everest";
 import CommentsSection from "../../components/CommentsSection";
 
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
+
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
 export function EverestPage() {
   const { id } = useParams(); // 👈 grab /everests/:id from the URL
   const [everest, setEverest] = useState(null);
@@ -28,14 +33,77 @@ export function EverestPage() {
     load();
   }, [id]);
 
+    const toggleMilestone = async (mid, nextCompleted) => {
+    // optimistic UI
+    setEverest(prev => ({
+      ...prev,
+      milestones: prev.milestones.map(m =>
+        m._id === mid ? { ...m, completed: nextCompleted } : m
+      ),
+    }));
+
+    try {
+      const token = localStorage.getItem("token");
+      const res = await fetch(`${BACKEND_URL}/everests/${id}/milestones/${mid}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ completed: nextCompleted }),
+      });
+
+      if (!res.ok) {
+        // rollback
+        setEverest(prev => ({
+          ...prev,
+          milestones: prev.milestones.map(m =>
+            m._id === mid ? { ...m, completed: !nextCompleted } : m
+          ),
+        }));
+        const data = await res.json().catch(() => ({}));
+        console.error("Update failed:", data.message || res.statusText);
+      }
+    } catch (e) {
+      // rollback
+      setEverest(prev => ({
+        ...prev,
+        milestones: prev.milestones.map(m =>
+          m._id === mid ? { ...m, completed: !nextCompleted } : m
+        ),
+      }));
+      console.error("Network error:", e);
+    }
+  };
+
+  function onMilestoneAdded(everestId, milestone) {
+  // everestId is the same as `id` on this page, but we keep the signature consistent
+  setEverest(prev =>
+    !prev ? prev : { ...prev, milestones: [...(prev.milestones || []), milestone] }
+  );
+}
+
   if (loading) return <div>Loading…</div>;
   if (error) return <div>{error}</div>;
   if (!everest) return <div>No Everest found</div>;
 
+  
   return (
-    <div className="everest-container">
-      <Everest everest={everest} />
-      <CommentsSection everestId={everest._id} />
+
+
+    <div className="is-flex is-flex-direction-column" style={{ minHeight: "100vh" }}>
+    <Header showNav={true} />
+    
+    <main className="is-flex-grow-1 p-5" style={{ backgroundColor: "#1b262c" }}>
+
+    <div className="everest-container" style={{ maxWidth: "28rem", margin: "2.5rem auto" }}>
+       <Everest everest={everest} onToggleMilestone={toggleMilestone} onMilestoneAdded={onMilestoneAdded}/>
+         <CommentsSection everestId={everest._id} />
+    </div>
+
+    </main>
+    <Footer />
+
     </div>
   );
 }
