@@ -7,6 +7,6 @@ router.get("/", EverestsController.getAllEverests);
 router.post("/", EverestsController.createEverest);
 router.get("/:id", EverestsController.getEverestById);
 router.delete("/:id", EverestsController.deleteEverest)
-
+router.patch("/:everestId/milestones/:milestoneId", EverestsController.checkbox);
 
 module.exports = router;

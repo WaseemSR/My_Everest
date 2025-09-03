@@ -31,6 +31,8 @@ function EverestCard({ everest, onDelete, showDelete }) {
       console.error("Delete request error:", err);
     }
   };
+
+  
 return (
 
     <div className="column is-one-third">
