@@ -1,6 +1,8 @@
 const Comment = require("../models/comment");
 const Everest = require("../models/everest");
 const { generateToken } = require("../lib/token");
+const mongoose = require("mongoose");
+const { ObjectId } = mongoose.Types;
 
 // POST /comments
 const createComment = async (req, res) => {

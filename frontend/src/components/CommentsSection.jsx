@@ -24,7 +24,8 @@ export default function CommentsSection({ everestId }) {
 
   // Fetch comments whenever the target Everest changes
   useEffect(() => {
-    if (!everestId) return;
+      if (!everestId) return;
+      const token = localStorage.getItem("token");
 
     const fetchComments = async () => {
       try {
