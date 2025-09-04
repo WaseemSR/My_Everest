@@ -1,5 +1,6 @@
 import { useState } from "react";
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+import User from "./User";
 
 
 function Everest({ everest, onMilestoneAdded, onToggleMilestone}) {
@@ -40,11 +41,13 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone}) {
     return (
         <article>
         <h2 className="is-size-1 has-text-weight-light has-text-white mt-6 mb-6">{everest.name}</h2>
+        <div className="box has-text-primary"><User user={everest.user} /></div>
         <p className="box title is-5 has-text-weight-normal has-text-white mb-5" style={{ backgroundColor: "rgba(0, 0, 0, 0.6)", maxWidth: "70rem", margin: "2.5rem auto" }} >{everest.details}</p>
 
         <div className="box" style={{ backgroundColor: "rgba(0, 0, 0, 0.6)", maxWidth: "28rem", margin: "2.5rem auto" }}>
             <h3 className="title is-3 has-text-white mt-4 has-text-weight-normal">Milestones</h3>
         <p className="title is-5 has-text-white mb-4 has-text-weight-normal">Start Date: {new Date(everest.startDate).toLocaleDateString("en-GB")}</p> <hr /> {/* creating line underneath startdate */}
+
         {everest.milestones?.length ? (
             <ol className="content has-text-white has-text-left p-3 title is-5 has-text-weight-normal">
             {everest.milestones.map((m) => (
