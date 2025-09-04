@@ -101,7 +101,7 @@ async function checkbox(req, res) {
         }
 
         // 2) Load Everest doc
-        const everest = await Everest.findById(everestId);
+        const everest = await Everest.findOne({ _id: everestId, user: req.user_id });
         if (!everest) {
         return res.status(404).json({ message: "Everest not found" });
         }
