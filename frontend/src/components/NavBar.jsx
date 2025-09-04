@@ -46,6 +46,20 @@ function NavBar() {
           </Link>
         )}
 
+        {/* Show About button only on the Homepage (first page) */}
+        {path === "/" && (
+          <Link to="/about" className="navbar-item button is-my-orange mr-5">
+            About
+          </Link>
+        )}
+
+        {/* Show Home button only on the About page */}
+        {path === "/about" && (
+          <Link to="/" className="navbar-item button is-my-orange mr-5">
+            Home
+          </Link>
+        )}
+
         {/* Show Log Out Button only on home/feedpage/posts, Everest, Create Everest and My Profile pages  */}
         {(path === "/posts" || path === "/profile" || path === "/createeverest" || path.startsWith("/everests")) && (
           <div className="navbar-item button is-my-orange mr-5">
