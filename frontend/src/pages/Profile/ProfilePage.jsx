@@ -80,14 +80,45 @@ export function ProfilePage({onDelete}) {
   if (error) return <div>{error}</div>;
 
   return (
-    <div>
+    <div className="is-flex is-flex-direction-column" style={{ minHeight: "100vh" }}>
+      {/* <video
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          zIndex: -1, // sit behind all content
+        }}
+        autoPlay
+        loop
+        muted
+        playsInline
+      >
+        <source src="/skydive2.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video> */}
+      <img
+    src="/skyimage.png"
+    alt="Background"
+    style={{
+      position: "fixed",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      objectFit: "cover",
+      zIndex: -1, // sit behind all content
+    }}
+  />
     <Header showNav={true} />
-    <main className="p-6" style={{ backgroundColor: "#1b262c" }}>
+    <main className="p-6">
 
       <h1 className="title has-text-white is-size-1 has-text-weight-light">{user.fullName}'s Page of Everests</h1>
       <div className="is-flex is-justify-content-center">
-        <div className="box is-hoverable is-size-4" style={{ maxWidth: "700px", height: "250px", overflowY: "auto", backgroundColor: "#f1c892" }}>
-          <p className="title is-3" >The story of {user.fullName}</p>
+        <div className="box  is-hoverable is-size-4" style={{ maxWidth: "700px", height: "250px", overflowY: "auto", backgroundColor: "rgba(241, 200, 146, 0.6)" }}>
+          <p className="title has-text-weight-normal " >The story of {user.fullName}</p>
           {user.bio && <p>{user.bio}</p>}
         </div>
       </div>
@@ -96,7 +127,7 @@ export function ProfilePage({onDelete}) {
 
       <h2 className="title has-text-white is-size-1 has-text-weight-light">Everests</h2>
 
-      <button className="button is-my-green"><Link to="/createeverest" className="button is-my-green">Create New Everest</Link></button>
+      <button><Link to="/createeverest" className="button is-my-green">Create New Everest</Link></button>
       
       <br /><br />
 

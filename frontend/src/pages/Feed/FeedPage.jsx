@@ -27,7 +27,6 @@ export function FeedPage() {
       getEverests(token)
         .then((data) => {
           setEverests(data.everests);
-          console.log("FeedPage", data.token)
           localStorage.setItem("token", data.token);
         })
         .catch((err) => {
@@ -45,12 +44,27 @@ export function FeedPage() {
 
   return (
     <div className="is-flex is-flex-direction-column" style={{ minHeight: "100vh" }}>
+      
+      <img
+        src="/collage.png"
+        alt="Background"
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          opacity: 0.8,
+          zIndex: -1, // sit behind all content
+        }}
+      />
 
       <Header showNav={true} />
 
       
-        <main className="is-flex-grow-1" style={{ backgroundColor: "#1b262c" }}>
-          <h1 className="is-size-1 has-text-weight-light mt-6 mb-6 has-text-white">Explore Everests</h1>     {/*  This is the small bit added for the everests to be seen on feedpage */}
+        <main className="is-flex-grow-1 p-5">
+          <h1 className="is-size-1 has-text-weight-normal mt-6 mb-6 has-text-white">Explore Everests</h1>     {/*  This is the small bit added for the everests to be seen on feedpage */}
           <div className="columns is-multiline equal-columns">
             {everests.map((ev) => (
               <EverestCard key={ev._id} everest={ev} />

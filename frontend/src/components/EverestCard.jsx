@@ -56,15 +56,15 @@ return (
     )}
 
     <article
-      className="box is-hoverable"
+      className="box is-hoverable has-text-weight-normal"
       style={{
         minHeight: "300px",
         maxHeight: "300px",
         overflowY: "auto",
-        backgroundColor: isComplete ? "#addfad" : "#f1c892",
+        backgroundColor: isComplete ? "rgba(173, 223, 173, 0.8)" : "rgba(241, 200, 146, 0.8)",
       }}
     >
-      <h2 className="title is-3 pr-6 pl-6">{everest.name}</h2>
+      <h2 className="title is-3 pr-6 pl-6 has-text-weight-normal">{everest.name}</h2>
 
       <hr style={{ border: "none", borderTop: "3px solid #1b262c" }} />
       <p className="is-size-5">{everest.details}</p>
