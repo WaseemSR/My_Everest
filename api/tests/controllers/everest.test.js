@@ -4,6 +4,7 @@ const JWT = require("jsonwebtoken");
 const app = require("../../app");
 const Everest = require("../../models/everest");
 const User = require("../../models/user");
+const EverestsController = require("../../controllers/everests");
 
 require("../mongodb_helper");
 

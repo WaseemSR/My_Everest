@@ -7,9 +7,9 @@ function User ({ user}) {
 
     return (
         <article>
-            <div>
-                <p>{user.fullName}</p>
-                <p>{user.bio}</p>
+            <div >
+                <h2 className="title is-3 has-text-white has-text-weight-normal">{user.fullName}</h2>
+                {/* <p>{user.bio}</p> */}
             </div>
         </article>
 )}
