@@ -76,6 +76,10 @@ const updateComment = async (req, res) => {
     const { id } = req.params;
     const { content } = req.body;
 
+    if (!ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid comment ID" });
+    }
+
     const comment = await Comment.findById(id);
 
     if (!comment) {
