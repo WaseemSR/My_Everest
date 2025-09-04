@@ -3,7 +3,7 @@ const { generateToken } = require("../lib/token");
 const mongoose = require("mongoose");
 
 async function getAllEverests(req, res) {
-    const everests = await Everest.find();
+    const everests = await Everest.find().populate("user", "fullName bio");;
     const token = generateToken(req.user_id);
     res.status(200).json({ everests: everests, token: token });
 }
@@ -56,7 +56,7 @@ async function getEverestById(req, res) {
         return res.status(400).json({ message: "Invalid Everest ID" });
         }
 
-        const everest = await Everest.findById(id);
+        const everest = await Everest.findById(id).populate("user", "fullName bio");;
         if (!everest) {
         return res.status(404).json({ message: "Everest not found" });
         }

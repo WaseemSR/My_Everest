@@ -1,5 +1,6 @@
 import { useState } from "react";
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+import User from "./User";
 
 
 function Everest({ everest, onMilestoneAdded, onToggleMilestone}) {
@@ -40,6 +41,7 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone}) {
     return (
         <article>
         <h2 className="is-size-1 has-text-weight-light has-text-white mt-6 mb-6">{everest.name}</h2>
+        <div className="box has-text-primary"><User user={everest.user} /></div>
         <p className="is-size-5 has-text-weight-light has-text-white mb-5">{everest.details}</p>
         <div className="box" style={{ backgroundColor: "#94a0a9" }}>
             <h3 className="title is-3 has-text-white mt-4">Milestones</h3>
