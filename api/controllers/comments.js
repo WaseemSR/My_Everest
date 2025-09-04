@@ -28,12 +28,9 @@ const createComment = async (req, res) => {
     });
 
     await comment.save();
-
+    const populated = await comment.populate("author", "fullName email");
     const newToken = generateToken(req.user_id);
-    res.status(201).json({
-      comment,
-      token: newToken,
-    });
+    res.status(201).json({ comment: populated, token: newToken });
   } catch (error) {
     if (error.name === "ValidationError") {
       return res.status(400).json({
@@ -56,8 +53,8 @@ const getCommentsByEverest = async (req, res) => {
     }
 
     const comments = await Comment.find({ everest: everestId })
-      .populate("author", "email")
-      .sort({ createdAt: 1 }); // oldest first (Acebook style)
+      .populate("author", "fullName email")
+      .sort({ createdAt: 1 });
 
     const newToken = generateToken(req.user_id);
     res.status(200).json({
@@ -89,9 +86,9 @@ const updateComment = async (req, res) => {
 
     comment.content = content;
     await comment.save();
-
+    const populated = await comment.populate("author", "fullName email");
     const newToken = generateToken(req.user_id);
-    res.status(200).json({ comment, token: newToken });
+    res.status(200).json({ comment: populated, token: newToken });
   } catch (error) {
     res.status(500).json({ message: "Error updating comment" });
   }
