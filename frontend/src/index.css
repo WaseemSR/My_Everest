@@ -128,3 +128,11 @@ h1 {
   margin-bottom: 0.25rem;
   font-weight: 500;
 }
+
+.button.is-my-orange:disabled {
+  background-color: #ff914d;  /* your orange */
+  opacity: 0.5;               /* makes it look "grayed out" */
+  cursor: not-allowed;        /* shows disabled cursor */
+  border-color: #ff914d;      /* match border */
+  color: white;               /* text color */
+}
