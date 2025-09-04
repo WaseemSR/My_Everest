@@ -41,7 +41,7 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone}) {
     return (
         <article>
         <h2 className="is-size-1 has-text-weight-light has-text-white mt-6 mb-6">{everest.name}</h2>
-        <div className="box has-text-primary"><User user={everest.user} /></div>
+        <div className="mb-5"><User user={everest.user} /></div>
         <p className="box title is-5 has-text-weight-normal has-text-white mb-5" style={{ backgroundColor: "rgba(0, 0, 0, 0.6)", maxWidth: "70rem", margin: "2.5rem auto" }} >{everest.details}</p>
 
         <div className="box" style={{ backgroundColor: "rgba(0, 0, 0, 0.6)", maxWidth: "28rem", margin: "2.5rem auto" }}>
