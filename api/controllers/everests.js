@@ -3,7 +3,7 @@ const { generateToken } = require("../lib/token");
 const mongoose = require("mongoose");
 
 async function getAllEverests(req, res) {
-    const everests = await Everest.find().populate("user", "fullName bio");;
+    const everests = await Everest.find().populate("user", "fullName bio").sort({ createdAt: -1, _id: -1 });
     const token = generateToken(req.user_id);
     res.status(200).json({ everests: everests, token: token });
 }
