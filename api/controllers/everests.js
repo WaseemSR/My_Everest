@@ -143,7 +143,7 @@ async function addMilestone(req, res) {
         }
 
         // Load parent Everest
-        const everest = await Everest.findById(everestId);
+        const everest = await Everest.findOne({ _id: everestId, user: req.user_id });
         if (!everest) {
         return res.status(404).json({ message: "Everest not found" });
         }
