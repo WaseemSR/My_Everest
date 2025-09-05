@@ -20,7 +20,7 @@ const EverestSchema = new mongoose.Schema({
     comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
 }, { timestamps: true });
 
-
+EverestSchema.index({ createdAt: -1 });
 const Everest = mongoose.model("Everest", EverestSchema);
 
 module.exports = Everest;
