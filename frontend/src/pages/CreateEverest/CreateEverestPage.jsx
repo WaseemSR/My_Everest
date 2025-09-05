@@ -63,7 +63,7 @@ export function CreateEverestPage() {
 
       if (res?.token) localStorage.setItem("token", res.token);
 
-      navigate("/posts");
+      navigate("/profile");
     } catch (err) {
       console.error("Create everest failed:", err);
       setError("Could not create Everest. Please try again.");
