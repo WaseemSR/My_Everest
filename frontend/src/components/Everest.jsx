@@ -7,10 +7,12 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone}) {
     if (!everest) return null;
 
     const [newDescription, setNewDescription] = useState("");
+    const [newDate, setNewDate] = useState("");
 
     const handleAddMilestone = async (e) => {
         e.preventDefault();
         const desc = newDescription.trim();
+        const date = newDate;
         if (!desc) return;
 
         try {
@@ -21,7 +23,7 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone}) {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
             },
-            body: JSON.stringify({ description: desc }),
+            body: JSON.stringify({ description: desc, date: date }),
         });
 
         if (!res.ok) {
@@ -32,7 +34,8 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone}) {
 
         const { milestone } = await res.json(); // per your controller suggestion
         onMilestoneAdded?.(everest._id, milestone);
-        setNewDescription("");
+        setNewDescription(""),
+        setNewDate("");
         } catch (err) {
         console.error("request error:", err);
         }
@@ -88,7 +91,13 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone}) {
                     value={newDescription}
                     onChange={(e) => setNewDescription(e.target.value)}
                 /> 
-                
+                <input
+                    className="input"
+                    type="date"
+                    placeholder="Date to be completed..."
+                    value={newDescription}
+                    onChange={(e) => setNewDescription(e.target.value)}
+                /> 
                 </div>
                 <div className="control">
                 <button
