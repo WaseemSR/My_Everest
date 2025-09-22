@@ -42,24 +42,19 @@ export function LoginPage() {
 
   return (
     <div className="is-flex is-flex-direction-column" style={{ minHeight: "100vh" }}>
-      <video
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          zIndex: -1, // sit behind all content
-        }}
-        autoPlay
-        loop
-        muted
-        playsInline
-      >
-        <source src="/Mountain_Range.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+      <img
+    src="/my_everest_background.png"
+    alt="Background"
+    style={{
+      position: "fixed",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      objectFit: "cover",
+      zIndex: -1, 
+    }}
+  />
 
       {/* Header pinned to the top */}
       <Header showNav={true} />
