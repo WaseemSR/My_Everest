@@ -34,7 +34,7 @@ async function create(req, res) {
       }
       res.json({ user });
       } catch (err) {
-        console.error("getProfile eroor:", err);
+        console.error("getProfile error:", err);
         res.status(500).json({ message: "Failed to fetch profile" });
     }
   }
