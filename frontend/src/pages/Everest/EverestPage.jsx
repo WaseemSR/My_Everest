@@ -92,28 +92,10 @@ export function EverestPage() {
 
     <div className="is-flex is-flex-direction-column" style={{ minHeight: "100vh" }}>
     
-    <video
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          zIndex: -1, // sit behind all content
-        }}
-        autoPlay
-        loop
-        muted
-        playsInline
-      >
-        <source src="/forest.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
 
     <Header showNav={true} />
     
-    <main className="is-flex-grow-1 p-5">
+    <main className="is-flex-grow-1 p-5" style={{ backgroundColor: "#1b262c" }}>
 
     <div>
        <Everest everest={everest} onToggleMilestone={toggleMilestone} onMilestoneAdded={onMilestoneAdded}/>
