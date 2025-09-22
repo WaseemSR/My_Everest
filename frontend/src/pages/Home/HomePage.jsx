@@ -11,24 +11,19 @@ export function HomePage() {
       className="is-flex is-flex-direction-column"
       style={{ minHeight: "100vh", position: "relative" }} // ✅ Made this relative
     >
-      <video
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          zIndex: -1, // Background video stays behind
-        }}
-        autoPlay
-        loop
-        muted
-        playsInline
-      >
-        <source src="/Mountain_Range.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+      <img
+    src="/my_everest_background.png"
+    alt="Background"
+    style={{
+      position: "fixed",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      objectFit: "cover",
+      zIndex: -1, 
+    }}
+  />
 
       {/* Header pinned to the top */}
       <Header showNav={true} />
