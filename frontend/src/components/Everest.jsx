@@ -63,7 +63,8 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone}) {
                     className={m.completed ? "is-size-5 has-text-white" : ""}
                     style={{ flex: 1, paddingRight: "0.5rem" }}
                     >
-                    {m.description}
+                    {m.description} - {m.date}
+                    
                     </span>
 
                     <input
@@ -85,7 +86,7 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone}) {
                 >
                 <div className="control is-expanded">
                 <input
-                    className="input"
+                    className="input pd-5"
                     type="text"
                     placeholder="New milestone…"
                     value={newDescription}
@@ -95,8 +96,8 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone}) {
                     className="input"
                     type="date"
                     placeholder="Date to be completed..."
-                    value={newDescription}
-                    onChange={(e) => setNewDescription(e.target.value)}
+                    value={newDate}
+                    onChange={(e) => setNewDate(e.target.value)}
                 /> 
                 </div>
                 <div className="control">
