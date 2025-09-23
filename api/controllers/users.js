@@ -3,7 +3,7 @@ const User = require("../models/user");
 async function create(req, res) {
   const email = req.body.email;
   const password = req.body.password;
-  const fullName = req.body.fullName;
+  const username = req.body.username;
   const bio = req.body.bio;
 
   const existingEmail = await User.findOne({email});
@@ -12,7 +12,7 @@ async function create(req, res) {
     return res.status(400).json({message: "Email is already in use. Try to sign up with another email or log in."})
   }
 
-  const user = new User({ email, password, fullName, bio });
+  const user = new User({ email, password, username, bio });
   user
     .save()
     .then((user) => {

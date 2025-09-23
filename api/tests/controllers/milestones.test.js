@@ -32,7 +32,7 @@ const createToken = (userId) =>
         user = await User.create({
         email: "everest-test@test.com",
         password: "12345678", // assuming hashing is in middleware/model hook for real app
-        fullName: "Test User",
+        username: "Test User",
         });
         token = createToken(user.id);
 

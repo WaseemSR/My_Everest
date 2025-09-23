@@ -18,8 +18,24 @@ async function createToken(req, res) {
   }
 }
 
+async function checkUsername(req, res) {
+  const username = req.query.username;
+  if (!username) {
+    return res.status(400).json({ message: "Username is required" });
+  }
+
+  try {
+    const existingUser = await User.findOne({ username: username.toLowerCase().trim() });
+    res.status(200).json({ exists: !!existingUser });
+  } catch (err) {
+    console.error("Username check failed:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+}
+
 const AuthenticationController = {
-  createToken: createToken,
+  createToken,
+  checkUsername,
 };
 
 module.exports = AuthenticationController;

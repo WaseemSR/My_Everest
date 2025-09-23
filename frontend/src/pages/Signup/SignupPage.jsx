@@ -6,6 +6,18 @@ import Footer from "../../components/Footer";
 
 import { signup } from "../../services/authentication";
 
+// --- Debounce hook ---
+function useDebounce(value, delay) {
+  const [debounced, setDebounced] = useState(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => setDebounced(value), delay);
+    return () => clearTimeout(handler);
+  }, [value, delay]);
+
+  return debounced;
+}
+
 export function SignupPage() {
   const [email, setEmail] = useState("");
   const [emailTouched, setEmailTouched] = useState(false);
@@ -19,23 +31,57 @@ export function SignupPage() {
   const [confirmTouched, setConfirmTouched] = useState(false);
   const [confirmError, setConfirmError] = useState("");
 
-  const [fullName, setFullName] = useState("");
+  const [username, setUsername] = useState("");
+  const [usernameTouched, setUsernameTouched] = useState(false);
+  const [usernameError, setUsernameError] = useState("");
+
   const [bio, setBio] = useState("");
 
+  const debouncedUsername = useDebounce(username, 400);
   const navigate = useNavigate();
 
   const formRef = useRef(null);
   const confirmRef = useRef(null);
 
-  // --- handlers ---
+  // --- Username availability check ---
+  useEffect(() => {
+    if (!usernameTouched) return;
+    if (!debouncedUsername || debouncedUsername.length < 4) {
+      setUsernameError("Username must be at least 4 characters long");
+      return;
+    }
+
+    let active = true;
+
+    fetch(`/tokens/check-username?username=${encodeURIComponent(debouncedUsername)}`)
+      .then((res) => {
+        if (!res.ok) throw new Error("Network response not ok");
+        return res.json();
+      })
+      .then((data) => {
+        if (!active) return;
+        setUsernameError(data.exists ? "Username already taken" : "");
+      })
+      .catch((err) => {
+        console.error("Failed to check username:", err);
+        if (active) setUsernameError("");
+      });
+
+    return () => {
+      active = false; // cancel outdated requests
+    };
+  }, [debouncedUsername, usernameTouched]);
+
+  // --- Handlers ---
   function handleEmailChange(e) {
     const val = e.target.value.trim().toLowerCase();
     setEmail(val);
-    // Let the browser validate the format
-    if (e.target.validity.valid) {
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (e.target.validity.valid && emailRegex.test(val)) {
       setEmailError("");
     } else {
-      setEmailError(e.target.validationMessage || "Please enter a valid email");
+      setEmailError("Please enter a valid email address");
     }
   }
 
@@ -43,14 +89,16 @@ export function SignupPage() {
     const val = e.target.value;
     setPassword(val);
 
-    // Simple length rule (browser will also enforce via minLength)
     if (val.length < 8) {
-      setPasswordError("At least 8 characters");
+      setPasswordError(
+        "Password must be at least 8 characters long and include at least one special character"
+      );
+    } else if (!/[!@#$%^&*(),.?":{}|<>]/.test(val)) {
+      setPasswordError("Must include at least one special character");
     } else {
       setPasswordError("");
     }
 
-    // Re-validate confirm when password changes
     if (confirmRef.current) {
       if (confirmPassword && confirmPassword !== val) {
         confirmRef.current.setCustomValidity("Passwords must match");
@@ -75,15 +123,11 @@ export function SignupPage() {
     }
   }
 
-  function handleFullNameChange(e) {
-    setFullName(e.target.value);
-  }
-
   function handleBioChange(e) {
     setBio(e.target.value);
   }
 
-  // Also re-check confirm any time password changes (covers paste cases)
+  // Keep confirm error in sync if password changes
   useEffect(() => {
     if (!confirmRef.current) return;
     if (confirmPassword && confirmPassword !== password) {
@@ -96,21 +140,21 @@ export function SignupPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [password]);
 
-  // Compute whether the form can submit
+  // Form validation state
   const canSubmit =
     formRef.current?.checkValidity() === true &&
     password.length >= 8 &&
-    password === confirmPassword;
+    password === confirmPassword &&
+    username.length >= 4;
 
   async function handleSubmit(event) {
     event.preventDefault();
 
-    // Let the browser point at the first invalid field
     if (formRef.current && !formRef.current.reportValidity()) {
-      // Mark all as touched so messages show
       setEmailTouched(true);
       setPasswordTouched(true);
       setConfirmTouched(true);
+      setUsernameTouched(true);
       return;
     }
 
@@ -118,11 +162,12 @@ export function SignupPage() {
       setEmailTouched(true);
       setPasswordTouched(true);
       setConfirmTouched(true);
+      setUsernameTouched(true);
       return;
     }
 
     try {
-      await signup(email, password, fullName, bio);
+      await signup(email, password, username, bio);
       navigate("/login");
     } catch (err) {
       console.error(err);
@@ -131,44 +176,79 @@ export function SignupPage() {
   }
 
   return (
-    <div className="is-flex is-flex-direction-column" style={{ minHeight: "100vh" }}>
+    <div
+      className="is-flex is-flex-direction-column"
+      style={{ minHeight: "100vh" }}
+    >
       <img
-    src="/my_everest_background.png"
-    alt="Background"
-    style={{
-      position: "fixed",
-      top: 0,
-      left: 0,
-      width: "100%",
-      height: "100%",
-      objectFit: "cover",
-      zIndex: -1, 
-    }}
-  />
+        src="/my_everest_background.png"
+        alt="Background"
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          zIndex: -1,
+        }}
+      />
 
       <Header showNav={true} />
 
       <main className="home is-flex-grow-1 is-flex is-justify-content-center is-align-items-center">
         <div className="has-text-centered">
-          <h2 className="is-size-2 has-text-weight-light mt-5 mb-5 has-text-white">Create Your Account</h2>
+          <h2 className="is-size-2 has-text-weight-light mt-5 mb-5 has-text-white">
+            Create Your Account
+          </h2>
           <div className="container" style={{ maxWidth: "400px" }}>
-            <form ref={formRef} onSubmit={handleSubmit} className="is-flex is-flex-direction-column" noValidate={false}>
-              {/* Full Name */}
-              <label className="form-label has-text-white" htmlFor="name">Full Name:</label>
+            <form
+              ref={formRef}
+              onSubmit={handleSubmit}
+              className="is-flex is-flex-direction-column"
+              noValidate={false}
+            >
+              {/* Username */}
+              <label
+                className="form-label has-text-white"
+                htmlFor="name"
+              >
+                Username:
+              </label>
               <input
                 className="input-underline mb-1"
-                placeholder="Full Name"
+                placeholder="username"
                 style={{ color: "white" }}
                 id="name"
                 type="text"
-                value={fullName}
-                onChange={handleFullNameChange}
+                value={username}
+                onChange={(e) => {
+                  setUsername(e.target.value); // spaces allowed
+                  setUsernameTouched(true);
+                }}
+                minLength={4} // enforce minimum length at submit
+                required
                 autoComplete="name"
               />
-              <p className="help" aria-hidden="true">&nbsp;</p>
+              <p
+                id="username-help"
+                className={`help ${
+                  usernameTouched && usernameError
+                    ? "is-size-6 has-text-white"
+                    : ""
+                }`}
+                aria-live="polite"
+              >
+                {usernameTouched && usernameError ? usernameError : " "}
+              </p>
 
               {/* Email */}
-              <label className="form-label has-text-white" htmlFor="email">Email:</label>
+              <label
+                className="form-label has-text-white"
+                htmlFor="email"
+              >
+                Email:
+              </label>
               <input
                 className="input-underline mb-1"
                 placeholder="email"
@@ -184,15 +264,28 @@ export function SignupPage() {
                 onChange={handleEmailChange}
                 onBlur={() => setEmailTouched(true)}
               />
-              <p id="email-help" className={`help ${emailTouched && emailError ? "is-size-6 is-danger" : ""} `} aria-live="polite">
+              <p
+                id="email-help"
+                className={`help ${
+                  emailTouched && emailError
+                    ? "is-size-6 has-text-white"
+                    : ""
+                }`}
+                aria-live="polite"
+              >
                 {emailTouched && emailError ? emailError : " "}
               </p>
 
               {/* Password */}
-              <label className="form-label has-text-white" htmlFor="password">Password:</label>
+              <label
+                className="form-label has-text-white"
+                htmlFor="password"
+              >
+                Password:
+              </label>
               <input
                 className="input-underline mb-1"
-                placeholder="Password"
+                placeholder="password"
                 id="password"
                 type="password"
                 required
@@ -203,15 +296,28 @@ export function SignupPage() {
                 onChange={handlePasswordChange}
                 onBlur={() => setPasswordTouched(true)}
               />
-              <p id="password-help" className={`help ${passwordTouched && passwordError ? "is-size-6 is-danger" : ""}`} aria-live="polite">
-                {passwordTouched && passwordError ? passwordError : "At least 8 characters"}
+              <p
+                id="password-help"
+                className={`help ${
+                  passwordTouched && passwordError
+                    ? "is-size-6 has-text-white"
+                    : ""
+                }`}
+                aria-live="polite"
+              >
+                {passwordTouched ? passwordError : ""}
               </p>
 
               {/* Confirm Password */}
-              <label className="form-label has-text-white" htmlFor="confirmPassword">Confirm Password:</label>
+              <label
+                className="form-label has-text-white"
+                htmlFor="confirmPassword"
+              >
+                Confirm Password:
+              </label>
               <input
                 className="input-underline mb-1"
-                placeholder="Confirm Password"
+                placeholder="confirm password"
                 id="confirmPassword"
                 type="password"
                 required
@@ -222,12 +328,22 @@ export function SignupPage() {
                 onChange={handleConfirmPasswordChange}
                 onBlur={() => setConfirmTouched(true)}
               />
-              <p id="confirm-help" className={`help ${confirmTouched && confirmError ? "is-size-6 is-danger" : ""}`} aria-live="polite">
+              <p
+                id="confirm-help"
+                className={`help ${
+                  confirmTouched && confirmError
+                    ? "is-size-6 has-text-white"
+                    : ""
+                }`}
+                aria-live="polite"
+              >
                 {confirmTouched && confirmError ? confirmError : " "}
               </p>
 
               {/* Bio */}
-              <label className="form-label has-text-white" htmlFor="bio">Bio:</label>
+              <label className="form-label has-text-white" htmlFor="bio">
+                Bio:
+              </label>
               <input
                 className="input-underline mb-5"
                 placeholder="Tell us about yourself..."

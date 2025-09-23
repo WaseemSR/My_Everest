@@ -30,7 +30,7 @@ const createComment = async (req, res) => {
     });
 
     await comment.save();
-    const populated = await comment.populate("author", "fullName email");
+    const populated = await comment.populate("author", "username email");
     const newToken = generateToken(req.user_id);
     res.status(201).json({ comment: populated, token: newToken });
   } catch (error) {
@@ -55,7 +55,7 @@ const getCommentsByEverest = async (req, res) => {
     }
 
     const comments = await Comment.find({ everest: everestId })
-      .populate("author", "fullName email")
+      .populate("author", "username email")
       .sort({ createdAt: 1 });
 
     const newToken = generateToken(req.user_id);
@@ -92,7 +92,7 @@ const updateComment = async (req, res) => {
 
     comment.content = content;
     await comment.save();
-    const populated = await comment.populate("author", "fullName email");
+    const populated = await comment.populate("author", "username email");
     const newToken = generateToken(req.user_id);
     res.status(200).json({ comment: populated, token: newToken });
   } catch (error) {
