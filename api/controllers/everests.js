@@ -27,6 +27,40 @@ async function createEverest(req, res) {
         return res.status(400).json({ message: err.message || "Failed to create Everest" });
     }
 }
+async function updateEverest(req, res) {
+    try{
+        const { id } = req.params;
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({message: "Invalid Everest ID"})
+        }
+
+        const allowed = ["name", "details", "startDate", "endDate"];
+        const updates = {};
+            for (const field of allowed) {
+                if (field in req.body) updates[field] = req.body[field];
+            }
+
+        if (Object.keys(updates).length === 0) {
+            return res.status(400).json({ message: "No updateable fields"})
+        }
+
+        const updated = await Everest.findByIdAndUpdate(
+            { _id: id, user: req.user_id },
+            { $set: updates }, 
+            { new: true, runValidators: true }
+        );
+
+        if (!updated) {
+            return res.status(404).json({ message: "Everest not found" })
+        };
+
+        return res.status(200).json({ message: "Everest updated", everest: updated });
+            } catch (err) {
+                console.error("updateEverest error:", err);
+                return res.status(500).json({ message: "Server error" });
+            }
+}
 
 async function getUserEverests(req, res) {
     try {
@@ -164,7 +198,9 @@ async function addMilestone(req, res) {
 
 const EverestsController = {
     getAllEverests: getAllEverests,
+    
     createEverest: createEverest,
+    updateEverest: updateEverest,
     getUserEverests: getUserEverests,
     getEverestById: getEverestById,
     deleteEverest: deleteEverest,
