@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const MilestoneSchema = new mongoose.Schema({
         description: { type: String, required: true },
+        date: {type: String},
         completed: { type: Boolean, default: false }
 }, { _id: true });
 

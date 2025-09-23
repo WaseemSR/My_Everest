@@ -7,10 +7,12 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone}) {
     if (!everest) return null;
 //comment
     const [newDescription, setNewDescription] = useState("");
+    const [newDate, setNewDate] = useState("");
 
     const handleAddMilestone = async (e) => {
         e.preventDefault();
         const desc = newDescription.trim();
+        const date = newDate;
         if (!desc) return;
 
         try {
@@ -21,7 +23,7 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone}) {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
             },
-            body: JSON.stringify({ description: desc }),
+            body: JSON.stringify({ description: desc, date: date }),
         });
 
         if (!res.ok) {
@@ -32,7 +34,8 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone}) {
 
         const { milestone } = await res.json(); // per your controller suggestion
         onMilestoneAdded?.(everest._id, milestone);
-        setNewDescription("");
+        setNewDescription(""),
+        setNewDate("");
         } catch (err) {
         console.error("request error:", err);
         }
@@ -61,7 +64,10 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone}) {
                         className={m.completed ? "is-size-5 has-text-white" : ""}
                         style={{ flex: 1, paddingRight: "0.5rem" }}
                     >
-                        {m.description}
+
+                    {m.description} - {m.date}
+                    
+
                     </span>
 
                     <input
@@ -87,14 +93,23 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone}) {
             >
             <div className="control is-expanded">
                 <input
-                className="input"
-                type="text"
-                placeholder="New milestone…"
-                value={newDescription}
-                onChange={(e) => setNewDescription(e.target.value)}
-                />
-            </div>
-            <div className="control">
+
+                    className="input pd-5"
+                    type="text"
+                    placeholder="New milestone…"
+                    value={newDescription}
+                    onChange={(e) => setNewDescription(e.target.value)}
+                /> 
+                <input
+                    className="input"
+                    type="date"
+                    placeholder="Date to be completed..."
+                    value={newDate}
+                    onChange={(e) => setNewDate(e.target.value)}
+                /> 
+                </div>
+                <div className="control">
+
                 <button
                 className="button is-link"
                 style={{ backgroundColor: "#addfad", color: "#1b262c", border: "none" }}
