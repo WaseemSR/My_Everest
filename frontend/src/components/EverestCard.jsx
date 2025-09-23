@@ -1,9 +1,11 @@
 import "./EverestCard.css";
 import { Link } from "react-router-dom";
+import User from "./User";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 function EverestCard({ everest, onDelete, showDelete}) {
+  
   if (!everest) return null;
 
     const milestones = Array.isArray(everest.milestones) ? everest.milestones : [];
@@ -47,26 +49,34 @@ return (
         style={{
           position: "absolute",
           top: "10px",
-          right: "10px",
-          width: "75px",   // small so it sits neatly by the title
+          right: "20px",
+          width: "60px",   // small so it sits neatly by the title
           opacity: 0.9,
           pointerEvents: "none",
         }}
       />
     )}
 
-    <article
-      className="box is-hoverable has-text-weight-normal"
-      style={{
-        minHeight: "300px",
-        maxHeight: "300px",
-        overflowY: "auto",
-        backgroundColor: isComplete ? "rgba(173, 223, 173, 0.8)" : "rgba(241, 200, 146, 0.8)",
-      }}
-    >
-      <h2 className="title is-3 pr-6 pl-6 has-text-weight-normal">{everest.name}</h2>
-
-      <hr style={{ border: "none", borderTop: "3px solid #1b262c" }} />
+      <article
+        className={`box is-hoverable has-text-weight-normal ${isComplete ? "complete" : "incomplete"}`}
+        style={{
+          minHeight: "300px",
+          maxHeight: "300px",
+          overflowY: "auto",
+          backgroundColor: isComplete
+            ? "rgba(173, 223, 173, 0.8)"
+            : "rgba(241, 200, 146, 0.8)",
+        }}
+      >
+      <h2 className="title is-3 pr-6 pl-6 has-text-weight-normal" style={{ marginBottom: "0.25rem" }} >{everest.name}</h2>
+              <span
+                className="has-text-weight-normal is-size-7 has-text-black created-by-inline" 
+                style={{ display: "inline-flex", alignItems: "baseline", whiteSpace: "nowrap", gap: "0.25rem", marginBottom: "0rem" }}
+              >
+                Everest Created By:
+                <User user={everest.user} />
+              </span>
+      <hr style={{ border: "none", borderTop: "3px solid #1b262c", marginTop: "0.25rem"}} />
       <p className="is-size-5">{everest.details}</p>
       <br />
       <Link

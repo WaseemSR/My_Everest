@@ -8,7 +8,7 @@ function User ({ user}) {
     return (
         <article>
             <div >
-                <h2 className="title is-3 has-text-white has-text-weight-normal">{user.fullName}</h2>
+                <h2>{user.fullName}</h2>
                 {/* <p>{user.bio}</p> */}
             </div>
         </article>

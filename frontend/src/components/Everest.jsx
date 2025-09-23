@@ -7,6 +7,7 @@ import { updateEverest } from "../services/everests";
 function Everest({ everest, onMilestoneAdded, onToggleMilestone, onEverestUpdated, currentUserId }) {
   if (!everest) return null;
 
+
   // --- existing ---
   const [newDescription, setNewDescription] = useState("");
   // Determine ownership (everest.user can be object or id)
@@ -122,7 +123,10 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone, onEverestUpdate
                         className={m.completed ? "is-size-5 has-text-white" : ""}
                         style={{ flex: 1, paddingRight: "0.5rem" }}
                     >
-                        {m.description}
+
+                    {m.description} - {m.date}
+                    
+
                     </span>
 
                     <input
@@ -141,6 +145,7 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone, onEverestUpdate
             )}
 
             <p className="title is-5 has-text-white mt-4 has-text-centered has-text-weight-normal">End Date: {new Date(everest.endDate).toLocaleDateString("en-GB")}</p>
+
             {isOwner && (
               <form
                 onSubmit={handleAddMilestone}
@@ -150,10 +155,12 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone, onEverestUpdate
                 <div className="control is-expanded">
                   <input
                     className="input"
+
                     type="text"
                     placeholder="New milestone…"
                     value={newDescription}
                     onChange={(e) => setNewDescription(e.target.value)}
+
                   />
                 </div>
                 <div className="control">
@@ -229,6 +236,7 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone, onEverestUpdate
                   />
                 </div>
               </div>
+
             </form>
           </section>
 

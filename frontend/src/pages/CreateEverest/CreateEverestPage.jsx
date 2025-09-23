@@ -14,18 +14,21 @@ export function CreateEverestPage() {
   const [endDate, setEndDate] = useState("");
   const [milestones, setMilestones] = useState([]);
   const [newMilestoneDesc, setNewMilestoneDesc] = useState("");
+  const [newMilestoneDate, setNewMilestoneDate] = useState("");
 
   const [error, setError] = useState("");
 
   const addMilestone = () => {
     const desc = newMilestoneDesc.trim();
+    const date = newMilestoneDate;
     if (!desc) {
       setError("Description cannot be empty");
       return;
     }
     setError("");
-    setMilestones((prev) => [...prev, { description: desc, completed: false }]);
+    setMilestones((prev) => [...prev, { description: desc, date, completed: false }]);
     setNewMilestoneDesc("");
+    setNewMilestoneDate("");
   };
 
   const removeMilestone = (index) => {
@@ -50,7 +53,7 @@ export function CreateEverestPage() {
 
     const cleanedMilestones = milestones
       .filter((m) => m?.description?.trim())
-      .map((m) => ({ description: m.description.trim(), completed: false }));
+      .map((m) => ({ description: m.description.trim(), date: m.date || undefined, completed: false }));
 
     try {
       const res = await createEverest(
@@ -154,6 +157,15 @@ export function CreateEverestPage() {
                   aria-label="Milestone description"
                 />
               </div>
+              <div className="control is-narrow">
+                <input
+                  className="input"
+                  type="date"
+                  value={newMilestoneDate}
+                  onChange={(e) => setNewMilestoneDate(e.target.value)}
+                  aria-label="Milestone date"
+                />
+              </div>
               <div className="control">
                 <button
                   type="button"
@@ -167,31 +179,37 @@ export function CreateEverestPage() {
             </div>
 
             {milestones.length > 0 ? (
-              <div className="box">
-                <div className="content">
+              <div className="box" style={{ padding: "0.5rem" }}>
+                <div className="content" style={{ marginBottom: 0 }}>
                   <ol>
                     {milestones.map((milestone, i) => (
                       <li
                         key={`${milestone.description}-${i}`}
                         style={{
                           borderBottom: i < milestones.length - 1 ? "1px solid #f0f0f0" : "none",
-                          padding: "0.5rem"
+                          padding: "0.25rem 0"
                         }}
                       >
-                        <div className="level is-mobile">
-                          <div className="level-left">
-                            <span>{milestone.description}</span>
-                          </div>
-                          <div className="level-right">
-                            <button
-                              type="button"
-                              className="button is-my-purple is-small is-light is-danger"
-                              onClick={() => removeMilestone(i)}
-                              aria-label={`Remove milestone ${i + 1}: ${milestone.description}`}
-                            >
-                              Remove
-                            </button>
-                          </div>
+                        <div
+                          className="is-flex is-justify-content-space-between is-align-items-center"
+                          style={{ margin: 0 }}
+                        >
+                          <span style={{ lineHeight: 1.2 }}>
+                            {milestone.description}
+                            {milestone.date && (
+                                <span style={{ marginLeft: "1in", whiteSpace: "nowrap" }}>
+                                  To be completed by: {milestone.date}
+                                </span>
+                              )}
+                          </span>
+                          <button
+                            type="button"
+                            className="button is-my-purple is-small is-light is-danger"
+                            onClick={() => removeMilestone(i)}
+                            aria-label={`Remove milestone ${i + 1}: ${milestone.description}`}
+                          >
+                            Remove
+                          </button>
                         </div>
                       </li>
                     ))}

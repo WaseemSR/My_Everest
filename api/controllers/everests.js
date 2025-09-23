@@ -156,6 +156,7 @@ async function checkbox(req, res) {
         milestone: {
             _id: milestone._id,
             description: milestone.description,
+            date: milestone.date,
             completed: milestone.completed,
         },
         everestId: everest._id,
@@ -169,7 +170,7 @@ async function checkbox(req, res) {
 async function addMilestone(req, res) {
     try {
         const { everestId } = req.params;
-        const { description } = req.body;
+        const { description, date } = req.body;
 
         // Validate inputs
         if (!mongoose.Types.ObjectId.isValid(everestId) || !description || description.trim() === "") {
@@ -183,7 +184,7 @@ async function addMilestone(req, res) {
         }
 
         // Create + save new milestone
-        everest.milestones.push({ description: description.trim(), completed: false });
+        everest.milestones.push({ description: description.trim(), date, completed: false });
         await everest.save();
 
         // Return just the new milestone (nicer for the client)
