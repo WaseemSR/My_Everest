@@ -83,3 +83,17 @@ export async function createEverest(name, details, startDate, endDate, milestone
         );
     }
 }
+export async function updateEverest(token, everestId, name, details, startDate, endDate) {
+  const requestOptions = {
+    method: "PATCH",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ name, details, startDate, endDate }),
+  };
+
+  const response = await fetch(`${BACKEND_URL}/everests/${everestId}`, requestOptions);
+  if (response.status !== 200) throw new Error("Unable to update Everest");
+  return await response.json();
+}

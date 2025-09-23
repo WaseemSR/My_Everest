@@ -28,18 +28,19 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
+//  All /everests routes are protected in app.js via tokenChecker
 //  GET all Everests
 router.get("/", EverestsController.getAllEverests);
-router.post("/", EverestsController.createEverest);
+router.patch("/:id", EverestsController.updateEverest);
 router.get("/:id", EverestsController.getEverestById);
-router.delete("/:id", EverestsController.deleteEverest)
+router.delete("/:id", EverestsController.deleteEverest);
 router.patch("/:everestId/milestones/:milestoneId", EverestsController.checkbox);
-router.post("/:everestId/milestones", EverestsController.addMilestone)
+router.post("/:everestId/milestones", EverestsController.addMilestone);
+
 
 // POST create Everest with auth + file upload
 router.post(
   "/",
-  tokenChecker,
   upload.single("photo"), // "photo" must match FormData field in frontend
   EverestsController.createEverest
 );
