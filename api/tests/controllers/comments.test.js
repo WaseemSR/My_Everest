@@ -29,13 +29,13 @@ describe("/comments", () => {
     user1 = await new User({
       email: "author@test.com",
       password: "password",
-      fullName: "Author One",
+      username: "Author One",
     }).save();
 
     user2 = await new User({
       email: "other@test.com",
       password: "password",
-      fullName: "Other User",
+      username: "Other User",
     }).save();
 
     token1 = createToken(user1.id);

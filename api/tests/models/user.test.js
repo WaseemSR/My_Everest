@@ -22,20 +22,20 @@
 //     expect(user.password).toEqual("password");
 //   });
 
-//     it("has a fullname", () => {
+//     it("has a username", () => {
 //     const user = new User({
 //       email: "someone@example.com",
 //       password: "password",
-//       fullName: "John Smith"
+//       username: "John Smith"
 //     });
-//     expect(user.fullName).toEqual("John Smith");
+//     expect(user.username).toEqual("John Smith");
 //   });
 
-//       it("has a fullname", () => {
+//       it("has a username", () => {
 //     const user = new User({
 //       email: "someone@example.com",
 //       password: "password",
-//       fullName: "John Smith",
+//       username: "John Smith",
 //       bio: "A crazy person"
 //     });
 //     expect(user.bio).toEqual("A crazy person");
@@ -50,7 +50,7 @@
 //     const user = new User({
 //       email: "someone@example.com",
 //       password: "password",
-//       fullName: "John Smith",
+//       username: "John Smith",
 //       bio: "A crazy person"
 //     });
 
@@ -59,7 +59,7 @@
 
 //     expect(users[0].email).toEqual("someone@example.com");
 //     expect(users[0].password).toEqual("password");
-//     expect(users[0].fullName).toEqual("John Smith");
+//     expect(users[0].username).toEqual("John Smith");
 //     expect(users[0].bio).toEqual("A crazy person");
 //   });
 // });

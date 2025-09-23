@@ -7,31 +7,31 @@ const Everest = require("./models/everest"); // adjust path if needed
 
 const users = [
   {
-    fullName: "David Smith",
+    username: "David Smith",
     email: "davesmith@davetheman.com",
     password: "dave",
     bio: "David is the sort of person who brings bread to a meeting and somehow leaves with three new friends and a database schema. He learned sourdough to fix his patience, then discovered it also fixes people’s moods. When he’s not troubleshooting flaky tests, he’s cataloging his growing thimble collection with a very serious tagging system. His superpower is breaking big problems into tiny, boring steps until they surrender. Favorite sound: the quiet click of a green build. Least favorite: the kettle when it’s empty.",
   },
   {
-    fullName: "Priya Kapoor",
+    username: "Priya Kapoor",
     email: "priya.kapoor@example.com",
     password: "password123",
     bio: "Priya approaches life like a careful refactor: change one thing, run the tests, celebrate with tea. She mentors newcomers by drawing diagrams on whatever surface is closest, including napkins and occasionally her own sleeve. She believes in humane standups, crisp commit messages, and feature flags as a love language. On weekends she experiments with chai blends and monitors CI pipelines for fun. If a meeting needs rescuing, she’ll turn requirements into bullet points before anyone notices. Her desk plant has three names and an alarming growth rate.",
   },
   {
-    fullName: "Mateo Alvarez",
+    username: "Mateo Alvarez",
     email: "mateo.alvarez@example.com",
     password: "password123",
     bio: "Mateo automates chores out of pure principle. If he does anything twice, a script appears. He keeps a tidy spreadsheet for everything, including impulse buys and failed bread recipes. His playlists go from ambient focus to Latin dance without warning, miraculously improving sprint velocity. Teammates trust him to spot edge cases hiding in plain sight. He documents as he goes, then writes a friendlier version for future humans. Secret hobby: photographing interesting shadows on brutalist buildings and labeling them like API endpoints.",
   },
   {
-    fullName: "Aisha Khan",
+    username: "Aisha Khan",
     email: "aisha.khan@example.com",
     password: "password123",
     bio: "Aisha organizes chaos with color, sticky notes, and a formidable backlog. She has a sixth sense for dependencies that were never mentioned but definitely exist. When design and engineering argue, she translates into both languages and sneaks in acceptance criteria while everyone nods. She schedules deep work like it’s a medical appointment and fiercely protects it. Outside work, she curates miniature museums inside shoeboxes, each with a story and a QR code. She collects small victories and celebrates them loudly.",
   },
   {
-    fullName: "Ben Walker",
+    username: "Ben Walker",
     email: "ben.walker@example.com",
     password: "password123",
     bio: "Ben is a coffee-to-commit converter with an allergy to flaky tests. He believes the best PRs are short, obvious, and a little boring. When confronted with weirdness, he reaches for logs, not vibes. He teaches git like a storytelling tool and swears by meaningful branch names. Lunch breaks involve slow walks, podcasts about cities, and a stubborn refusal to eat at his desk. He’s the teammate who quietly fixes the build before anyone else finishes complaining in Slack.",
@@ -55,7 +55,7 @@ const everests = [
       { description: "Summit photo + celebratory chai, descend safely", completed: false },
       { description: "Log learnings and pick next peak", completed: false }
     ],
-    fullName: "Priya Kapoor"
+    username: "Priya Kapoor"
   },
   {
     name: "Helvellyn",
@@ -71,7 +71,7 @@ const everests = [
       { description: "Summit Helvellyn; descend via Swirral Edge calmly", completed: false },
       { description: "Post-walk debrief over tea and cake", completed: false }
     ],
-    fullName: "Priya Kapoor"
+    username: "Priya Kapoor"
   },
   {
     name: "Tea Pilgrimage: Darjeeling",
@@ -84,7 +84,7 @@ const everests = [
       { description: "Schedule two guided tastings and one sunrise ride", completed: false },
       { description: "Bring home leaves + notes for a chai experiment", completed: false }
     ],
-    fullName: "Priya Kapoor"
+    username: "Priya Kapoor"
   },
 
   // MATEO ALVAREZ — two mountain goals + one job
@@ -101,7 +101,7 @@ const everests = [
       { description: "Sunrise start; steady cadence; enjoy lunar terrain", completed: true },
       { description: "Summit, descend safely; record GPX and notes", completed: true }
     ],
-    fullName: "Mateo Alvarez"
+    username: "Mateo Alvarez"
   },
   {
     name: "La Malinche Weekend Summit",
@@ -116,7 +116,7 @@ const everests = [
       { description: "Summit photo; descend before afternoon storms", completed: false },
       { description: "Write trip doc with tips for future Mateo", completed: false }
     ],
-    fullName: "Mateo Alvarez"
+    username: "Mateo Alvarez"
   },
   {
     name: "Land an Automation Engineer Role",
@@ -131,7 +131,7 @@ const everests = [
       { description: "Apply weekly (min 5), follow up politely", completed: false },
       { description: "Negotiate offer; celebrate with tacos", completed: false }
     ],
-    fullName: "Mateo Alvarez"
+    username: "Mateo Alvarez"
   },
 
   // AISHA KHAN — two mountain goals + one fear
@@ -150,7 +150,7 @@ const everests = [
       { description: "Retro notes: what went well, what to tweak", completed: false },
       { description: "Print tiny museum box about the trip (QR code included)", completed: false }
     ],
-    fullName: "Aisha Khan"
+    username: "Aisha Khan"
   },
   {
     name: "Ben Macdui in Winter Conditions",
@@ -165,7 +165,7 @@ const everests = [
       { description: "Pick bluebird day; conservative route choice", completed: false },
       { description: "Summit and exit with plenty of daylight buffer", completed: false }
     ],
-    fullName: "Aisha Khan"
+    username: "Aisha Khan"
   },
   {
     name: "Tame the Fear of Heights",
@@ -179,7 +179,7 @@ const everests = [
       { description: "Lead a route one grade above comfort", completed: true },
       { description: "Reflect + write a tiny museum card about courage", completed: true }
     ],
-    fullName: "Aisha Khan"
+    username: "Aisha Khan"
   },
 
   // BEN WALKER — two mountain goals + one instrument
@@ -196,7 +196,7 @@ const everests = [
       { description: "Summit, descend before the grump hour", completed: false },
       { description: "Write trip report; share GPX with friends", completed: false }
     ],
-    fullName: "Ben Walker"
+    username: "Ben Walker"
   },
   {
     name: "Old Man of Coniston at Sunset",
@@ -209,7 +209,7 @@ const everests = [
       { description: "Steady climb, summit snack, careful descent", completed: false },
       { description: "Post-hike stretch and mercy on calves", completed: false }
     ],
-    fullName: "Ben Walker"
+    username: "Ben Walker"
   },
   {
     name: "Learn Drums ",
@@ -223,7 +223,7 @@ const everests = [
       { description: "Record and post one tasteful groove", completed: false },
       { description: "Jam with a friend; celebrate with coffee not cymbals", completed: false }
     ],
-    fullName: "Ben Walker"
+    username: "Ben Walker"
   },
   {
     name: "Everest",
@@ -236,7 +236,7 @@ const everests = [
       { description: "Accidentally get sponsored by a thimble company", completed: true },
       { description: "Summit attempt", completed: true }
     ],
-    fullName: "David Smith"
+    username: "David Smith"
   },
   {
     name: "Master the Fine Art of Watching Paint Dry",
@@ -249,7 +249,7 @@ const everests = [
       { description: "Hold philosophical debate with self about beige vs. cream", completed: true },
       { description: "Document the entire process in a scrapbook", completed: true }
     ],
-    fullName: "David Smith"
+    username: "David Smith"
   },
   {
     name: "Collect Every Thimble Known to Man",
@@ -262,7 +262,7 @@ const everests = [
       { description: "Trade one rare thimble for another like a Pokémon master", completed: true },
       { description: "Curate world’s first thimble museum", completed: true }
     ],
-    fullName: "David Smith"
+    username: "David Smith"
   }
 ];
 
@@ -294,7 +294,7 @@ async function seedDB() {
 
     // Create everests linked to the right user IDs
     const everestDocs = everests.map((everest) => {
-      const author = createdUsers.find((f) => f.fullName === everest.fullName);
+      const author = createdUsers.find((f) => f.username === everest.username);
       return {
         name: everest.name,
         details: everest.details,

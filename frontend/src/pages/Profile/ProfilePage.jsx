@@ -11,7 +11,7 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 export function ProfilePage({onDelete}) {
 
-  const [user, setUser] = useState({ _id: "", fullName: "", bio: "" });
+  const [user, setUser] = useState({ _id: "", username: "", bio: "" });
   const [everests, setEverests] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -85,10 +85,10 @@ export function ProfilePage({onDelete}) {
     <Header showNav={true} />
     <main className="is-flex-grow-1 p-5" style={{ backgroundColor: "#1b262c" }}>
 
-      <h1 className="title has-text-white is-size-1 has-text-weight-light">{user.fullName}'s Page of Everests</h1>
+      <h1 className="title has-text-white is-size-1 has-text-weight-light">{user.username}'s Page of Everests</h1>
       <div className="is-flex is-justify-content-center">
         <div className="box  is-hoverable is-size-4" style={{ maxWidth: "700px", height: "250px", overflowY: "auto", backgroundColor: "rgba(241, 200, 146, 0.6)" }}>
-          <p className="title has-text-weight-normal " >The story of {user.fullName}</p>
+          <p className="title has-text-weight-normal " >The story of {user.username}</p>
           {user.bio && <p>{user.bio}</p>}
         </div>
       </div>

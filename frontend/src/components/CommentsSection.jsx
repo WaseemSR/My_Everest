@@ -86,7 +86,7 @@ export default function CommentsSection({ everestId }) {
                       <div className="media-content">
                         <div className="content">
                           <p>
-                            <strong>{comment.author.fullName ||comment.author.email}</strong>
+                            <strong>{comment.author.username ||comment.author.email}</strong>
                             {comment.createdAt && (
                               <small className="has-text-white has-text-weight-normal">
                                 · {formatTimeAgo(comment.createdAt)}

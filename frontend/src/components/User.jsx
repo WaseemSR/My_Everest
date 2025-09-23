@@ -8,7 +8,9 @@ function User ({ user}) {
     return (
         <article>
             <div >
+
                 <h2>{user.fullName}</h2>
+
                 {/* <p>{user.bio}</p> */}
             </div>
         </article>

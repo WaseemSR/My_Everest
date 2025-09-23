@@ -32,19 +32,19 @@
 //       expect(newUser.email).toEqual("scarconstt@email.com");
 //     });
 
-//     test("persists fullName and bio when provided", async () => {
+//     test("persists username and bio when provided", async () => {
 //       await request(app)
 //         .post("/users")
 //         .send({
 //           email: "flora@email.com",
 //           password: "1234",
-//           fullName: "Flora Poppy",
+//           username: "Flora Poppy",
 //           bio: "I like tests and tea."
 //         });
 
 //       const saved = await User.findOne({ email: "flora@email.com" }).lean();
 //       expect(saved).toBeTruthy();
-//       expect(saved.fullName).toBe("Flora Poppy");
+//       expect(saved.username).toBe("Flora Poppy");
 //       expect(saved.bio).toBe("I like tests and tea.");
 //       // Ensure password is stored (you'll swap to a hash later)
 //       expect(saved.password).toBeTruthy();
@@ -122,7 +122,7 @@
 //     const doc = await new User({
 //       email: "unit@test.com",
 //       password: "shh",
-//       fullName: "Unit Test",
+//       username: "Unit Test",
 //       bio: "Mocks rule."
 //     }).save();
 
