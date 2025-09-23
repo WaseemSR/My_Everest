@@ -14,6 +14,9 @@ export function EverestPage() {
   const [everest, setEverest] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [currentUserId, setCurrentUserId] = useState(null);
+  
+
 
   useEffect(() => {
     const load = async () => {
@@ -22,6 +25,24 @@ export function EverestPage() {
         const out = await getOneEverest(id, token); // pass id + token
         setEverest(out.everest); // backend returns { everest, token }
         localStorage.setItem("token", out.token); // refresh token
+
+        // fetch current user's profile to determine ownership
+        try {
+          const profileRes = await fetch(`${BACKEND_URL}/users/profile`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${out.token || token}`,
+            },
+          });
+          if (profileRes.ok) {
+            const data = await profileRes.json();
+            const user = data.user ?? data;
+            setCurrentUserId(user?._id || null);
+          }
+        } catch (_) {
+          // ignore profile errors for UI ownership check
+        }
       } catch (err) {
         console.error(err);
         setError(err.message || "Something went wrong with getting the Everest");
@@ -98,8 +119,13 @@ export function EverestPage() {
     <main className="is-flex-grow-1 p-5" style={{ backgroundColor: "#1b262c" }}>
 
     <div>
-       <Everest everest={everest} onToggleMilestone={toggleMilestone} onMilestoneAdded={onMilestoneAdded}/>
-         
+        <Everest
+          everest={everest}
+          onToggleMilestone={toggleMilestone}
+          onMilestoneAdded={onMilestoneAdded}
+          onEverestUpdated={(updated) => setEverest(updated)}
+          currentUserId={currentUserId}
+        />
     </div>
     <CommentsSection everestId={everest._id} />
     
