@@ -8,5 +8,6 @@ const tokenChecker = require("../middleware/tokenChecker");
 router.post("/", UsersController.create);
 router.get("/profile", tokenChecker, UsersController.getProfile);
 router.get("/:userId/everests", tokenChecker, EverestsController.getUserEverests);
+router.patch("/:id", tokenChecker, UsersController.updateUser);
 
 module.exports = router;
