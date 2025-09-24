@@ -35,7 +35,7 @@ const UploadWidget = ({ imageUrl, setImageUrl }) => {
       {/* Upload Button */}
       <button
         type="button"
-        className="button is-primary is-small has-text-white"
+        className="button is-my-green is-small has-text-white"
         onClick={openWidget}
       >
         Upload Profile Image
