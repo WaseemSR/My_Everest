@@ -9,9 +9,8 @@ function User ({ user}) {
         <article>
             <div >
 
-                <h2>{user.fullName}</h2>
+                <h2>{user.username || user.email}</h2>
 
-                {/* <p>{user.bio}</p> */}
             </div>
         </article>
 )}
