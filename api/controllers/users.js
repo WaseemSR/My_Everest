@@ -5,6 +5,7 @@ async function create(req, res) {
   const password = req.body.password;
   const username = req.body.username;
   const bio = req.body.bio;
+  const profileImageUrl = req.body.profileImageUrl;
 
   const existingEmail = await User.findOne({email});
   if (existingEmail) {
@@ -12,7 +13,7 @@ async function create(req, res) {
     return res.status(400).json({message: "Email is already in use. Try to sign up with another email or log in."})
   }
 
-  const user = new User({ email, password, username, bio });
+  const user = new User({ email, password, username, bio, profileImageUrl, });
   user
     .save()
     .then((user) => {
@@ -42,7 +43,7 @@ async function create(req, res) {
     try{
         const { id } = req.params;
 
-        const allowed = ["username", "bio" ];
+        const allowed = ["username", "bio", "profileImageUrl"];
         const updates = {};
             for (const field of allowed) {
                 if (req.body[field] != null) updates[field] = req.body[field];
