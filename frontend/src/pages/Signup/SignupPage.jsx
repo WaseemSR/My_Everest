@@ -6,6 +6,8 @@ import Footer from "../../components/Footer";
 
 import { signup } from "../../services/authentication";
 
+import UploadWidget from "../../components/UploadWidget";
+
 // --- Debounce hook ---
 function useDebounce(value, delay) {
   const [debounced, setDebounced] = useState(value);
@@ -42,6 +44,8 @@ export function SignupPage() {
 
   const formRef = useRef(null);
   const confirmRef = useRef(null);
+
+  const [imageUrl, setImageUrl] = useState("");
 
   // --- Username availability check ---
   useEffect(() => {
@@ -167,7 +171,7 @@ export function SignupPage() {
     }
 
     try {
-      await signup(email, password, username, bio);
+      await signup(email, password, username, bio, imageUrl);
       navigate("/login");
     } catch (err) {
       console.error(err);
@@ -339,6 +343,22 @@ export function SignupPage() {
               >
                 {confirmTouched && confirmError ? confirmError : " "}
               </p>
+
+              {/* Upload Profile Image */}
+              {imageUrl && (
+                <div className="mb-2 has-text-centered">
+                  <figure className="image is-96x96 is-inline-block">
+                    <img
+                      className="is-rounded mt-3"
+                      src={imageUrl}
+                      alt="Profile preview"
+                      style={{ objectFit: "cover", width: "100%", height: "100%" }}
+                    />
+                  </figure>
+                </div>
+              )}
+
+              <UploadWidget setImageUrl={setImageUrl} />
 
               {/* Bio */}
               <label className="form-label has-text-white" htmlFor="bio">
