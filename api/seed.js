@@ -294,7 +294,8 @@ async function seedDB() {
 
     // Create everests linked to the right user IDs
     const everestDocs = everests.map((everest) => {
-      const author = createdUsers.find((f) => f.username === everest.username);
+      const key = (everest.username || "").toLowerCase().trim();
+      const author = createdUsers.find((f) => (f.username || "").toLowerCase().trim() === key);
       return {
         name: everest.name,
         details: everest.details,
