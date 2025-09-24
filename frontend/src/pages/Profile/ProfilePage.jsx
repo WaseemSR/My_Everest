@@ -1,7 +1,10 @@
-import { useEffect, useState } from 'react'
-import { getUserEverests } from "../../services/everests";
-import EverestCard from "../../components/EverestCard";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+
+import "../../components/EverestCard.css";
+import { getUserEverests } from "../../services/everests";
+import { updateUser as updateUserService } from "../../services/users";
+import EverestCard from "../../components/EverestCard";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 
@@ -9,39 +12,41 @@ import "../../components/EverestCard.css";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
-export function ProfilePage({onDelete}) {
-
+export function ProfilePage() {
   const [user, setUser] = useState({ _id: "", username: "", bio: "" });
+  const [currentUserId, setCurrentUserId] = useState("");
   const [everests, setEverests] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Modal state
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [editUsername, setEditUsername] = useState("");
+  const [editBio, setEditBio] = useState("");
+  const [saving, setSaving] = useState(false);
+  const isOwner = user?._id && currentUserId && String(user._id) === String(currentUserId);
+
   const handleDelete = async (id) => {
     try {
       const token = localStorage.getItem("token");
-
       const res = await fetch(`${BACKEND_URL}/everests/${id}`, {
         method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       });
 
-      if (res.ok) {
-        setEverests((prev) => prev.filter((ev) => ev._id !== id)); // 🔥 removes immediately
-      } else {
+      if (!res.ok) {
         const data = await res.json().catch(() => ({}));
         console.error("Delete failed:", data.message || res.statusText);
+        return;
       }
 
-    // Update UI
-    setEverests((prev) => prev.filter((ev) => ev._id !== id));
-  } catch (err) {
-    console.error("Delete request error:", err);
-  }
-};
+      setEverests((prev) => prev.filter((ev) => ev._id !== id));
+    } catch (err) {
+      console.error("Delete request error:", err);
+    }
+  };
 
-    useEffect(() => {
+  useEffect(() => {
     const load = async () => {
       try {
         const token = localStorage.getItem("token");
@@ -53,18 +58,16 @@ export function ProfilePage({onDelete}) {
           },
         });
         if (!res.ok) throw new Error("Failed to fetch profile");
+
         const data = await res.json();
+        const u = data.user ?? data;
+        setUser(u);
+        setCurrentUserId(u?._id || "");
 
-        // Allow either { user: {...} } or direct user doc
-        const user = data.user ?? data;
-        setUser(user);
-
-      if (user?._id) {
-        const out = await getUserEverests(user._id, token);
-        // backend returns { everests: [...] }
-        setEverests(out.everests ?? out);
-      }
-      
+        if (u?._id) {
+          const out = await getUserEverests(u._id, token);
+          setEverests(out.everests ?? out);
+        }
       } catch (err) {
         console.error(err);
         setError(err.message || "Something went wrong with getting user everests");
@@ -81,42 +84,140 @@ export function ProfilePage({onDelete}) {
 
   return (
     <div className="is-flex is-flex-direction-column" style={{ minHeight: "100vh" }}>
-      
-    <Header showNav={true} />
-    <main className="is-flex-grow-1 p-5" style={{ backgroundColor: "#1b262c" }}>
+      <Header showNav={true} />
 
-      <h1 className="title has-text-white is-size-1 has-text-weight-light">{user.username}'s Page of Everests</h1>
-      <div className="is-flex is-justify-content-center">
-        <div className="box  is-hoverable is-size-4" style={{ maxWidth: "700px", height: "250px", overflowY: "auto", backgroundColor: "rgba(241, 200, 146, 0.6)" }}>
-          <p className="title has-text-weight-normal " >The story of {user.username}</p>
-          {user.bio && <p>{user.bio}</p>}
+      <main className="is-flex-grow-1 p-5" style={{ backgroundColor: "#1b262c" }}>
+        {/* Edit button (only for the owner) */}
+        {isOwner && (
+          <div className="mb-4">
+            <button
+              className="button is-my-green"
+              onClick={() => {
+                setEditUsername(user.username || "");
+                setEditBio(user.bio || "");
+                setShowEditModal(true);
+              }}
+              aria-haspopup="dialog"
+              aria-controls="edit-profile-modal"
+            >
+              Edit Profile
+            </button>
+          </div>
+        )}
+
+        {/* Edit Profile Modal */}
+        {showEditModal && (
+          <div id="edit-profile-modal" className={`modal ${showEditModal ? "is-active" : ""}`} role="dialog" aria-modal="true">
+            <div className="modal-background" onClick={() => setShowEditModal(false)} />
+            <div className="modal-card" style={{ maxWidth: "720px" }}>
+              <header className="modal-card-head">
+                <p className="modal-card-title">Edit Profile</p>
+                <button className="delete" aria-label="close" onClick={() => setShowEditModal(false)} />
+              </header>
+              <section className="modal-card-body">
+                <form onSubmit={(e) => e.preventDefault()}>
+                  <div className="field">
+                    <label className="label is-small">Username</label>
+                    <div className="control">
+                      <input
+                        className="input is-small"
+                        value={editUsername}
+                        onChange={(e) => setEditUsername(e.target.value)}
+                        placeholder="Your username"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div className="field">
+                    <label className="label is-small">Bio</label>
+                    <div className="control">
+                      <textarea
+                        className="textarea is-small"
+                        value={editBio}
+                        onChange={(e) => setEditBio(e.target.value)}
+                        rows={4}
+                        placeholder="Tell us about you"
+                      />
+                    </div>
+                  </div>
+                </form>
+              </section>
+              <footer className="modal-card-foot">
+                <button
+                  className={`button is-primary ${saving ? "is-loading" : ""}`}
+                  onClick={async () => {
+                    try {
+                      setSaving(true);
+                      const token = localStorage.getItem("token");
+                      const updated = await updateUserService(token, user._id, editUsername, editBio);
+                      setUser((prev) => ({ ...prev, ...updated }));
+                      setShowEditModal(false);
+                    } catch (e) {
+                      console.error("Profile update failed:", e);
+                      alert(e.message || "Failed to update profile");
+                    } finally {
+                      setSaving(false);
+                    }
+                  }}
+                >
+                  Save changes
+                </button>
+                <button className="button" onClick={() => setShowEditModal(false)}>Cancel</button>
+              </footer>
+            </div>
+          </div>
+        )}
+
+        <h1 className="title has-text-white is-size-1 has-text-weight-light">
+          {user.username}'s Page of Everests
+        </h1>
+
+        <div className="is-flex is-justify-content-center">
+          <div
+            className="box is-hoverable is-size-4"
+            style={{
+              maxWidth: "700px",
+              height: "250px",
+              overflowY: "auto",
+              backgroundColor: "rgba(241, 200, 146, 0.6)",
+            }}
+          >
+            <p className="title has-text-weight-normal">The story of {user.username}</p>
+            {user.bio && <p>{user.bio}</p>}
+          </div>
         </div>
-      </div>
 
-      <br /><br /><br />
+        <br />
+        <br />
+        <br />
 
-      <h2 className="title has-text-white is-size-1 has-text-weight-light">Everests</h2>
+        <h2 className="title has-text-white is-size-1 has-text-weight-light">Everests</h2>
 
-      <button><Link to="/createeverest" className="button is-my-green">Create New Everest</Link></button>
-      
-      <br /><br />
+        <Link to="/createeverest" className="button is-my-green">
+          Create New Everest
+        </Link>
 
-      {everests.length === 0 ? (
-        <p className="is-size-2 has-text-white">No Everests yet</p>
-      ) : (
-      <div className="columns is-multiline equal-columns">
-        {everests.map((ev) => (
-          <EverestCard
-            key={ev._id}
-            everest={ev}
-            onDelete={handleDelete}
-            showDelete
-          />
-        ))}
-      </div>
-      )}
-    </main>
-    <Footer />
+        <br />
+        <br />
+
+        {everests.length === 0 ? (
+          <p className="is-size-2 has-text-white">No Everests yet</p>
+        ) : (
+          <div className="columns is-multiline equal-columns">
+            {everests.map((ev) => (
+              <EverestCard
+                key={ev._id}
+                everest={ev}
+                onDelete={handleDelete}
+                showDelete
+              />
+            ))}
+          </div>
+        )}
+      </main>
+
+      <Footer />
     </div>
-  )
+  );
 }

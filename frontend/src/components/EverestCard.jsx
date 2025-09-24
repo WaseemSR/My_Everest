@@ -1,6 +1,6 @@
 import "./EverestCard.css";
 import { Link } from "react-router-dom";
-import User from "./User";
+import Username from "./Username";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -74,7 +74,7 @@ return (
                 style={{ display: "inline-flex", alignItems: "baseline", whiteSpace: "nowrap", gap: "0.25rem", marginBottom: "0rem" }}
               >
                 Everest Created By:
-                <User user={everest.user} />
+                <Username user={everest.user} />
               </span>
       <hr style={{ border: "none", borderTop: "3px solid #1b262c", marginTop: "0.25rem"}} />
       <p className="is-size-5">{everest.details}</p>
