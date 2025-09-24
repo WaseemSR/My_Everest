@@ -10,10 +10,12 @@ import { login } from "../../services/authentication";
 export function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   async function handleSubmit(event) {
     event.preventDefault();
+    setError("");
 
     try {
       const token = await login(email, password);
@@ -28,7 +30,7 @@ export function LoginPage() {
     } catch (err) {
       console.error("Login failed:", err.message);
       localStorage.removeItem("token"); // clean up in case of bad login
-      navigate("/login");
+      setError("Incorrect email or password");
     }
   }
 
@@ -97,6 +99,12 @@ export function LoginPage() {
                   />
                 </div>
               </div>
+
+              {error && (
+                <p className="has-text-white is-size-6 mt-2">
+                  {error}
+                </p>
+              )}
 
               <div className="field mt-5">
                 <div className="control buttons is-justify-content-center">
