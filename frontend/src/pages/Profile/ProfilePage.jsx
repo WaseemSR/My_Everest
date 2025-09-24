@@ -79,6 +79,17 @@ export function ProfilePage({onDelete}) {
   if (loading) return <div>Loading…</div>;
   if (error) return <div>{error}</div>;
 
+
+  const messages = [
+  "Looks like Base Camp is empty. Add your first Everest to begin your ascent! ",
+  "Base Camp is quiet… Announce your first Everest and start the climb! ",
+  "The mountains await. Create your first Everest to begin the journey! ",
+  "Your map is still blank. Add an Everest and plot your path! ",
+  "No peaks in sight. Create your first Everest and start climbing! ",
+];
+
+const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+
   return (
     <div className="is-flex is-flex-direction-column" style={{ minHeight: "100vh" }}>
       
@@ -95,14 +106,15 @@ export function ProfilePage({onDelete}) {
 
       <br /><br /><br />
 
-      <h2 className="title has-text-white is-size-1 has-text-weight-light">Everests</h2>
+      <h2 className="title has-text-white is-size-1 has-text-weight-light mb-6">Everests</h2>
 
-      <button><Link to="/createeverest" className="button is-my-green">Create New Everest</Link></button>
+      <button><Link to="/createeverest" className="button is-my-green mb-4">Create New Everest</Link></button>
       
       <br /><br />
 
       {everests.length === 0 ? (
-        <p className="is-size-2 has-text-white">No Everests yet</p>
+        <p className="is-size-3 has-text-white has-text-weight-light mt-">{randomMessage}</p>
+        
       ) : (
       <div className="columns is-multiline equal-columns">
         {everests.map((ev) => (
