@@ -100,6 +100,7 @@ export function LoginPage() {
                 </div>
               </div>
 
+              {/* Error message */}
               {error && (
                 <p className="has-text-white is-size-6 mt-2">
                   {error}
