@@ -1,12 +1,24 @@
 import { useEffect, useState } from "react";
-import { getComments, createComment } from "../services/comments";
+import { getComments, createComment, deleteComment, updateComment } from "../services/comments";
 
 export default function CommentsSection({ everestId }) {
   const [comments, setComments] = useState([]);
   const [error, setError] = useState("");
   const [body, setBody] = useState("");
   const [loading, setLoading] = useState(true);
+  const [editingId, setEditingId] = useState(null);
   const token = localStorage.getItem("token");
+
+  // Find current user from JWT - for the delete and edit buttons
+  let currentUserId = null;
+  try {
+    if (token) {
+      const payload = JSON.parse(atob(token.split(".")[1]));
+      currentUserId = payload?.sub || null;
+    }
+  } catch {
+    currentUserId = null;
+  }
 
   // Time-ago formatter
   const formatTimeAgo = (timestamp) => {
@@ -24,8 +36,8 @@ export default function CommentsSection({ everestId }) {
 
   // Fetch comments whenever the target Everest changes
   useEffect(() => {
-      if (!everestId) return;
-      const token = localStorage.getItem("token");
+    if (!everestId) return;
+    const token = localStorage.getItem("token");
 
     const fetchComments = async () => {
       try {
@@ -45,52 +57,102 @@ export default function CommentsSection({ everestId }) {
     fetchComments();
   }, [everestId, token]);
 
+  // enter edit mode - loads the comments text into the textrea
+  function handleStartEdit(comment) {
+    setEditingId(comment._id);
+    setBody(comment.content || "");
+  }
+
+  // Submit handler - update existing comment if in edit mode, else create a new comment
   async function handleSubmit(e) {
     e.preventDefault();
     const message = body.trim();
     if (!message) return;
-
+  
     try {
-      setError("");
-      const res = await createComment(token, everestId, message);
-      if (res?.token) localStorage.setItem("token", res.token);
-      if (res?.comment) setComments((prev) => [res.comment, ...prev]);
-
+      if (editingId) {
+        const res = await updateComment(token, editingId, message);
+        setComments((prev) =>
+          prev.map((c) =>
+            String(c._id) === String(editingId) ? { ...c, content: message } : c
+          )
+        );
+        setEditingId(null);
+      } else {
+        const res = await createComment(token, everestId, message);
+        setComments((prev) => [res.comment, ...prev]);
+      }
       setBody("");
     } catch (e) {
-      setError(e.message || "Failed to post comment");
+      setError("Failed to submit comment");
+    }
+  }
+
+  // Delete handler - also exits edit mode if the comment was being edited
+  async function handleDeleteComment(commentId) {
+    if (!commentId) return;
+    try {
+      const out = await deleteComment(token, commentId);
+      if (out?.token) localStorage.setItem("token", out.token);
+      setComments((prev) => prev.filter((c) => String(c._id) !== String(commentId)));
+
+      // if user in edit mode for this comment, exit edit mode
+      if (editingId && String(editingId) === String(commentId)) {
+        setEditingId(null);
+        setBody("");
+      }
+    } catch (e) {
+      setError("Failed to delete comment");
     }
   }
 
   return (
-    
-      <div className="container" >
-        <div className="box" style={{ backgroundColor: "rgba(0, 0, 0, 0.6)", maxWidth: "70rem", margin: "2.5rem auto" }}>
-          <p className="title is-5 has-text-white has-text-weight-normal">Comments</p>
+    <div className="container">
+      <div className="box" style={{ backgroundColor: "rgba(0, 0, 0, 0.6)", maxWidth: "70rem", margin: "2.5rem auto" }}>
+        <p className="title is-5 has-text-white has-text-weight-normal">Comments</p>
 
-          {error && <div className="notification is-danger">{error}</div>}
+        {error && <div className="notification is-danger">{error}</div>}
 
-          {loading ? (
-            <p>Loading comments…</p>
-          ) : (
-            <>
-              <div
-                className="mb-4"
-                style={{ maxHeight: "320px", overflowY: "auto" }}
-              >
-                {comments.length === 0 ? (
-                  <p className="has-text-white has-text-weight-normal">No comments yet</p>
-                ) : (
-                  comments.map((comment) => (
+        {loading ? (
+          <p>Loading comments…</p>
+        ) : (
+          <>
+            <div className="mb-4" style={{ maxHeight: "320px", overflowY: "auto" }}>
+              {comments.length === 0 ? (
+                <p className="has-text-white has-text-weight-normal">No comments yet</p>
+              ) : (
+                comments.map((comment) => {
+                  const authorId = comment.author?._id;
+                  const isAuthor = currentUserId && authorId && String(authorId) === String(currentUserId);
+
+                  return (
                     <article className="media" key={comment._id}>
                       <div className="media-content">
                         <div className="content">
                           <p>
-                            <strong>{comment.author.username ||comment.author.email}</strong>
+                            <strong>{comment.author.username || comment.author.email}</strong>
                             {comment.createdAt && (
                               <small className="has-text-white has-text-weight-normal">
                                 · {formatTimeAgo(comment.createdAt)}
                               </small>
+                            )}
+                            {isAuthor && (
+                              <>
+                                <button
+                                  className="button is-light is-small"
+                                  style={{ marginLeft: "0.5rem" }}
+                                  onClick={() => handleStartEdit(comment)}
+                                >
+                                  Edit
+                                </button>
+                                <button
+                                  className="button is-light is-small"
+                                  style={{ marginLeft: "0.5rem" }}
+                                  onClick={() => handleDeleteComment(comment._id)}
+                                >
+                                  Delete
+                                </button>
+                              </>
                             )}
                             <br />
                             {comment.content}
@@ -98,42 +160,61 @@ export default function CommentsSection({ everestId }) {
                         </div>
                       </div>
                     </article>
-                  ))
-                )}
+                  );
+                })
+              )}
+            </div>
+
+            <form onSubmit={handleSubmit}>
+              <div className="field">
+                <label className="label has-text-white has-text-weight-normal">
+                  {editingId ? "Edit comment" : "Add a comment"}
+                </label>
+                <div className="control">
+                  <textarea
+                    className="textarea"
+                    rows={3}
+                    placeholder="Say something..."
+                    value={body}
+                    onChange={(e) => setBody(e.target.value)}
+                    maxLength={2000}
+                    required
+                  />
+                </div>
               </div>
 
-              <form onSubmit={handleSubmit}>
-                <div className="field">
-                  <label className="label has-text-white has-text-weight-normal">Add a comment</label>
-                  <div className="control">
-                    <textarea
-                      className="textarea"
-                      rows={3}
-                      placeholder="Say something..."
-                      value={body}
-                      onChange={(e) => setBody(e.target.value)}
-                      maxLength={2000}
-                      required
-                    />
-                  </div>
+              <div className="field is-grouped is-justify-content-flex-end">
+                <div className="control">
+                  <button
+                    type="submit"
+                    className="button is-primary"
+                    disabled={!body.trim()}
+                    data-testid={editingId ? "save-edited-comment" : "submit-comment"}
+                  >
+                    {editingId ? "Save changes" : "Post comment"}
+                  </button>
                 </div>
 
-                <div className="field is-grouped is-justify-content-flex-end">
+                {editingId && (
                   <div className="control">
                     <button
-                      type="submit"
-                      className="button is-primary"
-                      disabled={!body.trim()}
+                      type="button"
+                      className="button is-light"
+                      onClick={() => {
+                        setEditingId(null);
+                        setBody("");
+                      }}
+                      data-testid="cancel-edit"
                     >
-                      Post comment
+                      Cancel
                     </button>
                   </div>
-                </div>
-              </form>
-            </>
-          )}
-        </div>
+                )}
+              </div>
+            </form>
+          </>
+        )}
       </div>
-    
+    </div>
   );
 }
