@@ -3,30 +3,6 @@ const router = express.Router();
 
 const EverestsController = require("../controllers/everests");
 const tokenChecker = require("../middleware/tokenChecker");
-const multer = require("multer");
-const path = require("path");
-const fs = require("fs");
-const uploadPath = path.join(__dirname, "..", "uploads");
-
-
-//  Ensure the uploads directory exists
-if (!fs.existsSync(uploadPath)) {
-  fs.mkdirSync(uploadPath, { recursive: true });
-}
-
-//  Configure Multer with absolute path
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, uploadPath);
-  },
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    const extension = path.extname(file.originalname); // includes the dot
-    cb(null, `${file.fieldname}-${uniqueSuffix}${extension}`);
-  },
-});
-
-const upload = multer({ storage });
 
 //  All /everests routes are protected in app.js via tokenChecker
 //  GET all Everests
@@ -39,10 +15,6 @@ router.post("/:everestId/milestones", EverestsController.addMilestone);
 
 
 // POST create Everest with auth + file upload
-router.post(
-  "/",
-  upload.single("photo"), // "photo" must match FormData field in frontend
-  EverestsController.createEverest
-);
+router.post("/",EverestsController.createEverest);
 
 module.exports = router;

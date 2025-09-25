@@ -6,6 +6,8 @@ import "bulma/css/bulma.min.css";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 
+import UploadWidget from "../../components/UploadWidget";
+
 export function CreateEverestPage() {
   const navigate = useNavigate();
   const [name, setName] = useState("");
@@ -15,6 +17,8 @@ export function CreateEverestPage() {
   const [milestones, setMilestones] = useState([]);
   const [newMilestoneDesc, setNewMilestoneDesc] = useState("");
   const [newMilestoneDate, setNewMilestoneDate] = useState("");
+
+  const [everestImageUrl, setEverestImageUrl] = useState("");
 
   const [error, setError] = useState("");
 
@@ -61,7 +65,8 @@ export function CreateEverestPage() {
         details,
         startDate || undefined,
         endDate || undefined,
-        cleanedMilestones
+        cleanedMilestones,
+        everestImageUrl
       );
 
       if (res?.token) localStorage.setItem("token", res.token);
@@ -220,6 +225,29 @@ export function CreateEverestPage() {
               <p className="has-text-white">No milestones added yet</p>
             )}
           </div>
+
+          {/* Upload Everest Image */}
+          {everestImageUrl && (
+            <div className="mb-2 has-text-centered">
+              <figure className="image is-128x128 is-inline-block">
+                <img
+                  className="is-rounded mt-3"
+                  src={everestImageUrl}
+                  alt="Everest preview"
+                  style={{ objectFit: "cover", width: "100%", height: "100%" }}
+                />
+              </figure>
+            </div>
+          )}
+
+          <UploadWidget
+            imageUrl={everestImageUrl}
+            setImageUrl={setEverestImageUrl}
+            folder="everest-images"
+            buttonText="Upload Image"
+            altText="Everest preview"
+            previewClass="is-128x128"  // larger preview
+          />
 
           <div className="field is-grouped">
             <div className="control">
