@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createEverest } from "../../services/everests";
+import HelpCreateEverest from "../../components/help/CreateEverest"
 import "bulma/css/bulma.min.css";
 
 import Header from "../../components/Header";
@@ -121,7 +122,7 @@ export function CreateEverestPage() {
           <div className="columns">
             <div className="column">
               <div className="field">
-                <label className="label has-text-white">Start date</label>
+                <label className="label has-text-white"> Goal Start Date </label>
                 <div className="control">
                   <input
                     className="input"
@@ -134,7 +135,7 @@ export function CreateEverestPage() {
             </div>
             <div className="column">
               <div className="field">
-                <label className="label has-text-white">End date</label>
+                <label className="label has-text-white">Target Completion Date</label>
                 <div className="control">
                   <input
                     className="input"
@@ -226,6 +227,9 @@ export function CreateEverestPage() {
             )}
           </div>
 
+
+          <div className="field is-grouped is-justify-content-space-between">
+
           {/* Upload Everest Image */}
           <UploadWidget
                 imageUrl={everestImageUrl}
@@ -237,6 +241,7 @@ export function CreateEverestPage() {
               />
 
           <div className="field is-grouped">
+
             <div className="control">
               <button className="button is-my-green" type="submit">
                 Create
@@ -247,6 +252,9 @@ export function CreateEverestPage() {
                 Cancel
               </button>
             </div>
+            <div className="control ml-auto">
+              <HelpCreateEverest />
+              </div>
           </div>
         </form>
       </div>

@@ -4,78 +4,144 @@ import "../../components/EverestCard.css";
 
 export function AboutPage() {
   return (
-    <div
-      className="is-flex is-flex-direction-column"
-      style={{ minHeight: "100vh", position: "relative" }}
-    >
-      <img
-    src="/my_everest_background.png"
-    alt="Background"
-    style={{
-      position: "fixed",
-      top: 0,
-      left: 0,
-      width: "100%",
-      height: "100%",
-      objectFit: "cover",
-      zIndex: -1, 
-    }}
-  />
-
-      {/* Header with nav */}
+    <div className="is-flex is-flex-direction-column" style={{ minHeight: "100vh", backgroundColor: "#1b262c" }}>
       <Header showNav={true} />
 
-      {/* Main content with dynamic background color */}
-      <main
-        className="home is-flex-grow-1 is-flex is-justify-content-center is-align-items-center"
-        style={{ position: "relative", zIndex: 1 }}
-      >
-        <div
-          className="box is-hoverable"
-          style={{
-            maxWidth: "800px",
-            width: "90%",
-            backgroundColor: "rgba(241, 200, 146, 1)",
-          }}
+      <main className="is-flex-grow-1 m-6" style={{ position: "relative", zIndex: 1, backgroundColor: "#1b262c" }}>
+        <section
+          
         >
-          <div className="content has-text-centered">
-            <h1
-              className="title is-3 is-hoverable"
-              style={{ color: "white" }}
-            >
-              About My Everest
-            </h1>
-            <p
-              className="has-text-white"
-              style={{ textAlign: "left", color: "white" }}
-            >
-              <strong style={{ color: "white" }}>What is an Everest?</strong>
-              <br />
-              An <strong style={{ color: "white" }}>Everest</strong> is your personal mountain—your biggest challenge, your greatest aspiration. Just like the first climbers who faced the towering, unforgiving peaks of Mount Everest, you have your own summits to conquer. Whether it’s training for a marathon, mastering a musical instrument, launching a new career, or even the literal climb of Everest itself, your <strong style={{ color: "white" }}>Everests</strong> represent the goals that push you beyond your limits.
-              <br />
-              <br />
+          <header className="title is-1 has-text-white mb-6">About My Everest</header>
+        </section>
 
-              <strong style={{ color: "white" }}>Breaking Down the Climb</strong>
-              <br />
-              Every mountain is climbed one step at a time. That’s why <strong style={{ color: "white" }}>My Everest</strong> helps you break your long-term goals into clear, manageable <strong style={{ color: "white" }}>milestones</strong>. These milestones act like checkpoints along your path—each one a victory to celebrate and a motivation to keep moving forward.
-              <br />
-              <br />
-
-              <strong style={{ color: "white" }}>Track, Celebrate, and Inspire</strong>
-              <br />
-              With <strong style={{ color: "white" }}>My Everest</strong>, you can track your progress, check off milestones, and watch your journey unfold. And because no journey is made alone, you can choose to share your <strong style={{ color: "white" }}>Everests</strong> publicly on your personal Everests page—connecting with others, inspiring and being inspired by a community of fellow climbers who are reaching for their own summits.
-              <br />
-              <br />
-
-              <strong style={{ color: "white" }}>Your Everest Awaits</strong>
-              <br />
-              Remember, every step forward, no matter how small, brings you closer to your peak. So gear up, start climbing, and make your dreams your reality. Your <strong style={{ color: "white" }}>Everests</strong> are waiting—are you ready to begin?
+        <div style={{ display: "flex", gap: "1.5rem", alignItems: "stretch", margin: "1.5rem 0" }}>
+          <section
+            className="box is-hoverable"
+            style={{
+              backgroundColor: "rgba(241, 200, 146, 0.8)",
+              width: "50%",
+              margin: "0 auto",          // centers the BOX itself on the page
+              display: "flex",           // flex container
+              flexDirection: "column",   // keep your h2 + p stacked
+              justifyContent: "center",  // vertical centering
+              alignItems: "center",      // horizontal centering
+              minHeight: "300px"         // give it some height so centering actually shows
+            }}
+          >
+            <h2 className="has-text-white title is-1">What is an Everest</h2>
+            <p className="has-text-white is-size-2">
+              An Everest is your personal mountain—your biggest challenge, your greatest aspiration. Just like the first
+              climbers who faced the towering, unforgiving peaks of Mount Everest, you have your own summits to conquer.
+              Whether it’s training for a marathon, mastering a musical instrument, launching a new career, or even the
+              literal climb of Everest itself, your <strong style={{ color: "white" }}>Everests</strong> represent the goals
+              that push you beyond your limits.
             </p>
+          </section>
+
+          <div style={{ width: "50%", display: "flex", alignItems: "center" }}>
+            <img
+              src="/Mount-Everest .png"
+              alt="Mount Everest"
+              style={{ width: "100%", height: "auto", borderRadius: "6px", objectFit: "cover" }}
+            />
           </div>
+        </div>
+
+        <div style={{ display: "flex", gap: "1.5rem", alignItems: "stretch", margin: "1.5rem 0" }}>
+          <div style={{ width: "50%", display: "flex", alignItems: "center" }}>
+            <img
+              src="/Marathon 2.png"
+              alt="Marathon"
+              style={{ width: "100%", height: "auto", borderRadius: "6px", objectFit: "cover" }}
+            />
+          </div>
+          <section
+            className="box is-hoverable"
+            style={{
+              backgroundColor: "rgba(241, 200, 146, 0.8)",
+              width: "50%",
+              margin: 0,
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              minHeight: "300px"
+            }}
+          >
+            <h2 className="has-text-white title is-4">Breaking Down the Climb</h2>
+            <p className="has-text-white is-size-5">
+              Every mountain is climbed one step at a time. That’s why <strong style={{ color: "white" }}>My Everest</strong>
+              helps you break your long-term goals into clear, manageable <strong style={{ color: "white" }}>milestones</strong>.
+              These milestones act like checkpoints along your path—each one a victory to celebrate and a motivation to keep
+              moving forward.
+              <br />
+            </p>
+          </section>
+        </div>
+        <div style={{ display: "flex", gap: "1.5rem", alignItems: "stretch", margin: "1.5rem 0" }}>
+          <section
+            className="box is-hoverable"
+            style={{
+              backgroundColor: "rgba(241, 200, 146, 0.8)",
+              width: "50%",
+              margin: 0,
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              minHeight: "300px"
+            }}
+          >
+            <h2 className="has-text-white title is-4">Track, Celebrate, and Inspire</h2>
+            <p className="has-text-white is-size-5">
+              With My Everest, you can track your progress, check off milestones, and watch your journey unfold. And because
+              no journey is made alone, you can choose to share your Everests publicly on your personal Everests page—connecting
+              with others, inspiring and being inspired by a community of fellow climbers who are reaching for their own summits.
+              <br />
+            </p>
+          </section>
+          <div style={{ width: "50%", display: "flex", alignItems: "center" }}>
+            <img
+              src="/Biking 2.png"
+              alt="Biking"
+              style={{ width: "100%", height: "auto", borderRadius: "6px", objectFit: "cover" }}
+            />
+          </div>
+        </div>
+
+
+        <div style={{ display: "flex", gap: "1.5rem", alignItems: "stretch", margin: "1.5rem 0" }}>
+          <div style={{ width: "50%", display: "flex", alignItems: "center" }}>
+            <img
+              src="/Guitar 2.png"
+              alt="Guitar practice"
+              style={{ width: "100%", height: "auto", borderRadius: "6px", objectFit: "cover" }}
+            />
+          </div>
+          <section
+            className="box is-hoverable"
+            style={{
+              backgroundColor: "rgba(241, 200, 146, 0.8)",
+              width: "50%",
+              margin: 0,
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              minHeight: "300px"
+            }}
+          >
+            <h2 className="has-text-white title is-4">Your Everest Awaits</h2>
+            <p className="has-text-white is-size-5">
+              Remember, every step forward, no matter how small, brings you closer to your peak. So gear up, start climbing,
+              and make your dreams your reality. Your <strong style={{ color: "white" }}>Everests</strong> are waiting—are you
+              ready to begin?
+              <br />
+            </p>
+          </section>
         </div>
       </main>
 
-      {/* Footer */}
       <Footer />
     </div>
   );
