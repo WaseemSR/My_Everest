@@ -10,6 +10,7 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone, onEverestUpdate
 
   // --- existing ---
   const [newDescription, setNewDescription] = useState("");
+  const [newDate, setNewDate] = useState("");
   // Determine ownership (everest.user can be object or id)
   const ownerId = typeof everest.user === "object" && everest.user ? everest.user._id : everest.user;
   const isOwner = ownerId && currentUserId && String(ownerId) === String(currentUserId);
@@ -27,7 +28,7 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone, onEverestUpdate
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ description: desc }),
+        body: JSON.stringify({ description: desc, date: newDate || undefined }),
       });
 
       if (!res.ok) {
@@ -39,6 +40,7 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone, onEverestUpdate
       const { milestone } = await res.json();
       onMilestoneAdded?.(everest._id, milestone);
       setNewDescription("");
+      setNewDate("");
     } catch (err) {
       console.error("request error:", err);
     }
@@ -124,7 +126,7 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone, onEverestUpdate
                         style={{ flex: 1, paddingRight: "0.5rem" }}
                     >
 
-                    {m.description} - {m.date}
+                    {m.description} {m.date ? `- ${new Date(m.date).toLocaleDateString("en-GB")}` : ""}
                     
 
                     </span>
@@ -145,34 +147,50 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone, onEverestUpdate
             )}
 
             <p className="title is-5 has-text-white mt-4 has-text-centered has-text-weight-normal">End Date: {new Date(everest.endDate).toLocaleDateString("en-GB")}</p>
-
+            
             {isOwner && (
               <form
                 onSubmit={handleAddMilestone}
-                className="field has-addons mt-4"
+                className="mt-4"
                 style={{ padding: "0 1rem" }}
               >
-                <div className="control is-expanded">
-                  <input
-                    className="input"
-
-                    type="text"
-                    placeholder="New milestone…"
-                    value={newDescription}
-                    onChange={(e) => setNewDescription(e.target.value)}
-
-                  />
+                <div className="field">
+                  <label className="label is-small has-text-white">Add new milestone</label>
+                  <div className="control">
+                    <input
+                      className="input"
+                      type="text"
+                      placeholder="New milestone…"
+                      value={newDescription}
+                      onChange={(e) => setNewDescription(e.target.value)}
+                    />
+                  </div>
                 </div>
-                <div className="control">
-                  <button
-                    className="button is-link"
-                    style={{ backgroundColor: "#addfad", color: "#1b262c", border: "none" }}
-                    type="submit"
-                    disabled={!newDescription.trim()}
-                    title="Add milestone"
-                  >
-                    Add
-                  </button>
+
+                <div className="field">
+                  <label className="label is-small has-text-white">Target milestone completion date</label>
+                  <div className="control">
+                    <input
+                      className="input"
+                      type="date"
+                      value={newDate}
+                      onChange={(e) => setNewDate(e.target.value)}
+                    />
+                  </div>
+                </div>
+
+                <div className="field is-grouped is-justify-content-flex-end">
+                  <div className="control">
+                    <button
+                      className="button is-link"
+                      style={{ backgroundColor: "#addfad", color: "#1b262c", border: "none" }}
+                      type="submit"
+                      disabled={!newDescription.trim()}
+                      title="Add milestone"
+                    >
+                      Add
+                    </button>
+                  </div>
                 </div>
               </form>
             )}
