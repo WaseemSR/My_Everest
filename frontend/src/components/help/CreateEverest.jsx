@@ -8,9 +8,10 @@ function HelpCreateEverest () {
     <article>
         <button className="button is-my-purple" onClick={() => setIsOpen(true)}>Help</button>
         <div className={`modal ${isOpen ? "is-active" : ""}`}>
-            <div className="modal-background" />
-            <div className="modal-card">
-                <header className="modal-card-head">
+            <div className="modal-background"/>
+            <div className="modal-card" >
+                <header className="modal-card-head" style={{
+              backgroundColor: "rgba(241, 200, 146)"}}>
                     <p className="modal-card-title title is-size-2 mt-6">Instructions</p>
                 </header>
                 <section className="modal-card-body">
