@@ -24,10 +24,11 @@ export async function getUserById(userId, token) {
   return res.json();
 }
 
-export async function updateUser(token, userId, username, bio) {
+export async function updateUser(token, userId, username, bio, profileImageUrl) {
   const body = {};
   if (username !== undefined) body.username = username;
   if (bio !== undefined) body.bio = bio;
+  if (profileImageUrl !== undefined) body.profileImageUrl = profileImageUrl;
 
   const response = await fetch(`${BACKEND_URL}/users/${userId}`, {
     method: "PATCH",

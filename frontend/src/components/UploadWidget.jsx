@@ -1,6 +1,13 @@
 import { useEffect, useRef } from "react";
 
-const UploadWidget = ({ imageUrl, setImageUrl }) => {
+const UploadWidget = ({
+  imageUrl,
+  setImageUrl,
+  folder = "user-profiles",
+  buttonText = "Upload Image",
+  altText = "Preview",
+  previewStyle = {}, // custom width/height or shape
+}) => {
   const cloudinaryRef = useRef();
   const widgetRef = useRef();
 
@@ -9,47 +16,40 @@ const UploadWidget = ({ imageUrl, setImageUrl }) => {
 
     widgetRef.current = cloudinaryRef.current.createUploadWidget(
       {
-        cloudName: "dcwwflklx", // your Cloudinary cloud name
-        uploadPreset: "everest_user_profile", // your unsigned preset
-        folder: "user-profiles", // optional: organize images into folders
-        cropping: true, // optional: allow cropping
+        cloudName: "dcwwflklx",
+        uploadPreset: "everest_user_profile",
+        folder,
+        cropping: true,
         multiple: false,
       },
       function (error, result) {
         if (!error && result?.event === "success") {
           console.log("Upload successful:", result.info);
-          setImageUrl(result.info.secure_url); // Send URL back to parent
+          setImageUrl(result.info.secure_url);
         }
       }
     );
-  }, [setImageUrl]);
+  }, [setImageUrl, folder]);
 
-  const openWidget = () => {
-    if (widgetRef.current) {
-      widgetRef.current.open();
-    }
-  };
+  const openWidget = () => widgetRef.current?.open();
 
   return (
     <div className="has-text-centered mt-5 mb-5">
-      {/* Upload Button */}
       <button
         type="button"
         className="button is-my-green is-small has-text-white"
         onClick={openWidget}
       >
-        Upload Profile Image
+        {buttonText}
       </button>
 
-      {/* Preview */}
       {imageUrl && (
         <div className="mt-3">
-          <figure className="image is-96x96 is-inline-block">
+          <figure className="image is-inline-block" style={{ ...previewStyle }}>
             <img
-              className="is-rounded"
               src={imageUrl}
-              alt="Profile preview"
-              style={{ objectFit: "cover", width: "100%", height: "100%" }}
+              alt={altText}
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
             />
           </figure>
         </div>

@@ -12,9 +12,7 @@ const EverestSchema = new mongoose.Schema({
     details: String,
     startDate: Date,
     endDate: Date,
-    photo: {
-      type: String, // Path or URL to uploaded photo
-    },
+    everestImageUrl: {type: String },
 
     milestones: { type: [MilestoneSchema], default: [] },
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }, // link to creator

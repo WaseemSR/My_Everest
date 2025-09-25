@@ -17,6 +17,7 @@ async function createEverest(req, res) {
             endDate: req.body.endDate,
             milestones: req.body.milestones,
             user: req.user_id, // tie Everest to the logged-in user
+            everestImageUrl: req.body.everestImageUrl || null,
         });
 
         const saved = await doc.save();
@@ -35,7 +36,7 @@ async function updateEverest(req, res) {
             return res.status(400).json({message: "Invalid Everest ID"})
         }
 
-        const allowed = ["name", "details", "startDate", "endDate"];
+        const allowed = ["name", "details", "startDate", "endDate", "everestImageUrl"];
         const updates = {};
             for (const field of allowed) {
                 if (field in req.body) updates[field] = req.body[field];

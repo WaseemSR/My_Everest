@@ -128,25 +128,38 @@ export default function CommentsSection({ everestId }) {
                   return (
                     <article className="media" key={comment._id}>
                       <div className="media-content">
-                        <div className="content">
-                          <p>
+                      <div className="content">
+                        <div
+                          style={{
+                            display: "grid",
+                            gridTemplateColumns: "1fr auto 1fr",
+                            alignItems: "center",
+                            gap: "0.5rem",
+                          }}
+                        >
+                          <div />
+
+                          <div className="has-text-centered">
                             <strong>{comment.author.username || comment.author.email}</strong>
                             {comment.createdAt && (
-                              <small className="has-text-white has-text-weight-normal">
+                              <small className="has-text-white has-text-weight-normal" style={{ marginLeft: "0.25rem" }}>
                                 · {formatTimeAgo(comment.createdAt)}
                               </small>
                             )}
+                          </div>
+
+                          <div style={{ justifySelf: "end" }}>
                             {isAuthor && (
                               <>
                                 <button
-                                  className="button is-light is-small"
+                                  className="button is-small"
                                   style={{ marginLeft: "0.5rem" }}
                                   onClick={() => handleStartEdit(comment)}
                                 >
                                   Edit
                                 </button>
                                 <button
-                                  className="button is-light is-small"
+                                  className="button is-small"
                                   style={{ marginLeft: "0.5rem" }}
                                   onClick={() => handleDeleteComment(comment._id)}
                                 >
@@ -154,10 +167,10 @@ export default function CommentsSection({ everestId }) {
                                 </button>
                               </>
                             )}
-                            <br />
-                            {comment.content}
-                          </p>
+                          </div>
                         </div>
+                        <p style={{ marginTop: "0.35rem" }}>{comment.content}</p>
+                      </div>
                       </div>
                     </article>
                   );
