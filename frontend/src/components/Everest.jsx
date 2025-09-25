@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
-import User from "./User";
+import Username from "./Username";
 import { updateEverest } from "../services/everests";
 
 
@@ -93,8 +93,8 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone, onEverestUpdate
     return (
         <article>
         <h2 className="is-size-1 has-text-weight-light has-text-white mt-6 mb-6">{everest.name}</h2>
-        <div className="mb-5"><User user={everest.user} /></div>
-        <p className="box title is-5 has-text-weight-normal has-text-white mb-5" style={{ backgroundColor: "rgba(0, 0, 0, 0.6)", maxWidth: "70rem", margin: "2.5rem auto" }} >{everest.details}</p>
+        <div className="mb-5 title has-text-white is-size-3 has-text-weight-light"><Username user={everest.user} /></div>
+        <p className="box title is-6 has-text-weight-normal has-text-white mb-5" style={{ backgroundColor: "rgba(0, 0, 0, 0.6)", maxWidth: "70rem", margin: "2.5rem auto" }} >{everest.details}</p>
         {isOwner && (
           <button
             className="button is-my-green has-text-white"
