@@ -199,7 +199,6 @@ const randomMessage = messages[Math.floor(Math.random() * messages.length)];
           </div>
         </div>
 
-      </div>
 
       <br /><br /><br />
 
@@ -225,6 +224,7 @@ const randomMessage = messages[Math.floor(Math.random() * messages.length)];
       </div>
       )}
     </main>
+    
     <Footer />
 
     </div>

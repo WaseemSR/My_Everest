@@ -256,7 +256,9 @@ export function CreateEverestPage() {
               <HelpCreateEverest />
               </div>
           </div>
+          </div>
         </form>
+        
       </div>
     </section>
     
@@ -264,5 +266,6 @@ export function CreateEverestPage() {
 
     <Footer />
     </div>
+    
   );
 }
