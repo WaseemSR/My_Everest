@@ -45,7 +45,7 @@ export function SignupPage() {
   const formRef = useRef(null);
   const confirmRef = useRef(null);
 
-  const [imageUrl, setImageUrl] = useState("");
+  const [profileImageUrl, setProfileImageUrl] = useState("");
 
   // --- Username availability check ---
   useEffect(() => {
@@ -171,7 +171,7 @@ export function SignupPage() {
     }
 
     try {
-      await signup(email, password, username, bio, imageUrl);
+      await signup(email, password, username, bio, profileImageUrl);
       navigate("/login");
     } catch (err) {
       console.error(err);
@@ -345,12 +345,12 @@ export function SignupPage() {
               </p>
 
               {/* Upload Profile Image */}
-              {imageUrl && (
+              {profileImageUrl && (
                 <div className="mb-2 has-text-centered">
                   <figure className="image is-96x96 is-inline-block">
                     <img
                       className="is-rounded mt-3"
-                      src={imageUrl}
+                      src={profileImageUrl}
                       alt="Profile preview"
                       style={{ objectFit: "cover", width: "100%", height: "100%" }}
                     />
@@ -358,7 +358,14 @@ export function SignupPage() {
                 </div>
               )}
 
-              <UploadWidget setImageUrl={setImageUrl} />
+              <UploadWidget
+                imageUrl={profileImageUrl}
+                setImageUrl={setProfileImageUrl}
+                folder="user-profiles"
+                buttonText="Upload Profile Image"
+                altText="Profile preview"
+                previewClass="is-96x96"
+              />
 
               {/* Bio */}
               <label className="form-label has-text-white" htmlFor="bio">
