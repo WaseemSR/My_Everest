@@ -32,9 +32,12 @@ export function HomePage() {
       <main className="home is-flex-grow-1 is-flex is-justify-content-center is-align-items-center">
         <div className="home-content has-text-centered">
           <img src={Logo} alt="Logo" style={{ maxHeight: "13rem", width: "auto" }} />
-          <h1 className="home-title is-size-1 has-text-weight-light mt-6 mb-6 has-text-white">
+          <h1 className="home-title is-size-1 has-text-weight-light mt-6 mb-2 has-text-white">
             Welcome to My Everest
           </h1>
+          <p className="has-text-white has-text-weight-light is-size-4 mb-2">Dream it, Track it, Share it!</p>
+          <p className="has-text-white has-text-weight-light is-size-4 mb-5">Turn dreams into milestones, and milestones into memories.</p>
+
           <div className="buttons is-justify-content-center">
             <Link to="/signup" className="button is-my-orange mr-5">
               Sign Up
