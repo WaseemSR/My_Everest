@@ -227,27 +227,14 @@ export function CreateEverestPage() {
           </div>
 
           {/* Upload Everest Image */}
-          {everestImageUrl && (
-            <div className="mb-2 has-text-centered">
-              <figure className="image is-128x128 is-inline-block">
-                <img
-                  className="is-rounded mt-3"
-                  src={everestImageUrl}
-                  alt="Everest preview"
-                  style={{ objectFit: "cover", width: "100%", height: "100%" }}
-                />
-              </figure>
-            </div>
-          )}
-
           <UploadWidget
-            imageUrl={everestImageUrl}
-            setImageUrl={setEverestImageUrl}
-            folder="everest-images"
-            buttonText="Upload Image"
-            altText="Everest preview"
-            previewClass="is-128x128"  // larger preview
-          />
+                imageUrl={everestImageUrl}
+                setImageUrl={setEverestImageUrl}
+                folder="everest-images"
+                buttonText="Upload Everest Image"
+                altText="Everest preview"
+                previewStyle={{ width: "300px", height: "200px" }}
+              />
 
           <div className="field is-grouped">
             <div className="control">

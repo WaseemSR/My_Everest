@@ -4,9 +4,9 @@ const UploadWidget = ({
   imageUrl,
   setImageUrl,
   folder = "user-profiles",
-  buttonText = "Upload Profile Image",
-  altText = "Profile preview",
-  previewClass = "is-96x96" // default preview size
+  buttonText = "Upload Image",
+  altText = "Preview",
+  previewStyle = {}, // custom width/height or shape
 }) => {
   const cloudinaryRef = useRef();
   const widgetRef = useRef();
@@ -16,9 +16,9 @@ const UploadWidget = ({
 
     widgetRef.current = cloudinaryRef.current.createUploadWidget(
       {
-        cloudName: "dcwwflklx", // your Cloudinary cloud name
-        uploadPreset: "everest_user_profile", // your unsigned preset
-        folder, // dynamic folder
+        cloudName: "dcwwflklx",
+        uploadPreset: "everest_user_profile",
+        folder,
         cropping: true,
         multiple: false,
       },
@@ -31,9 +31,7 @@ const UploadWidget = ({
     );
   }, [setImageUrl, folder]);
 
-  const openWidget = () => {
-    widgetRef.current?.open();
-  };
+  const openWidget = () => widgetRef.current?.open();
 
   return (
     <div className="has-text-centered mt-5 mb-5">
@@ -47,12 +45,11 @@ const UploadWidget = ({
 
       {imageUrl && (
         <div className="mt-3">
-          <figure className={`image ${previewClass} is-inline-block`}>
+          <figure className="image is-inline-block" style={{ ...previewStyle }}>
             <img
-              className="is-rounded"
               src={imageUrl}
-              alt={altText}   //use altText prop here
-              style={{ objectFit: "cover", width: "100%", height: "100%" }}
+              alt={altText}
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
             />
           </figure>
         </div>
