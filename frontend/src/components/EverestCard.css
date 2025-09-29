@@ -18,3 +18,7 @@
     transform: scale(1.15);
 
 }
+
+.my-mega-title {
+  font-size: 5rem; /* or whatever you want */
+}
