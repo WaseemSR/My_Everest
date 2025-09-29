@@ -26,7 +26,7 @@ export function LoginPage() {
       //}
 
       localStorage.setItem("token", token);
-      navigate("/posts");
+      navigate("/profile");
     } catch (err) {
       console.error("Login failed:", err.message);
       localStorage.removeItem("token"); // clean up in case of bad login
