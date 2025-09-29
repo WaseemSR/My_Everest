@@ -109,7 +109,7 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone, onEverestUpdate
           </button>
         )}
         <div className="box" style={{ backgroundColor: "rgba(0, 0, 0, 0.6)", maxWidth: "28rem", margin: "2.5rem auto", maxHeight: "50rem", overflowY: "auto"}}>
-            <h3 className="title is-3 has-text-white mt-4 has-text-weight-normal">Milestones</h3>
+            <h3 className="title is-3 has-text-white mt-4 has-text-weight-light">Milestones</h3>
             <p className="title is-5 has-text-white mb-4 has-text-weight-normal">Start Date: {new Date(everest.startDate).toLocaleDateString("en-GB")}</p>
             <hr />
 
