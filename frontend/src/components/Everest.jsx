@@ -324,12 +324,12 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone, onEverestUpdate
 
           <footer className="modal-card-foot">
             <button
-              className={`button is-primary ${saving ? "is-loading" : ""}`}
+              className={`button is-my-green ${saving ? "is-loading" : ""}`}
               onClick={handleSave}
             >
               Save changes
             </button>
-            <button className="button" onClick={() => setIsEditing(false)}>Cancel</button>
+            <button className="button is-my-yellow" onClick={() => setIsEditing(false)}>Cancel</button>
           </footer>
         </div>
       </div>

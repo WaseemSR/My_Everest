@@ -10,7 +10,7 @@ function NavBar() {
       {/* Show Home button only on Profile, Create Everest, and Everest pages */}
       {(path === "/profile" || path === "/createeverest" || path.startsWith("/everests")) && (
         <div className="navbar-item">
-          <Link to="/posts" className="button is-my-orange mr-5">Home</Link>
+          <Link to="/posts" className="button is-my-orange mr-5">Explore</Link>
         </div>
       )}
 
