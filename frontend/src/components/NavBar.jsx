@@ -61,9 +61,7 @@ function NavBar() {
       {/* Show Log Out Button only on home/feedpage/posts, Everest, Create Everest and My Profile pages */}
       {(path === "/posts" || path === "/profile" || path === "/createeverest" || path.startsWith("/everests")) && (
         <div className="navbar-item">
-          <span className="button is-my-orange mr-5">
-            <LogoutButton />
-          </span>
+          <LogoutButton />
         </div>
       )}
     </>
