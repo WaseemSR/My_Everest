@@ -108,6 +108,7 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone, onEverestUpdate
             Edit Everest
           </button>
         )}
+
         {/* Milestones + Everest image side-by-side */}
         <div
           className="container is-flex is-flex-direction-column-mobile"
@@ -126,12 +127,15 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone, onEverestUpdate
               backgroundColor: "white",
               maxWidth: "28rem",
               flex: "1 1 auto",
+              overflowY: "auto",
+              maxHeight: "50rem",
             }}
           >
             <h3 className="title is-3 mt-4 has-text-weight-normal">Milestones</h3>
             <p className="title is-5 mb-4 has-text-weight-normal">
               Start Date: {new Date(everest.startDate).toLocaleDateString("en-GB")}
             </p>
+
             <hr />
 
             {everest.milestones?.length ? (

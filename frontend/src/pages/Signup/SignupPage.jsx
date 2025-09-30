@@ -37,7 +37,7 @@ export function SignupPage() {
   const [usernameTouched, setUsernameTouched] = useState(false);
   const [usernameError, setUsernameError] = useState("");
 
-  const [bio, setBio] = useState("");
+ 
 
   const debouncedUsername = useDebounce(username, 400);
   const navigate = useNavigate();
@@ -127,9 +127,7 @@ export function SignupPage() {
     }
   }
 
-  function handleBioChange(e) {
-    setBio(e.target.value);
-  }
+
 
   // Keep confirm error in sync if password changes
   useEffect(() => {
@@ -171,7 +169,7 @@ export function SignupPage() {
     }
 
     try {
-      await signup(email, password, username, bio, profileImageUrl);
+      await signup(email, password, username, profileImageUrl);
       navigate("/login");
     } catch (err) {
       console.error(err);
@@ -365,20 +363,6 @@ export function SignupPage() {
                 buttonText="Upload Profile Image"
                 altText="Profile preview"
                 previewClass="is-96x96"
-              />
-
-              {/* Bio */}
-              <label className="form-label has-text-white" htmlFor="bio">
-                Bio:
-              </label>
-              <input
-                className="input-underline mb-5"
-                placeholder="Tell us about yourself..."
-                id="bio"
-                type="text"
-                value={bio}
-                onChange={handleBioChange}
-                autoComplete="organization-title"
               />
 
               {/* Submit */}

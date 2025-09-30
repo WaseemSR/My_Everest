@@ -87,8 +87,10 @@ const everests = [
       { description: "Accidentally get sponsored by a thimble company", date: "2001-04-01", completed: true },
       { description: "Summit attempt", date: "2025-01-01", completed: true }
     ],
+
     username: "David Smith",
     everestImageUrl: "/everest_images/everest.png"
+
   },
   {
     name: "Master the Fine Art of Watching Paint Dry",
@@ -101,8 +103,10 @@ const everests = [
       { description: "Hold philosophical debate with self about beige vs. cream", date: "2001-01-25", completed: true },
       { description: "Document the entire process in a scrapbook", date: "2001-02-01", completed: true }
     ],
+
     username: "David Smith",
     everestImageUrl: "/everest_images/paint_dry.png"
+
   },
   {
     name: "Collect Every Thimble Known to Man",
@@ -115,8 +119,10 @@ const everests = [
       { description: "Trade one rare thimble for another like a Pokémon master", date: "2005-07-07", completed: true },
       { description: "Curate world’s first thimble museum", date: "2008-09-09", completed: true }
     ],
+
     username: "David Smith",
     everestImageUrl: "/everest_images/thimbles.png"
+
   },
 
   // --- PRIYA ---
@@ -326,8 +332,10 @@ const everests = [
       { description: "Book a local half marathon", date: "2025-04-20", completed: false },
       { description: "Complete race in under 2h30", date: "2025-05-31", completed: false }
     ],
+
     username: "Amira Khan",
     everestImageUrl: "/everest_images/marathon.png"
+
   },
   {
     name: "Learn Guitar",
@@ -340,14 +348,17 @@ const everests = [
       { description: "Play first full song", date: "2025-06-15", completed: false },
       { description: "Perform for friends", date: "2025-09-01", completed: false }
     ],
+
     username: "Amira Khan",
     everestImageUrl: "/everest_images/guitar.png"
+
   },
   {
     name: "Parkrun 5K PB",
     details: "Because I want a simple, repeatable way to measure progress.",
     startDate: "2025-03-01",
     endDate: "2025-08-31",
+
     milestones: [
       { description: "Run parkrun baseline time", date: "2025-03-10", completed: false },
       { description: "Intervals once per week", date: "2025-04-05", completed: false },
@@ -569,6 +580,7 @@ const everests = [
       { description: "60 pages", date: "2025-06-30", completed: false },
       { description: "100 pages", date: "2025-10-31", completed: false }
     ],
+
     username: "Emily Zhang"
   }
 ];

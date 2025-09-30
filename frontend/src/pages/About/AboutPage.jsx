@@ -28,8 +28,8 @@ export function AboutPage() {
               minHeight: "300px"         // give it some height so centering actually shows
             }}
           >
-            <h2 className="has-text-white title is-1">What is an Everest</h2>
-            <p className="has-text-white is-size-2">
+            <h2 className="has-text-white title is-2">What is an Everest</h2>
+            <p className="has-text-white is-size-4">
               An Everest is your personal mountain—your biggest challenge, your greatest aspiration. Just like the first
               climbers who faced the towering, unforgiving peaks of Mount Everest, you have your own summits to conquer.
               Whether it’s training for a marathon, mastering a musical instrument, launching a new career, or even the
@@ -68,8 +68,8 @@ export function AboutPage() {
               minHeight: "300px"
             }}
           >
-            <h2 className="has-text-white title is-4">Breaking Down the Climb</h2>
-            <p className="has-text-white is-size-5">
+            <h2 className="has-text-white title is-3">Breaking Down the Climb</h2>
+            <p className="has-text-white is-size-4">
               Every mountain is climbed one step at a time. That’s why <strong style={{ color: "white" }}>My Everest</strong>
               helps you break your long-term goals into clear, manageable <strong style={{ color: "white" }}>milestones</strong>.
               These milestones act like checkpoints along your path—each one a victory to celebrate and a motivation to keep
@@ -92,8 +92,8 @@ export function AboutPage() {
               minHeight: "300px"
             }}
           >
-            <h2 className="has-text-white title is-4">Track, Celebrate, and Inspire</h2>
-            <p className="has-text-white is-size-5">
+            <h2 className="has-text-white title is-2">Track, Celebrate, and Inspire</h2>
+            <p className="has-text-white is-size-4">
               With My Everest, you can track your progress, check off milestones, and watch your journey unfold. And because
               no journey is made alone, you can choose to share your Everests publicly on your personal Everests page—connecting
               with others, inspiring and being inspired by a community of fellow climbers who are reaching for their own summits.
@@ -131,8 +131,8 @@ export function AboutPage() {
               minHeight: "300px"
             }}
           >
-            <h2 className="has-text-white title is-4">Your Everest Awaits</h2>
-            <p className="has-text-white is-size-5">
+            <h2 className="has-text-white title is-2">Your Everest Awaits</h2>
+            <p className="has-text-white is-size-4">
               Remember, every step forward, no matter how small, brings you closer to your peak. So gear up, start climbing,
               and make your dreams your reality. Your <strong style={{ color: "white" }}>Everests</strong> are waiting—are you
               ready to begin?

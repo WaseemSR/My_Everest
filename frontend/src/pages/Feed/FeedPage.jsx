@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getEverests } from "../../services/everests"
 import EverestCard from "../../components/EverestCard"
+import "../../components/EverestCard.css";
 // import { getPosts } from "../../services/posts";
 // import Post from "../../components/Post";
 
@@ -42,6 +43,7 @@ export function FeedPage() {
     return;
   }
 
+
   return (
     <div className="is-flex is-flex-direction-column" style={{ minHeight: "100vh" }}>
 
@@ -49,8 +51,8 @@ export function FeedPage() {
 
       
         <main className="is-flex-grow-1 p-5" style={{ backgroundColor: "#1b262c" }}>
-          <h1 className="is-size-1 has-text-weight-normal mt-6 mb-6 has-text-white">Explore Everests</h1>     {/*  This is the small bit added for the everests to be seen on feedpage */}
-          <div className="columns is-multiline equal-columns">
+          <h1 className="has-text-weight-light mt-6 mb-6 has-text-white my-mega-title">Explore Everests</h1> <br />    {/*  This is the small bit added for the everests to be seen on feedpage */}
+          <div className="columns is-multiline equal-columns mt-6">
             {everests.map((ev) => (
               <EverestCard key={ev._id} everest={ev} />
             ))}
