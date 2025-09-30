@@ -95,8 +95,8 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone, onEverestUpdate
     return (
         <article>
         <h2 className="is-size-1 has-text-weight-light has-text-white mt-6 mb-6">{everest.name}</h2>
-        <div className="mb-5 title has-text-white is-size-3 has-text-weight-light"><Username user={everest.user} /></div>
-        <p className="box title is-6 has-text-weight-normal has-text-white mb-5" style={{ backgroundColor: "rgba(0, 0, 0, 0.6)", maxWidth: "70rem", margin: "2.5rem auto" }} >{everest.details}</p>
+        <div className="mb-5 title has-text-white is-size-2 has-text-weight-light"><Username user={everest.user} /></div>
+        <p className="box title is-5 has-text-weight-normal mb-5" style={{ backgroundColor: "white", maxWidth: "70rem", margin: "2.5rem auto" }} >{everest.details}</p>
         {isOwner && (
           <button
             className="button is-my-green has-text-white"
@@ -108,46 +108,79 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone, onEverestUpdate
             Edit Everest
           </button>
         )}
-        <div className="box" style={{ backgroundColor: "rgba(0, 0, 0, 0.6)", maxWidth: "28rem", margin: "2.5rem auto", maxHeight: "50rem", overflowY: "auto"}}>
-            <h3 className="title is-3 has-text-white mt-4 has-text-weight-light">Milestones</h3>
-            <p className="title is-5 has-text-white mb-4 has-text-weight-normal">Start Date: {new Date(everest.startDate).toLocaleDateString("en-GB")}</p>
+
+        {/* Milestones + Everest image side-by-side */}
+        <div
+          className="container is-flex is-flex-direction-column-mobile"
+          style={{
+            maxWidth: "70rem",
+            display: "flex",
+            gap: "2rem",
+            alignItems: "flex-start",
+            margin: "2.5rem auto",
+          }}
+        >
+          {/* Milestones box (left) */}
+          <div
+            className="box"
+            style={{
+              backgroundColor: "white",
+              maxWidth: "28rem",
+              flex: "1 1 auto",
+              overflowY: "auto",
+              maxHeight: "50rem",
+            }}
+          >
+            <h3 className="title is-3 mt-4 has-text-weight-normal">Milestones</h3>
+            <p className="title is-5 mb-4 has-text-weight-normal">
+              Start Date: {new Date(everest.startDate).toLocaleDateString("en-GB")}
+            </p>
+
             <hr />
 
             {everest.milestones?.length ? (
-            <ol className="content has-text-white has-text-left p-3 title is-5 has-text-weight-normal">
+              <ol className="content has-text-left p-3 title is-5 has-text-weight-normal">
                 {everest.milestones.map((m) => (
-                <li key={m._id}>
+                  <li key={m._id}>
                     <label
-                    className="checkbox is-flex is-align-items-center"
-                    style={{ width: "100%", justifyContent: "space-between" }}
+                      className="checkbox is-flex is-align-items-center"
+                      style={{ width: "100%", justifyContent: "space-between" }}
                     >
-                    <span
-                        className={m.completed ? "is-size-5 has-text-white" : ""}
+                      <span
+                        className={m.completed ? "is-size-5" : ""}
                         style={{ flex: 1, paddingRight: "0.5rem" }}
-                    >
+                      >
+                        {m.description}{" "}
+                        {m.date
+                          ? `- ${new Date(m.date).toLocaleDateString("en-GB")}`
+                          : ""}
+                      </span>
 
-                    {m.description} {m.date ? `- ${new Date(m.date).toLocaleDateString("en-GB")}` : ""}
-                    
-
-                    </span>
-
-                    <input
+                      <input
                         type="checkbox"
                         checked={m.completed}
-                        onChange={(e) => onToggleMilestone?.(m._id, e.target.checked)}
-                        style={{ transform: "scale(1.5)", marginLeft: "0.5rem", accentColor: "#addfad" }}
-                    />
+                        onChange={(e) =>
+                          onToggleMilestone?.(m._id, e.target.checked)
+                        }
+                        style={{
+                          transform: "scale(1.5)",
+                          marginLeft: "0.5rem",
+                          accentColor: "#addfad",
+                        }}
+                      />
                     </label>
                     <hr />
-                </li>
+                  </li>
                 ))}
-            </ol>
+              </ol>
             ) : (
-            <p className="has-text-white">No milestones yet</p>
+              <p>No milestones yet</p>
             )}
 
-            <p className="title is-5 has-text-white mt-4 has-text-centered has-text-weight-normal">End Date: {new Date(everest.endDate).toLocaleDateString("en-GB")}</p>
-            
+            <p className="title is-5 mt-4 has-text-centered has-text-weight-normal">
+              End Date: {new Date(everest.endDate).toLocaleDateString("en-GB")}
+            </p>
+
             {isOwner && (
               <form
                 onSubmit={handleAddMilestone}
@@ -155,7 +188,7 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone, onEverestUpdate
                 style={{ padding: "0 1rem" }}
               >
                 <div className="field">
-                  <label className="label is-small has-text-white">Add new milestone</label>
+                  <label className="label is-small">Add new milestone</label>
                   <div className="control">
                     <input
                       className="input"
@@ -168,7 +201,9 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone, onEverestUpdate
                 </div>
 
                 <div className="field">
-                  <label className="label is-small has-text-white">Target milestone completion date</label>
+                  <label className="label is-small">
+                    Target milestone completion date
+                  </label>
                   <div className="control">
                     <input
                       className="input"
@@ -183,7 +218,11 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone, onEverestUpdate
                   <div className="control">
                     <button
                       className="button is-link"
-                      style={{ backgroundColor: "#addfad", color: "#1b262c", border: "none" }}
+                      style={{
+                        backgroundColor: "#addfad",
+                        color: "#1b262c",
+                        border: "none",
+                      }}
                       type="submit"
                       disabled={!newDescription.trim()}
                       title="Add milestone"
@@ -194,7 +233,32 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone, onEverestUpdate
                 </div>
               </form>
             )}
+          </div>
+
+          {/* Everest image (right) */}
+          {everest.everestImageUrl && (
+            <figure
+              className="image"
+              style={{
+                maxWidth: "40rem",
+                flex: "1 1 auto",
+              }}
+            >
+              <img
+                src={everest.everestImageUrl}
+                alt={`${everest.name} Everest`}
+                style={{
+                  width: "100%",
+                  height: "auto",
+                  borderRadius: "8px",
+                  objectFit: "cover",
+                }}
+              />
+            </figure>
+          )}
         </div>
+
+
           {/* --- BULMA MODAL --- */}
     {isOwner && (
       <div id="edit-everest-modal" className={`modal ${isEditing ? "is-active" : ""}`} role="dialog" aria-modal="true">

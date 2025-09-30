@@ -87,7 +87,10 @@ const everests = [
       { description: "Accidentally get sponsored by a thimble company", date: "2001-04-01", completed: true },
       { description: "Summit attempt", date: "2025-01-01", completed: true }
     ],
-    username: "David Smith"
+
+    username: "David Smith",
+    everestImageUrl: "/everest_images/everest.png"
+
   },
   {
     name: "Master the Fine Art of Watching Paint Dry",
@@ -100,7 +103,10 @@ const everests = [
       { description: "Hold philosophical debate with self about beige vs. cream", date: "2001-01-25", completed: true },
       { description: "Document the entire process in a scrapbook", date: "2001-02-01", completed: true }
     ],
-    username: "David Smith"
+
+    username: "David Smith",
+    everestImageUrl: "/everest_images/paint_dry.png"
+
   },
   {
     name: "Collect Every Thimble Known to Man",
@@ -113,7 +119,10 @@ const everests = [
       { description: "Trade one rare thimble for another like a Pokémon master", date: "2005-07-07", completed: true },
       { description: "Curate world’s first thimble museum", date: "2008-09-09", completed: true }
     ],
-    username: "David Smith"
+
+    username: "David Smith",
+    everestImageUrl: "/everest_images/thimbles.png"
+
   },
 
   // --- PRIYA ---
@@ -131,7 +140,8 @@ const everests = [
       { description: "Summit photo + celebratory chai, descend safely", date: "2025-06-10", completed: false },
       { description: "Log learnings and pick next peak", date: "2025-06-12", completed: false }
     ],
-    username: "Priya Kapoor"
+    username: "Priya Kapoor",
+    everestImageUrl: "/everest_images/snowdon.png"
   },
   {
     name: "Helvellyn",
@@ -147,7 +157,8 @@ const everests = [
       { description: "Summit Helvellyn; descend via Swirral Edge calmly", date: "2025-09-25", completed: false },
       { description: "Post-walk debrief over tea and cake", date: "2025-09-26", completed: false }
     ],
-    username: "Priya Kapoor"
+    username: "Priya Kapoor",
+    everestImageUrl: "/everest_images/helvellyn.png"
   },
   {
     name: "Tea Pilgrimage: Darjeeling",
@@ -160,7 +171,8 @@ const everests = [
       { description: "Schedule two guided tastings and one sunrise ride", date: "2025-11-05", completed: false },
       { description: "Bring home leaves + notes for a chai experiment", date: "2025-11-25", completed: false }
     ],
-    username: "Priya Kapoor"
+    username: "Priya Kapoor",
+    everestImageUrl: "/everest_images/tea.png"
   },
 
   // --- MATEO ---
@@ -177,7 +189,8 @@ const everests = [
       { description: "Sunrise start; steady cadence; enjoy lunar terrain", date: "2025-06-16", completed: true },
       { description: "Summit, descend safely; record GPX and notes", date: "2025-06-16", completed: true }
     ],
-    username: "Mateo Alvarez"
+    username: "Mateo Alvarez",
+    everestImageUrl: "/everest_images/teide.png"
   },
   {
     name: "La Malinche Weekend Summit",
@@ -192,7 +205,8 @@ const everests = [
       { description: "Summit photo; descend before afternoon storms", date: "2025-09-15", completed: false },
       { description: "Write trip doc with tips for future Mateo", date: "2025-09-20", completed: false }
     ],
-    username: "Mateo Alvarez"
+    username: "Mateo Alvarez",
+    everestImageUrl: "/everest_images/malinche.png"
   },
   {
     name: "Land an Automation Engineer Role",
@@ -225,7 +239,8 @@ const everests = [
       { description: "Summit safely; group photo; controlled descent", date: "2026-02-11", completed: false },
       { description: "Retro notes: what went well, what to tweak", date: "2026-02-15", completed: false }
     ],
-    username: "Aisha Khan"
+    username: "Aisha Khan",
+    everestImageUrl: "/everest_images/jebel_toubkal.png"
   },
   {
     name: "Ben Macdui in Winter Conditions",
@@ -240,7 +255,8 @@ const everests = [
       { description: "Pick bluebird day; conservative route choice", date: "2026-02-20", completed: false },
       { description: "Summit and exit with daylight buffer", date: "2026-02-21", completed: false }
     ],
-    username: "Aisha Khan"
+    username: "Aisha Khan",
+    everestImageUrl: "/everest_images/ben_macdui.png"
   },
   {
     name: "Tame the Fear of Heights",
@@ -254,7 +270,8 @@ const everests = [
       { description: "Lead a route one grade above comfort", date: "2025-11-15", completed: true },
       { description: "Reflect and write a courage note", date: "2025-12-05", completed: true }
     ],
-    username: "Aisha Khan"
+    username: "Aisha Khan",
+    everestImageUrl: "/everest_images/heights.png"
   },
 
   // --- BEN WALKER ---
@@ -271,7 +288,8 @@ const everests = [
       { description: "Summit, descend before the grump hour", date: "2025-07-05", completed: false },
       { description: "Write trip report; share GPX with friends", date: "2025-07-07", completed: false }
     ],
-    username: "Ben Walker"
+    username: "Ben Walker",
+    everestImageUrl: "/everest_images/scafell_pike.png"
   },
   {
     name: "Old Man of Coniston at Sunset",
@@ -298,7 +316,8 @@ const everests = [
       { description: "Record one tasteful groove", date: "2025-09-10", completed: false },
       { description: "Jam with a friend", date: "2025-10-05", completed: false }
     ],
-    username: "Ben Walker"
+    username: "Ben Walker",
+    everestImageUrl: "/everest_images/drums.png"
   },
 
   // --- AMIRA ---
@@ -313,7 +332,10 @@ const everests = [
       { description: "Book a local half marathon", date: "2025-04-20", completed: false },
       { description: "Complete race in under 2h30", date: "2025-05-31", completed: false }
     ],
-    username: "Amira Khan"
+
+    username: "Amira Khan",
+    everestImageUrl: "/everest_images/marathon.png"
+
   },
   {
     name: "Learn Guitar",
@@ -326,13 +348,17 @@ const everests = [
       { description: "Play first full song", date: "2025-06-15", completed: false },
       { description: "Perform for friends", date: "2025-09-01", completed: false }
     ],
-    username: "Amira Khan"
+
+    username: "Amira Khan",
+    everestImageUrl: "/everest_images/guitar.png"
+
   },
   {
     name: "Parkrun 5K PB",
     details: "Because I want a simple, repeatable way to measure progress.",
     startDate: "2025-03-01",
     endDate: "2025-08-31",
+
     milestones: [
       { description: "Run parkrun baseline time", date: "2025-03-10", completed: false },
       { description: "Intervals once per week", date: "2025-04-05", completed: false },
@@ -354,7 +380,8 @@ const everests = [
       { description: "Visit Tsukiji Market", date: "2025-06-10", completed: false },
       { description: "See Fushimi Inari shrine", date: "2025-06-20", completed: false }
     ],
-    username: "Lucas White"
+    username: "Lucas White",
+    everestImageUrl: "/everest_images/japan.png"
   },
   {
     name: "Learn to Cook 10 Recipes",
@@ -366,7 +393,8 @@ const everests = [
       { description: "Cook 5 meals for friends", date: "2025-05-01", completed: false },
       { description: "Document 10 recipes in a journal", date: "2025-09-01", completed: false }
     ],
-    username: "Lucas White"
+    username: "Lucas White",
+    everestImageUrl: "/everest_images/learn_cook.png"
   },
   {
     name: "Cycle London to Brighton",
@@ -394,7 +422,8 @@ const everests = [
       { description: "Buy cold-weather gear", date: "2025-12-10", completed: false },
       { description: "Photograph Aurora Borealis", date: "2026-01-20", completed: false }
     ],
-    username: "Sophia Rossi"
+    username: "Sophia Rossi",
+    everestImageUrl: "/everest_images/northern_lights.png"
   },
   {
     name: "Write a Short Story Collection",
@@ -407,7 +436,8 @@ const everests = [
       { description: "Draft 10 stories", date: "2025-09-01", completed: false },
       { description: "Edit and submit to one mag", date: "2025-11-15", completed: false }
     ],
-    username: "Sophia Rossi"
+    username: "Sophia Rossi",
+    everestImageUrl: "/everest_images/short_stories.png"
   },
   {
     name: "Italian B1 Fluency",
@@ -435,7 +465,8 @@ const everests = [
       { description: "30km long run", date: "2025-08-15", completed: false },
       { description: "Race day—finish under 5 hours", date: "2025-10-20", completed: false }
     ],
-    username: "Chloe Mitchell"
+    username: "Chloe Mitchell",
+    everestImageUrl: "/everest_images/marathon.png"
   },
   {
     name: "Start a Podcast",
@@ -448,7 +479,8 @@ const everests = [
       { description: "Edit and publish", date: "2025-05-10", completed: false },
       { description: "Reach 100 downloads", date: "2025-06-30", completed: false }
     ],
-    username: "Chloe Mitchell"
+    username: "Chloe Mitchell",
+    everestImageUrl: "/everest_images/podcast.png"
   },
   {
     name: "Swim 2km Open Water",
@@ -461,7 +493,8 @@ const everests = [
       { description: "1.5km open water", date: "2025-07-25", completed: false },
       { description: "2km swim event", date: "2025-08-30", completed: false }
     ],
-    username: "Chloe Mitchell"
+    username: "Chloe Mitchell",
+    everestImageUrl: "/everest_images/openwater_swim.png"
   },
 
   // --- HASSAN ---
@@ -476,7 +509,8 @@ const everests = [
       { description: "Reach £5,000", date: "2025-07-01", completed: false },
       { description: "Hit £10,000", date: "2025-12-15", completed: false }
     ],
-    username: "Hassan Ali"
+    username: "Hassan Ali",
+    everestImageUrl: "/everest_images/save_money.png"
   },
   {
     name: "Learn Python for Web",
@@ -489,7 +523,8 @@ const everests = [
       { description: "Deploy to a free host", date: "2025-06-10", completed: false },
       { description: "Onboard 5 users for feedback", date: "2025-08-15", completed: false }
     ],
-    username: "Hassan Ali"
+    username: "Hassan Ali",
+    everestImageUrl: "/everest_images/learn_python.png"
   },
   {
     name: "10 Pull-Ups",
@@ -502,7 +537,8 @@ const everests = [
       { description: "Set of 5", date: "2025-07-01", completed: false },
       { description: "Set of 10", date: "2025-09-01", completed: false }
     ],
-    username: "Hassan Ali"
+    username: "Hassan Ali",
+    everestImageUrl: "/everest_images/pull_up.png"
   },
 
   // --- EMILY ---
@@ -530,7 +566,8 @@ const everests = [
       { description: "Prepare: no phone/laptop rules", date: "2025-11-01", completed: false },
       { description: "Journal reflections after", date: "2025-11-20", completed: false }
     ],
-    username: "Emily Zhang"
+    username: "Emily Zhang",
+    everestImageUrl: "/everest_images/silent_retreat.png"
   },
   {
     name: "Sketchbook Habit (100 Pages)",
@@ -543,6 +580,7 @@ const everests = [
       { description: "60 pages", date: "2025-06-30", completed: false },
       { description: "100 pages", date: "2025-10-31", completed: false }
     ],
+
     username: "Emily Zhang"
   }
 ];
@@ -583,7 +621,8 @@ async function seedDB() {
         startDate: everest.startDate,
         endDate: everest.endDate,
         milestones: everest.milestones,
-        user: author._id
+        user: author._id,
+        everestImageUrl: everest.everestImageUrl
       };
     });
 

@@ -53,6 +53,7 @@ return (
           width: "60px",   // small so it sits neatly by the title
           opacity: 0.9,
           pointerEvents: "none",
+          zIndex: 2,
         }}
       />
     )}
@@ -60,27 +61,36 @@ return (
       <article
         className={`box is-hoverable has-text-weight-normal ${isComplete ? "complete" : "incomplete"}`}
         style={{
-          minHeight: "300px",
-          maxHeight: "300px",
+          minHeight: "360px",
+          maxHeight: "360px",
           overflowY: "auto",
           backgroundColor: isComplete
             ? "rgba(173, 223, 173, 0.8)"
-            : "rgba(241, 200, 146, 0.8)",
+            : "white",
         }}
       >
-      <h2 className="title is-3 pr-6 pl-6 has-text-weight-normal" style={{ marginBottom: "0.25rem" }} >{everest.name}</h2>
+
+      <figure className="image mb-3" style={{ maxHeight: "180px", overflow: "hidden" }}>
+        <img
+          src={everest.everestImageUrl || "/default_everest.png"}
+          alt={`${everest.name} Everest`}
+          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+        />
+      </figure>
+
+      <h2 className="title is-4 pr-6 pl-6 has-text-weight-normal" style={{ marginBottom: "0.25rem" }} >{everest.name}</h2>
               <span
-                className="has-text-weight-normal is-size-7 has-text-black created-by-inline" 
+                className="has-text-weight-normal is-size-7  created-by-inline" 
                 style={{ display: "inline-flex", alignItems: "baseline", whiteSpace: "nowrap", gap: "0.25rem", marginBottom: "0rem" }}
               >
                 Everest Created By:
                 <Username user={everest.user} />
               </span>
       <hr style={{ border: "none", borderTop: "3px solid #1b262c", marginTop: "0.25rem"}} />
-      <p className="is-size-5">{everest.details}</p>
+      <p className="is-size-6">{everest.details}</p>
       <br />
       <Link
-        className="is-size-5 is-my-purple"
+        className="is-size-6 is-my-purple"
         to={`/everests/${everest._id}`}
       >
         Click Here for more information
