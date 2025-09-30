@@ -8,7 +8,11 @@ function LogoutButton() {
     navigate("/");
   }
 
-  return <button onClick={logOut} >Log out</button>;
+  return (
+    <button onClick={logOut} className="button is-my-orange mr-5">
+      Log out
+    </button>
+  );
 }
 
 export default LogoutButton;

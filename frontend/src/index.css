@@ -66,6 +66,22 @@ a:hover {
   background-color: #091319 !important;
 }
 
+/* Remove white box on logo hover */
+.navbar-brand .navbar-item {
+  background-color: transparent !important; /* no background on hover */
+}
+
+/* Logo image transition */
+.navbar-brand .navbar-item img {
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* Logo hover effect: slight scale and fade */
+.navbar-brand .navbar-item:hover img {
+  transform: scale(1.05);
+  opacity: 0.85;
+}
+
 .button.is-my-orange {
   background-color: #ff865b;
   border-color: #ff865b;

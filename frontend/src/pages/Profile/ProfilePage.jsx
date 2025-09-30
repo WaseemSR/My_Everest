@@ -175,10 +175,10 @@ export function ProfilePage() {
               <form onSubmit={(e) => e.preventDefault()}>
             {/* Username */}
             <div className="field">
-              <label className="label is-small">Username</label>
+              <label className="label">Username</label>
             <div className="control">
               <input
-                className="input is-small"
+                className="input"
                 value={editUsername}
                 onChange={(e) => setEditUsername(e.target.value)}
                 placeholder="Your username"
@@ -189,10 +189,10 @@ export function ProfilePage() {
 
           {/* Bio */}
           <div className="field">
-            <label className="label is-small">Bio</label>
+            <label className="label">Bio</label>
             <div className="control">
               <textarea
-                className="textarea is-small"
+                className="textarea"
                 value={editBio}
                 onChange={(e) => setEditBio(e.target.value)}
                 rows={4}
@@ -203,49 +203,49 @@ export function ProfilePage() {
 
           {/* Profile Image Upload (Cloudinary) */}
           <div className="field">
-            <label className="label is-small">Profile Image</label>
+            <label className="label">Profile Image</label>
             <UploadWidget
               imageUrl={editProfileImageUrl || user.profileImageUrl || "/default_profile.png"} 
               setImageUrl={setEditProfileImageUrl} 
               folder="user-profiles"
               buttonText="Upload Profile Image"
               altText="Profile picture"
-              previewClass="is-128x128"
+              previewStyle={{ width: "256px", height: "256px", borderRadius: "50%" }}
             />
           </div>
-        </form>
-      </section>
-      <footer className="modal-card-foot">
-        <button
-          className={`button is-primary ${saving ? "is-loading" : ""}`}
-          onClick={async () => {
-            try {
-              setSaving(true);
-              const token = localStorage.getItem("token");
-              const updated = await updateUserService(
-                token,
-                user._id,
-                editUsername,
-                editBio,
-                editProfileImageUrl // this will overwrite the existing image
-              );
-              setUser((prev) => ({ ...prev, ...updated }));
-              setShowEditModal(false);
-            } catch (e) {
-              console.error("Profile update failed:", e);
-              alert(e.message || "Failed to update profile");
-            } finally {
-              setSaving(false);
-            }
-          }}
-        >
-          Save changes
-        </button>
-        <button className="button" onClick={() => setShowEditModal(false)}>Cancel</button>
-      </footer>
-    </div>
-  </div>
-)}
+          </form>
+            </section>
+              <footer className="modal-card-foot">
+                <button
+                className={`button is-my-green ${saving ? "is-loading" : ""}`}
+                onClick={async () => {
+                  try {
+                    setSaving(true);
+                    const token = localStorage.getItem("token");
+                    const updated = await updateUserService(
+                      token,
+                      user._id,
+                      editUsername,
+                      editBio,
+                      editProfileImageUrl // this will overwrite the existing image
+                    );
+                    setUser((prev) => ({ ...prev, ...updated }));
+                    setShowEditModal(false);
+                  } catch (e) {
+                    console.error("Profile update failed:", e);
+                    alert(e.message || "Failed to update profile");
+                  } finally {
+                    setSaving(false);
+                  }
+                }}
+              >
+                Save changes
+              </button>
+              <button className="button is-my-yellow ml-4" onClick={() => setShowEditModal(false)}>Cancel</button>
+            </footer>
+          </div>
+        </div>
+        )}
 
         <br />
 
