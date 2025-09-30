@@ -14,12 +14,14 @@ function NavBar() {
         </div>
       )}
 
+
       {/* Show My Profile Button only on home/feedpage/posts, Everest and Create Everest */}
       {(path === "/posts" || path === "/createeverest" || path.startsWith("/everests")) && (
         <div className="navbar-item">
           <Link to="/profile" className="button is-my-orange mr-5">My Profile</Link>
         </div>
       )}
+
 
       {/* Show Create Everest button only on the Profile page */}
       {path === "/profile" && (
