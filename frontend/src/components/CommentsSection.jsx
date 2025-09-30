@@ -200,7 +200,7 @@ export default function CommentsSection({ everestId }) {
                 <div className="control">
                   <button
                     type="submit"
-                    className="button is-primary"
+                    className="button is-my-green"
                     disabled={!body.trim()}
                     data-testid={editingId ? "save-edited-comment" : "submit-comment"}
                   >

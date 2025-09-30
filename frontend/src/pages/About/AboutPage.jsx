@@ -18,7 +18,7 @@ export function AboutPage() {
           <section
             className="box is-hoverable"
             style={{
-              backgroundColor: "rgba(241, 200, 146, 0.8)",
+              backgroundColor: "transparent",
               width: "50%",
               margin: "0 auto",          // centers the BOX itself on the page
               display: "flex",           // flex container
@@ -58,7 +58,7 @@ export function AboutPage() {
           <section
             className="box is-hoverable"
             style={{
-              backgroundColor: "rgba(241, 200, 146, 0.8)",
+              backgroundColor: "transparent",
               width: "50%",
               margin: 0,
               display: "flex",
@@ -82,7 +82,7 @@ export function AboutPage() {
           <section
             className="box is-hoverable"
             style={{
-              backgroundColor: "rgba(241, 200, 146, 0.8)",
+              backgroundColor: "transparent",
               width: "50%",
               margin: 0,
               display: "flex",
@@ -121,7 +121,7 @@ export function AboutPage() {
           <section
             className="box is-hoverable"
             style={{
-              backgroundColor: "rgba(241, 200, 146, 0.8)",
+              backgroundColor: "transparent",
               width: "50%",
               margin: 0,
               display: "flex",
