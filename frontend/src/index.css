@@ -136,3 +136,28 @@ h1 {
   border-color: #ff914d;      /* match border */
   color: white;               /* text color */
 }
+
+/* --- Burger menu button --- */
+.navbar-burger.is-my-orange { color: #ff865b; }
+.navbar-burger.is-my-orange span { background-color: #ff865b; }
+
+/* --- Expanded menu look on small screens --- */
+@media (max-width: 1023px) {
+  #mainNavbar.navbar-menu {
+    background-color: #091319;
+    padding: 0.5rem 0.75rem;
+  }
+
+  #mainNavbar .navbar-item { padding: 0.25rem 0; }
+
+  /* buttons consistent width and centered */
+  #mainNavbar .navbar-item .button {
+    width: 220px; 
+    justify-content: center;
+  }
+}
+
+.navbar .navbar-burger:hover,
+.navbar .navbar-burger.is-active:hover {
+  background-color: #132028
+}
