@@ -20,12 +20,12 @@ export function AboutPage() {
             style={{
               backgroundColor: "transparent",
               width: "50%",
-              margin: "0 auto",          // centers the BOX itself on the page
-              display: "flex",           // flex container
-              flexDirection: "column",   // keep your h2 + p stacked
-              justifyContent: "center",  // vertical centering
-              alignItems: "center",      // horizontal centering
-              minHeight: "300px"         // give it some height so centering actually shows
+              margin: "0 auto",        
+              display: "flex",       
+              flexDirection: "column",  
+              justifyContent: "center", 
+              alignItems: "center",    
+              minHeight: "300px"         
             }}
           >
             <h2 className="has-text-white title is-2">What is an Everest</h2>

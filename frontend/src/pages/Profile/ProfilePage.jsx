@@ -96,7 +96,7 @@ export function ProfilePage() {
       <Header showNav={true} />
 
       <main className="is-flex-grow-1 p-5" style={{ backgroundColor: "#1b262c" }}>
-        {/* Title */}
+
         <h1 className="title has-text-white is-size-1 has-text-weight-light has-text-centered">
           {user.username}'s Page of Everests
         </h1>
@@ -111,7 +111,7 @@ export function ProfilePage() {
           gap: "1.5rem",
         }}
       >
-        {/* Profile picture */}
+
         <div className="profile-pic-container" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <figure className="image" style={{ width: "180px", height: "180px" }}>
             <img
@@ -123,7 +123,7 @@ export function ProfilePage() {
           </figure>
         </div>
 
-        {/* Bio + Edit Button */}
+
         <div
           className="bio-container"
           style={{
@@ -173,7 +173,7 @@ export function ProfilePage() {
             </header>
             <section className="modal-card-body">
               <form onSubmit={(e) => e.preventDefault()}>
-            {/* Username */}
+
             <div className="field">
               <label className="label">Username</label>
             <div className="control">
@@ -187,7 +187,7 @@ export function ProfilePage() {
             </div>
           </div>
 
-          {/* Bio */}
+
           <div className="field">
             <label className="label">Bio</label>
             <div className="control">

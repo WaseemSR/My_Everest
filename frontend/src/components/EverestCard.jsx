@@ -12,7 +12,7 @@ function EverestCard({ everest, onDelete, showDelete}) {
     const isComplete = milestones.length > 0 && milestones.every(m => m.completed === true);
 
   const handleDelete = async () => {
-    // optional safety prompt
+
     if (!window.confirm(`Delete "${everest.name}"?`)) return;
 
     try {
@@ -26,7 +26,7 @@ function EverestCard({ everest, onDelete, showDelete}) {
       });
 
       if (res.ok) {
-        // ✅ tell the parent (ProfilePage) to update its state
+
         onDelete?.(everest._id);
       } else {
         const data = await res.json().catch(() => ({}));
@@ -44,13 +44,13 @@ return (
   <div style={{ position: "relative" }}>
     {isComplete && (
       <img
-        src="/logo.png"   // adjust path if needed
+        src="/logo.png"  
         alt="Completed badge"
         style={{
           position: "absolute",
           top: "10px",
           right: "20px",
-          width: "60px",   // small so it sits neatly by the title
+          width: "60px", 
           opacity: 0.9,
           pointerEvents: "none",
           zIndex: 2,

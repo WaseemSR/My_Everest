@@ -1,6 +1,6 @@
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
-// GET: comments for an Everest
+
 export async function getComments(token, everestId) {
   const requestOptions = {
     method: "GET",
@@ -12,10 +12,9 @@ export async function getComments(token, everestId) {
 
   const response = await fetch(`${BACKEND_URL}/comments/everest/${everestId}`, requestOptions);
   if (response.status !== 200) throw new Error("Unable to fetch comments");
-  return await response.json(); // { comments, token }
+  return await response.json(); 
 }
 
-// POST: create a comment for an Everest
 export async function createComment(token, everestId, content) {
   const requestOptions = {
     method: "POST",
@@ -28,10 +27,10 @@ export async function createComment(token, everestId, content) {
 
   const response = await fetch(`${BACKEND_URL}/comments`, requestOptions);
   if (response.status !== 201) throw new Error("Unable to create comment");
-  return await response.json(); // { comment, token }
+  return await response.json(); 
 }
 
-// PUT: edit a comment you own
+
 export async function updateComment(token, commentId, content) {
   const requestOptions = {
     method: "PUT",
@@ -47,7 +46,6 @@ export async function updateComment(token, commentId, content) {
   return await response.json();
 }
 
-// DELETE: remove a comment you own
 export async function deleteComment(token, commentId) {
   const requestOptions = {
     method: "DELETE",

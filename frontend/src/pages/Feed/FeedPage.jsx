@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { getEverests } from "../../services/everests"
 import EverestCard from "../../components/EverestCard"
 import "../../components/EverestCard.css";
-// import { getPosts } from "../../services/posts";
-// import Post from "../../components/Post";
 
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
@@ -12,7 +10,7 @@ import Footer from "../../components/Footer";
 import LogoutButton from "../../components/LogoutButton";
 
 export function FeedPage() {
-  // const [posts, setPosts] = useState([]);
+
   const [everests, setEverests] = useState([]);
   const navigate = useNavigate();
 
@@ -20,11 +18,7 @@ export function FeedPage() {
     const token = localStorage.getItem("token");
     const loggedIn = token !== null;
     if (loggedIn) {
-      // getPosts(token)
-      //   .then((data) => {
-      //     setPosts(data.posts);
-      //     localStorage.setItem("token", data.token);
-      //   })
+
       getEverests(token)
         .then((data) => {
           setEverests(data.everests);
@@ -67,9 +61,3 @@ export function FeedPage() {
     </div>
   );
 }
-{/* <h2>Posts</h2>
-      <div className="feed" role="feed">
-        {posts.map((post) => (
-          <Post post={post} key={post._id} />
-        ))}
-      </div> */}
