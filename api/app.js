@@ -11,18 +11,27 @@ const tokenChecker = require("./middleware/tokenChecker");
 
 const app = express();
 
-// CORS setup allowing your frontend origin and Authorization header
-app.use(cors({
-  origin: "http://localhost:5173",
+// CORS setup allowing configured frontend origins and Authorization header
+const allowedOrigins = (process.env.CORS_ORIGIN || "")
+  .split(",")
+  .map((s) => s.trim())
+  .filter(Boolean);
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    // Allow non-browser requests or if no origins configured
+    if (!origin || allowedOrigins.length === 0) return callback(null, true);
+    if (allowedOrigins.includes(origin)) return callback(null, true);
+    return callback(new Error("Not allowed by CORS"));
+  },
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
   allowedHeaders: ["Content-Type", "Authorization"],
-}));
+};
+
+app.use(cors(corsOptions));
 
 // Handle OPTIONS preflight requests
-app.options("*", cors({
-  origin: "http://localhost:5173",
-  allowedHeaders: ["Content-Type", "Authorization"],
-}));
+app.options("*", cors(corsOptions));
 
 // Parse JSON request bodies
 app.use(bodyParser.json());
@@ -54,5 +63,4 @@ app.use((err, _req, res, _next) => {
 });
 
 module.exports = app;
-
 
