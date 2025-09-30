@@ -50,7 +50,7 @@ export async function getUserEverests(userId, token) {
     return res.json();
 }
 
-export async function createEverest(name, details, startDate, endDate, milestones,) {
+export async function createEverest(name, details, startDate, endDate, milestones, everestImageUrl) {
 
     const token = localStorage.getItem("token"); 
     
@@ -60,6 +60,7 @@ export async function createEverest(name, details, startDate, endDate, milestone
         startDate: startDate,
         endDate: endDate,
         milestones: milestones,
+        everestImageUrl: everestImageUrl,
     };
 
     const requestOptions = {
@@ -83,8 +84,12 @@ export async function createEverest(name, details, startDate, endDate, milestone
         );
     }
 }
-export async function updateEverest(token, everestId, name, details, startDate, endDate) {
-  const requestOptions = {
+export async function updateEverest(token, everestId, name, details, startDate, endDate, everestImageUrl) {
+    const body = { name, details, startDate, endDate };
+
+    if (everestImageUrl) body.everestImageUrl = everestImageUrl;
+  
+    const requestOptions = {
     method: "PATCH",
     headers: {
       Authorization: `Bearer ${token}`,

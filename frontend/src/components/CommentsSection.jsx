@@ -108,8 +108,8 @@ export default function CommentsSection({ everestId }) {
 
   return (
     <div className="container">
-      <div className="box" style={{ backgroundColor: "rgba(0, 0, 0, 0.6)", maxWidth: "70rem", margin: "2.5rem auto" }}>
-        <p className="title is-5 has-text-white has-text-weight-normal">Comments</p>
+      <div className="box" style={{ backgroundColor: "white", maxWidth: "70rem", margin: "2.5rem auto" }}>
+        <p className="title is-5 has-text-weight-normal">Comments</p>
 
         {error && <div className="notification is-danger">{error}</div>}
 
@@ -119,7 +119,7 @@ export default function CommentsSection({ everestId }) {
           <>
             <div className="mb-4" style={{ maxHeight: "320px", overflowY: "auto" }}>
               {comments.length === 0 ? (
-                <p className="has-text-white has-text-weight-normal">No comments yet</p>
+                <p className="has-text-weight-normal">No comments yet</p>
               ) : (
                 comments.map((comment) => {
                   const authorId = comment.author?._id;
@@ -142,7 +142,7 @@ export default function CommentsSection({ everestId }) {
                           <div className="has-text-centered">
                             <strong>{comment.author.username || comment.author.email}</strong>
                             {comment.createdAt && (
-                              <small className="has-text-white has-text-weight-normal" style={{ marginLeft: "0.25rem" }}>
+                              <small className="has-text-weight-normal" style={{ marginLeft: "0.25rem" }}>
                                 · {formatTimeAgo(comment.createdAt)}
                               </small>
                             )}
@@ -180,7 +180,7 @@ export default function CommentsSection({ everestId }) {
 
             <form onSubmit={handleSubmit}>
               <div className="field">
-                <label className="label has-text-white has-text-weight-normal">
+                <label className="label has-text-weight-normal">
                   {editingId ? "Edit comment" : "Add a comment"}
                 </label>
                 <div className="control">

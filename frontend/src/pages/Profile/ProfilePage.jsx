@@ -102,7 +102,7 @@ export function ProfilePage() {
         </h1>
 
         <div
-        className="profile-bio-section"
+        className="profile-bio-section is-size-4"
         style={{
           display: "flex",
           flexDirection: "column",
@@ -143,7 +143,7 @@ export function ProfilePage() {
           {user.bio && <p>{user.bio}</p>}
           {isOwner && (
             <button
-              className="button is-my-green is-small"
+              className="button is-my-green"
               onClick={() => {
                 setEditUsername(user.username || "");
                 setEditBio(user.bio || "");
@@ -249,7 +249,12 @@ export function ProfilePage() {
 
         <br />
 
-        <h2 className="title has-text-white is-size-1 has-text-weight-light mb-6">Everests</h2>
+        <h2 className="title has-text-white has-text-weight-light mt-6 mb-6" 
+        style={{ fontSize: "4rem" }}
+        >
+          Everests
+        </h2>
+        
         <button>
           <Link to="/createeverest" className="button is-my-green mb-4">
             Create New Everest

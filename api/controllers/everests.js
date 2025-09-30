@@ -9,25 +9,37 @@ async function getAllEverests(req, res) {
 }
 
 async function createEverest(req, res) {
-    try {
-        const doc = new Everest({
-            name: req.body.name,
-            details: req.body.details,
-            startDate: req.body.startDate,
-            endDate: req.body.endDate,
-            milestones: req.body.milestones,
-            user: req.user_id, // tie Everest to the logged-in user
-            everestImageUrl: req.body.everestImageUrl || null,
-        });
+  try {
+    // Extract all relevant fields from req.body
+    const { name, details, startDate, endDate, milestones, everestImageUrl } = req.body;
 
-        const saved = await doc.save();
-        const token = generateToken(req.user_id);
-        return res.status(201).json({ message: "Everest created", token: token, everest: saved });
-    } catch (err) {
-        console.error("createEverest error:", err);
-        return res.status(400).json({ message: err.message || "Failed to create Everest" });
-    }
+    // Create new Everest document
+    const doc = new Everest({
+      name,
+      details,
+      startDate,
+      endDate,
+      milestones,
+      user: req.user_id, // tie Everest to logged-in user
+      everestImageUrl: everestImageUrl || null, // use URL from frontend
+    });
+
+    const saved = await doc.save();
+
+    const token = generateToken(req.user_id);
+    return res.status(201).json({
+      message: "Everest created",
+      token,
+      everest: saved,
+    });
+  } catch (err) {
+    console.error("createEverest error:", err);
+    return res.status(400).json({
+      message: err.message || "Failed to create Everest",
+    });
+  }
 }
+
 async function updateEverest(req, res) {
     try{
         const { id } = req.params;
