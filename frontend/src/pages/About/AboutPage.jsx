@@ -71,8 +71,8 @@ export function AboutPage() {
           >
             <h2 className="has-text-white title is-3">Breaking Down the Climb</h2>
             <p className="has-text-white is-size-4">
-              Every mountain is climbed one step at a time. That’s why <strong >My Everest</strong>
-              helps you break your long-term goals into clear, manageable <strong >milestones</strong>.
+              Every mountain is climbed one step at a time. That’s why My Everest
+              helps you break your long-term goals into clear, manageable milestones.
               These milestones act like checkpoints along your path—each one a victory to celebrate and a motivation to keep
               moving forward.
               <br />
@@ -135,7 +135,7 @@ export function AboutPage() {
             <h2 className="has-text-white title is-2">Your Everest Awaits</h2>
             <p className="has-text-white is-size-4">
               Remember, every step forward, no matter how small, brings you closer to your peak. So gear up, start climbing,
-              and make your dreams your reality. Your <strong style={{ color: "white" }}>Everests</strong> are waiting—are you
+              and make your dreams your reality. Your Everests are waiting—are you
               ready to begin?
               <br />
             </p>
