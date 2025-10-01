@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import { updateUser } from "../services/users"; // 👈 use your service
+import { updateUser } from "../services/users"; 
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 function User({ user, onUserUpdated, currentUserId }) {
   if (!user) return null;
 
-  const ownerId = user._id || user.id; // safer
+  const ownerId = user._id || user.id; 
   const isOwner =
     ownerId && currentUserId && String(ownerId) === String(currentUserId);
 
@@ -16,7 +16,6 @@ function User({ user, onUserUpdated, currentUserId }) {
   const [bio, setBio] = useState(user.bio || "");
   const [error, setError] = useState("");
 
-  // keep local fields in sync if parent swaps the user
   useEffect(() => {
     setUsername(user.username || "");
     setBio(user.bio || "");

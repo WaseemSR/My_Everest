@@ -20,21 +20,22 @@ export function AboutPage() {
             style={{
               backgroundColor: "transparent",
               width: "50%",
-              margin: "0 auto",          // centers the BOX itself on the page
-              display: "flex",           // flex container
-              flexDirection: "column",   // keep your h2 + p stacked
-              justifyContent: "center",  // vertical centering
-              alignItems: "center",      // horizontal centering
-              minHeight: "300px"         // give it some height so centering actually shows
+              margin: "0 auto",        
+              display: "flex",       
+              flexDirection: "column",  
+              justifyContent: "center", 
+              alignItems: "center",    
+              minHeight: "300px"         
             }}
           >
             <h2 className="has-text-white title is-2">What is an Everest</h2>
             <p className="has-text-white is-size-4">
-              An Everest is your personal mountain—your biggest challenge, your greatest aspiration. Just like the first
-              climbers who faced the towering, unforgiving peaks of Mount Everest, you have your own summits to conquer.
-              Whether it’s training for a marathon, mastering a musical instrument, launching a new career, or even the
-              literal climb of Everest itself, your <strong style={{ color: "white" }}>Everests</strong> represent the goals
-              that push you beyond your limits.
+              An Everest is your personal mountain—your biggest challenge, your proudest victory waiting to happen. For some, it’s a towering peak: 
+              running a marathon, changing careers, or even climbing Mount Everest itself. For others, it’s the smaller but just as meaningful 
+              climbs: finishing a book you’ve been putting off, cooking at home instead of ordering takeaway, remembering to water your 
+              plants, saving for a treat, or keeping up a daily walk. And you’re not limited to just one—you can have as many 
+              Everests as you want, big or small. Whatever shape they take, your Everests are the goals that stretch you, test you, 
+              and remind you how much you can achieve.
             </p>
           </section>
 
@@ -70,8 +71,8 @@ export function AboutPage() {
           >
             <h2 className="has-text-white title is-3">Breaking Down the Climb</h2>
             <p className="has-text-white is-size-4">
-              Every mountain is climbed one step at a time. That’s why <strong style={{ color: "white" }}>My Everest</strong>
-              helps you break your long-term goals into clear, manageable <strong style={{ color: "white" }}>milestones</strong>.
+              Every mountain is climbed one step at a time. That’s why <strong >My Everest</strong>
+              helps you break your long-term goals into clear, manageable <strong >milestones</strong>.
               These milestones act like checkpoints along your path—each one a victory to celebrate and a motivation to keep
               moving forward.
               <br />
@@ -95,7 +96,7 @@ export function AboutPage() {
             <h2 className="has-text-white title is-2">Track, Celebrate, and Inspire</h2>
             <p className="has-text-white is-size-4">
               With My Everest, you can track your progress, check off milestones, and watch your journey unfold. And because
-              no journey is made alone, you can choose to share your Everests publicly on your personal Everests page—connecting
+              no journey is made alone, you can choose to share your Everests publicly on your personal Everests page, connecting
               with others, inspiring and being inspired by a community of fellow climbers who are reaching for their own summits.
               <br />
             </p>

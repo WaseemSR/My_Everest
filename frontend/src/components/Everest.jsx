@@ -8,10 +8,10 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone, onEverestUpdate
   if (!everest) return null;
 
 
-  // --- existing ---
+
   const [newDescription, setNewDescription] = useState("");
   const [newDate, setNewDate] = useState("");
-  // Determine ownership (everest.user can be object or id)
+
   const ownerId = typeof everest.user === "object" && everest.user ? everest.user._id : everest.user;
   const isOwner = ownerId && currentUserId && String(ownerId) === String(currentUserId);
 
@@ -46,7 +46,7 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone, onEverestUpdate
     }
   };
 
-  // --- NEW: edit state for top-level fields ---
+
   const [isEditing, setIsEditing] = useState(false);
   const [saving, setSaving] = useState(false);
   const [name, setName] = useState(everest.name || "");
@@ -54,7 +54,7 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone, onEverestUpdate
   const [startDate, setStartDate] = useState((everest.startDate || "").slice(0, 10));
   const [endDate, setEndDate] = useState((everest.endDate || "").slice(0, 10));
 
-  // keep local fields in sync if parent swaps the everest
+
   useEffect(() => {
     setName(everest.name || "");
     setDetails(everest.details || "");
@@ -62,7 +62,7 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone, onEverestUpdate
     setEndDate((everest.endDate || "").slice(0, 10));
   }, [everest]);
 
-  // --- NEW: PATCH handler ---
+
   async function handleSave(e) {
     e?.preventDefault?.();
     setSaving(true);
@@ -83,7 +83,7 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone, onEverestUpdate
         return;
       }
 
-      // backend returns { message, everest }
+
       onEverestUpdated?.(data.everest);
       setIsEditing(false);
     } catch (err) {
@@ -109,7 +109,7 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone, onEverestUpdate
           </button>
         )}
 
-        {/* Milestones + Everest image side-by-side */}
+
         <div
           className="container is-flex is-flex-direction-column-mobile"
           style={{
@@ -120,7 +120,7 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone, onEverestUpdate
             margin: "2.5rem auto",
           }}
         >
-          {/* Milestones box (left) */}
+
           <div
             className="box"
             style={{
@@ -235,7 +235,6 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone, onEverestUpdate
             )}
           </div>
 
-          {/* Everest image (right) */}
           {everest.everestImageUrl && (
             <figure
               className="image"
@@ -259,7 +258,7 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone, onEverestUpdate
         </div>
 
 
-          {/* --- BULMA MODAL --- */}
+
     {isOwner && (
       <div id="edit-everest-modal" className={`modal ${isEditing ? "is-active" : ""}`} role="dialog" aria-modal="true">
         <div className="modal-background" onClick={() => setIsEditing(false)} />

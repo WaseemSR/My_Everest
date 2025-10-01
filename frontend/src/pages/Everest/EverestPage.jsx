@@ -10,7 +10,7 @@ import Footer from "../../components/Footer";
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 export function EverestPage() {
-  const { id } = useParams(); // 👈 grab /everests/:id from the URL
+  const { id } = useParams(); 
   const [everest, setEverest] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -22,9 +22,9 @@ export function EverestPage() {
     const load = async () => {
       try {
         const token = localStorage.getItem("token");
-        const out = await getOneEverest(id, token); // pass id + token
-        setEverest(out.everest); // backend returns { everest, token }
-        localStorage.setItem("token", out.token); // refresh token
+        const out = await getOneEverest(id, token); 
+        setEverest(out.everest); 
+        localStorage.setItem("token", out.token); 
 
         // fetch current user's profile to determine ownership
         try {
@@ -55,7 +55,7 @@ export function EverestPage() {
   }, [id]);
 
     const toggleMilestone = async (mid, nextCompleted) => {
-    // optimistic UI
+
     setEverest(prev => ({
       ...prev,
       milestones: prev.milestones.map(m =>
@@ -75,7 +75,7 @@ export function EverestPage() {
       });
 
       if (!res.ok) {
-        // rollback
+
         setEverest(prev => ({
           ...prev,
           milestones: prev.milestones.map(m =>
@@ -86,7 +86,7 @@ export function EverestPage() {
         console.error("Update failed:", data.message || res.statusText);
       }
     } catch (e) {
-      // rollback
+
       setEverest(prev => ({
         ...prev,
         milestones: prev.milestones.map(m =>

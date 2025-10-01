@@ -9,7 +9,7 @@ export function HomePage() {
   return (
     <div
       className="is-flex is-flex-direction-column"
-      style={{ minHeight: "100vh", position: "relative" }} // ✅ Made this relative
+      style={{ minHeight: "100vh", position: "relative" }} 
     >
       <img
     src="/my_everest_background.png"
@@ -25,10 +25,9 @@ export function HomePage() {
     }}
   />
 
-      {/* Header pinned to the top */}
+
       <Header showNav={true} />
 
-      {/* Main content */}
       <main className="home is-flex-grow-1 is-flex is-justify-content-center is-align-items-center">
         <div className="home-content has-text-centered">
           <img src={Logo} alt="Logo" style={{ maxHeight: "13rem", width: "auto" }} />
@@ -49,7 +48,6 @@ export function HomePage() {
         </div>
       </main>
 
-      {/* Footer */}
       <Footer />
     </div>
   );

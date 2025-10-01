@@ -230,7 +230,7 @@ export function CreateEverestPage() {
 
           <div className="field is-grouped is-justify-content-space-between">
 
-          {/* Upload Everest Image */}
+
           <UploadWidget
                 imageUrl={everestImageUrl}
                 setImageUrl={setEverestImageUrl}
