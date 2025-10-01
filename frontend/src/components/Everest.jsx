@@ -3,16 +3,14 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 import Username from "./Username";
 import { updateEverest } from "../services/everests";
 
-
 function Everest({ everest, onMilestoneAdded, onToggleMilestone, onEverestUpdated, currentUserId }) {
   if (!everest) return null;
-
-
 
   const [newDescription, setNewDescription] = useState("");
   const [newDate, setNewDate] = useState("");
 
   const ownerId = typeof everest.user === "object" && everest.user ? everest.user._id : everest.user;
+  
   const isOwner = ownerId && currentUserId && String(ownerId) === String(currentUserId);
 
   const handleAddMilestone = async (e) => {
@@ -83,7 +81,6 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone, onEverestUpdate
         return;
       }
 
-
       onEverestUpdated?.(data.everest);
       setIsEditing(false);
     } catch (err) {
@@ -92,46 +89,77 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone, onEverestUpdate
       setSaving(false);
     }
   }
-    return (
-        <article>
-        <h2 className="is-size-1 has-text-weight-light has-text-white mt-6 mb-6">{everest.name}</h2>
-        <div className="mb-5 title has-text-white is-size-2 has-text-weight-light"><Username user={everest.user} /></div>
-        <p className="box title is-5 has-text-weight-normal mb-5" style={{ backgroundColor: "white", maxWidth: "70rem", margin: "2.5rem auto" }} >{everest.details}</p>
-        {isOwner && (
-          <button
-            className="button is-my-green has-text-white"
-            onClick={() => setIsEditing(true)}
-            aria-haspopup="dialog"
-            aria-controls="edit-everest-modal"
-            style={{ marginTop: "1.5rem" }}
-          >
-            Edit Everest
-          </button>
-        )}
 
+
+  return (
+    <article>
+      <h2 className="is-size-1 has-text-weight-light has-text-white mt-6 mb-6">
+        {everest.name}
+      </h2>
+      <div className="mb-5 title has-text-white is-size-2 has-text-weight-light">
+        <Username user={everest.user} />
+      </div>
+      <p
+        className="title is-5 has-text-white has-text-weight-normal mb-5"
+        style={{ maxWidth: "70rem", margin: "2.5rem auto" }}
+      >
+        {everest.details}
+      </p>
+      {isOwner && (
+        <button
+          className="button is-my-green has-text-white"
+          onClick={() => setIsEditing(true)}
+          aria-haspopup="dialog"
+          aria-controls="edit-everest-modal"
+          style={{ marginTop: "1.5rem" }}
+        >
+          Edit Everest
+        </button>
+      )}
+
+      {/* Milestones + Everest image side-by-side */}
+      <div
+        className="container is-flex is-flex-direction-column-mobile"
+        style={{
+          maxWidth: "70rem",
+          display: "flex",
+          gap: "2rem",
+          alignItems: "flex-start",
+          margin: "2.5rem auto",
+        }}
+      >
+        {/* Milestones box */}
 
         <div
-          className="container is-flex is-flex-direction-column-mobile"
+          className="box"
           style={{
-            maxWidth: "70rem",
+            backgroundColor: "white",
+            maxWidth: "28rem",
+            flex: "1 1 auto",
+            maxHeight: "50rem",
+            padding: 0,              
+            borderRadius: "10px",
             display: "flex",
-            gap: "2rem",
-            alignItems: "flex-start",
-            margin: "2.5rem auto",
+            flexDirection: "column",
           }}
         >
 
           <div
-            className="box"
             style={{
-              backgroundColor: "white",
-              maxWidth: "28rem",
-              flex: "1 1 auto",
-              overflowY: "auto",
-              maxHeight: "50rem",
+              backgroundColor: "#091319",
+              color: "white",
+              padding: "0.75rem 1.25rem",
+              borderTopLeftRadius: "10px",
+              borderTopRightRadius: "10px",
             }}
           >
-            <h3 className="title is-3 mt-4 has-text-weight-normal">Milestones</h3>
+            <h3 className="title is-3 has-text-white has-text-weight-normal mb-0">
+              Milestones
+            </h3>
+          </div>
+
+          {/* Content area */}
+          <div style={{ padding: "1.25rem", overflowY: "auto", flex: 1  }}>
             <p className="title is-5 mb-4 has-text-weight-normal">
               Start Date: {new Date(everest.startDate).toLocaleDateString("en-GB")}
             </p>
@@ -155,13 +183,10 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone, onEverestUpdate
                           ? `- ${new Date(m.date).toLocaleDateString("en-GB")}`
                           : ""}
                       </span>
-
                       <input
                         type="checkbox"
                         checked={m.completed}
-                        onChange={(e) =>
-                          onToggleMilestone?.(m._id, e.target.checked)
-                        }
+                        onChange={(e) => onToggleMilestone?.(m._id, e.target.checked)}
                         style={{
                           transform: "scale(1.5)",
                           marginLeft: "0.5rem",
@@ -177,18 +202,14 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone, onEverestUpdate
               <p>No milestones yet</p>
             )}
 
-            <p className="title is-5 mt-4 has-text-centered has-text-weight-normal">
+            <p className="title is-5 has-text-centered has-text-weight-normal">
               End Date: {new Date(everest.endDate).toLocaleDateString("en-GB")}
             </p>
 
             {isOwner && (
-              <form
-                onSubmit={handleAddMilestone}
-                className="mt-4"
-                style={{ padding: "0 1rem" }}
-              >
+              <form onSubmit={handleAddMilestone} className="mt-4" style={{ padding: "0 1rem" }}>
                 <div className="field">
-                  <label className="label is-small">Add new milestone</label>
+                  <label className="label is-4">Add new milestone</label>
                   <div className="control">
                     <input
                       className="input"
@@ -201,7 +222,7 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone, onEverestUpdate
                 </div>
 
                 <div className="field">
-                  <label className="label is-small">
+                  <label className="label is-4">
                     Target milestone completion date
                   </label>
                   <div className="control">
@@ -234,108 +255,118 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone, onEverestUpdate
               </form>
             )}
           </div>
-
-          {everest.everestImageUrl && (
-            <figure
-              className="image"
-              style={{
-                maxWidth: "40rem",
-                flex: "1 1 auto",
-              }}
-            >
-              <img
-                src={everest.everestImageUrl}
-                alt={`${everest.name} Everest`}
-                style={{
-                  width: "100%",
-                  height: "auto",
-                  borderRadius: "8px",
-                  objectFit: "cover",
-                }}
-              />
-            </figure>
-          )}
         </div>
 
+        {/* Everest image (right) */}
+        {everest.everestImageUrl && (
+          <figure
+            className="image"
+            style={{
+              maxWidth: "40rem",
+              flex: "1 1 auto",
+            }}
+          >
+            <img
+              src={everest.everestImageUrl}
+              alt={`${everest.name} Everest`}
 
-
-    {isOwner && (
-      <div id="edit-everest-modal" className={`modal ${isEditing ? "is-active" : ""}`} role="dialog" aria-modal="true">
-        <div className="modal-background" onClick={() => setIsEditing(false)} />
-        <div className="modal-card">
-          <header className="modal-card-head">
-            <p className="modal-card-title">Edit Everest</p>
-            <button className="delete" aria-label="close" onClick={() => setIsEditing(false)} />
-          </header>
-
-          <section className="modal-card-body">
-            <form onSubmit={handleSave}>
-              <div className="field">
-                <label className="label is-small">Name</label>
-                <div className="control">
-                  <input
-                    className="input is-small"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Everest name"
-                    required
-                  />
-                </div>
-              </div>
-
-              <div className="field">
-                <label className="label is-small">Details</label>
-                <div className="control">
-                  <textarea
-                    className="textarea is-small"
-                    value={details}
-                    onChange={(e) => setDetails(e.target.value)}
-                    placeholder="What’s this Everest about?"
-                    rows={4}
-                  />
-                </div>
-              </div>
-
-              <div className="field is-grouped">
-                <div className="control">
-                  <label className="label is-small">Start</label>
-                  <input
-                    type="date"
-                    className="input is-small"
-                    value={startDate}
-                    onChange={(e) => setStartDate(e.target.value)}
-                  />
-                </div>
-
-                <div className="control ml-3">
-                  <label className="label is-small">End</label>
-                  <input
-                    type="date"
-                    className="input is-small"
-                    value={endDate}
-                    onChange={(e) => setEndDate(e.target.value)}
-                  />
-                </div>
-              </div>
-
-            </form>
-          </section>
-
-          <footer className="modal-card-foot">
-            <button
-              className={`button is-my-green ${saving ? "is-loading" : ""}`}
-              onClick={handleSave}
-            >
-              Save changes
-            </button>
-            <button className="button is-my-yellow" onClick={() => setIsEditing(false)}>Cancel</button>
-          </footer>
-        </div>
+            />
+          </figure>
+        )}
       </div>
-    )}
-        </article>
 
-    );
+
+      {/* --- BULMA MODAL --- */}
+      {isOwner && (
+        <div
+          id="edit-everest-modal"
+          className={`modal ${isEditing ? "is-active" : ""}`}
+          role="dialog"
+          aria-modal="true"
+        >
+          <div className="modal-background" onClick={() => setIsEditing(false)} />
+          <div className="modal-card">
+            <header className="modal-card-head">
+              <p className="modal-card-title">Edit Everest</p>
+              <button
+                className="delete"
+                aria-label="close"
+                onClick={() => setIsEditing(false)}
+              />
+            </header>
+
+
+            <section className="modal-card-body">
+              <form onSubmit={handleSave}>
+                <div className="field">
+                  <label className="label is-5">Name</label>
+                  <div className="control">
+                    <input
+                      className="input is-5"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      placeholder="Everest name"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="field">
+                  <label className="label is-5">Details</label>
+                  <div className="control">
+                    <textarea
+                      className="textarea is-5"
+                      value={details}
+                      onChange={(e) => setDetails(e.target.value)}
+                      placeholder="What’s this Everest about?"
+                      rows={4}
+                    />
+                  </div>
+                </div>
+
+                <div className="field is-grouped">
+                  <div className="control">
+                    <label className="label is-5">Start</label>
+                    <input
+                      type="date"
+                      className="input is-5"
+                      value={startDate}
+                      onChange={(e) => setStartDate(e.target.value)}
+                    />
+                  </div>
+
+                  <div className="control ml-3">
+                    <label className="label is-5">End</label>
+                    <input
+                      type="date"
+                      className="input is-5"
+                      value={endDate}
+                      onChange={(e) => setEndDate(e.target.value)}
+                    />
+                  </div>
+                </div>
+              </form>
+            </section>
+
+            <footer className="modal-card-foot">
+              <button
+                className={`button is-my-green ${saving ? "is-loading" : ""}`}
+                onClick={handleSave}
+              >
+                Save changes
+              </button>
+              <button
+                className="button ml-4 is-my-yellow"
+                onClick={() => setIsEditing(false)}
+              >
+                Cancel
+              </button>
+            </footer>
+          </div>
+        </div>
+      )}
+    </article>
+  );
 }
 
 export default Everest;

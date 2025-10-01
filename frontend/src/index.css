@@ -46,6 +46,17 @@ a:hover {
   color: white;
 }
 
+/* Disabled state */
+.button.is-my-green:disabled,
+.button.is-my-green[disabled] {
+  background-color: #a9d0af;  /* lighter desaturated green */
+  border-color: #a9d0af;
+  color: #f5f5f5;             /* softer text color */
+  cursor: not-allowed;
+  opacity: 0.65;              /* same as Bulma's disabled opacity */
+  box-shadow: none;
+}
+
 .button.is-my-yellow {
   background-color: #caa865;   /* base yellow */
   border-color: #caa865;
