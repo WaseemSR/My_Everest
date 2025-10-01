@@ -21,15 +21,11 @@ export function LoginPage() {
       const token = await login(email, password);
       console.log("LoginPage", token)
 
-      //if (!token || token === "undefined") {
-        //throw new Error("No valid token received from server");
-      //}
-
       localStorage.setItem("token", token);
       navigate("/profile");
     } catch (err) {
       console.error("Login failed:", err.message);
-      localStorage.removeItem("token"); // clean up in case of bad login
+      localStorage.removeItem("token"); 
       setError("Incorrect email or password");
     }
   }
@@ -58,10 +54,10 @@ export function LoginPage() {
     }}
   />
 
-      {/* Header pinned to the top */}
+
       <Header showNav={true} />
 
-      {/* Main content grows in the middle */}
+
       <main className="home is-flex-grow-1 is-flex is-justify-content-center is-align-items-center"
       
       >
@@ -123,7 +119,6 @@ export function LoginPage() {
         </div>
       </main>
 
-      {/* Footer pinned to the bottom */}
       <Footer />
     </div>
   );

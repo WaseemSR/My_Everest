@@ -17,7 +17,7 @@ const TestUpload = () => {
 
     const token = localStorage.getItem("token");
     console.log(">>>>>>>>>>", token)
-    if (!token) {  // TODO: check for undefined
+    if (!token) {  
       setResponse(" No token found. Please login first.");
       return;
     }

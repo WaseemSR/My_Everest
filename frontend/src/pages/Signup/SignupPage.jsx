@@ -8,7 +8,7 @@ import { signup } from "../../services/authentication";
 
 import UploadWidget from "../../components/UploadWidget";
 
-// --- Debounce hook ---
+
 function useDebounce(value, delay) {
   const [debounced, setDebounced] = useState(value);
 
@@ -47,7 +47,7 @@ export function SignupPage() {
 
   const [profileImageUrl, setProfileImageUrl] = useState("");
 
-  // --- Username availability check ---
+
   useEffect(() => {
     if (!usernameTouched) return;
     if (!debouncedUsername || debouncedUsername.length < 4) {
@@ -72,11 +72,11 @@ export function SignupPage() {
       });
 
     return () => {
-      active = false; // cancel outdated requests
+      active = false; 
     };
   }, [debouncedUsername, usernameTouched]);
 
-  // --- Handlers ---
+
   function handleEmailChange(e) {
     const val = e.target.value.trim().toLowerCase();
     setEmail(val);
@@ -129,7 +129,7 @@ export function SignupPage() {
 
 
 
-  // Keep confirm error in sync if password changes
+
   useEffect(() => {
     if (!confirmRef.current) return;
     if (confirmPassword && confirmPassword !== password) {
@@ -142,7 +142,7 @@ export function SignupPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [password]);
 
-  // Form validation state
+
   const canSubmit =
     formRef.current?.checkValidity() === true &&
     password.length >= 8 &&
@@ -210,7 +210,7 @@ export function SignupPage() {
               className="is-flex is-flex-direction-column"
               noValidate={false}
             >
-              {/* Username */}
+
               <label
                 className="form-label has-text-white"
                 htmlFor="name"
@@ -244,7 +244,7 @@ export function SignupPage() {
                 {usernameTouched && usernameError ? usernameError : " "}
               </p>
 
-              {/* Email */}
+
               <label
                 className="form-label has-text-white"
                 htmlFor="email"
@@ -278,7 +278,7 @@ export function SignupPage() {
                 {emailTouched && emailError ? emailError : " "}
               </p>
 
-              {/* Password */}
+
               <label
                 className="form-label has-text-white"
                 htmlFor="password"
@@ -310,7 +310,7 @@ export function SignupPage() {
                 {passwordTouched ? passwordError : ""}
               </p>
 
-              {/* Confirm Password */}
+
               <label
                 className="form-label has-text-white"
                 htmlFor="confirmPassword"
@@ -342,7 +342,6 @@ export function SignupPage() {
                 {confirmTouched && confirmError ? confirmError : " "}
               </p>
 
-              {/* Upload Profile Image */}
               {profileImageUrl && (
                 <div className="mb-2 has-text-centered">
                   <figure className="image is-96x96 is-inline-block">
@@ -365,7 +364,6 @@ export function SignupPage() {
                 previewClass="is-96x96"
               />
 
-              {/* Submit */}
               <div className="field mt-5">
                 <div className="control buttons is-justify-content-center">
                   <input

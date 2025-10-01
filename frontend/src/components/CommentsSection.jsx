@@ -9,7 +9,6 @@ export default function CommentsSection({ everestId }) {
   const [editingId, setEditingId] = useState(null);
   const token = localStorage.getItem("token");
 
-  // Find current user from JWT - for the delete and edit buttons
   let currentUserId = null;
   try {
     if (token) {
@@ -20,7 +19,6 @@ export default function CommentsSection({ everestId }) {
     currentUserId = null;
   }
 
-  // Time-ago formatter
   const formatTimeAgo = (timestamp) => {
     if (!timestamp) return "";
     const now = new Date();
@@ -34,7 +32,6 @@ export default function CommentsSection({ everestId }) {
     return `${days} day${days > 1 ? "s" : ""} ago`;
   };
 
-  // Fetch comments whenever the target Everest changes
   useEffect(() => {
     if (!everestId) return;
     const token = localStorage.getItem("token");
@@ -57,13 +54,13 @@ export default function CommentsSection({ everestId }) {
     fetchComments();
   }, [everestId, token]);
 
-  // enter edit mode - loads the comments text into the textrea
+ 
   function handleStartEdit(comment) {
     setEditingId(comment._id);
     setBody(comment.content || "");
   }
 
-  // Submit handler - update existing comment if in edit mode, else create a new comment
+
   async function handleSubmit(e) {
     e.preventDefault();
     const message = body.trim();
@@ -88,7 +85,7 @@ export default function CommentsSection({ everestId }) {
     }
   }
 
-  // Delete handler - also exits edit mode if the comment was being edited
+
   async function handleDeleteComment(commentId) {
     if (!commentId) return;
     try {
@@ -96,7 +93,7 @@ export default function CommentsSection({ everestId }) {
       if (out?.token) localStorage.setItem("token", out.token);
       setComments((prev) => prev.filter((c) => String(c._id) !== String(commentId)));
 
-      // if user in edit mode for this comment, exit edit mode
+
       if (editingId && String(editingId) === String(commentId)) {
         setEditingId(null);
         setBody("");

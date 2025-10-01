@@ -35,7 +35,7 @@ export async function getOneEverest(id, token) {
     return data;
 }
 
-// get users everests for their profile page
+
 export async function getUserEverests(userId, token) {
     const res = await fetch(`${BACKEND_URL}/users/${userId}/everests`, {
         method: "GET",
