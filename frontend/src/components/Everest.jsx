@@ -125,6 +125,7 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone, onEverestUpdate
           display: "flex",
           gap: "2rem",
           alignItems: "flex-start",
+          justifyContent: everest.everstImageUrl ? "flex-start" : "center",
           margin: "2.5rem auto",
         }}
       >
