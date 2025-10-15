@@ -162,6 +162,7 @@ export function ProfilePage() {
           <div
             id="edit-profile-modal"
             className={`modal ${showEditModal ? "is-active" : ""}`}
+            style={{ zIndex: 2000 }}
             role="dialog"
             aria-modal="true"
           >

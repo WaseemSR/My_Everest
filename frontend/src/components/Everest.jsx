@@ -281,6 +281,7 @@ function Everest({ everest, onMilestoneAdded, onToggleMilestone, onEverestUpdate
         <div
           id="edit-everest-modal"
           className={`modal ${isEditing ? "is-active" : ""}`}
+          style={{ zIndex: 2001 }}
           role="dialog"
           aria-modal="true"
         >

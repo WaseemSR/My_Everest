@@ -7,7 +7,7 @@ function HelpCreateEverest () {
     return (
     <article>
         <button className="button is-my-purple" onClick={() => setIsOpen(true)}>Help</button>
-        <div className={`modal ${isOpen ? "is-active" : ""}`}>
+        <div className={`modal ${isOpen ? "is-active" : ""}`} style={{ zIndex: 2001 }}>
             <div className="modal-background"/>
             <div className="modal-card" >
                 <header className="modal-card-head" style={{
